@@ -14,6 +14,9 @@ public class StandardBlockFactory {
         states.add(new L3());
         states.add(new L4());
 
-        return new StandardBlock(states);
+        StandardBlock block = new StandardBlock(states);
+        block.randomizeActiveState();
+
+        return block;
     }
 }

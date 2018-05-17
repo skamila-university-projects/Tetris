@@ -2,12 +2,25 @@ package skamila.tetris.board;
 
 public class Field {
 
-    int x, y;
-    int color;
+    private boolean isFull;
+    private int color;
 
-    public Field(int x, int y) {
+    public Field() {
+        color = 0;
+        isFull = false;
+    }
 
+    public boolean isFull(){
+        return isFull;
+    }
 
+    public void resetField(){
+        color = 0;
+        isFull = false;
+    }
+
+    public void setField(int color){
+        isFull = true;
     }
 
 }

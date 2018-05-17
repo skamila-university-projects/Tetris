@@ -11,12 +11,7 @@ public class StandardBlock implements Block {
     private int activeStateIndex;
 
     public StandardBlock(ArrayList<State> states) {
-
         this.states = states;
-
-        Random generator = new Random();
-        activeStateIndex = generator.nextInt(states.size());
-
     }
 
     @Override
@@ -35,5 +30,11 @@ public class StandardBlock implements Block {
             activeStateIndex = 0;
         else
             activeStateIndex++;
+    }
+
+    @Override
+    public void randomizeActiveState() {
+        Random generator = new Random();
+        activeStateIndex = generator.nextInt(states.size());
     }
 }
