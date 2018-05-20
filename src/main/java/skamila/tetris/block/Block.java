@@ -8,4 +8,7 @@ public interface Block {
     State geActiveState();
     void rotate();
     void randomizeActiveState();
+    void moveLeft();
+    void moveRight();
+    void moveDown();
 }

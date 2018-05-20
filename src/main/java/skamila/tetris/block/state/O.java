@@ -3,7 +3,7 @@ package skamila.tetris.block.state;
 public class O implements State {
     int[][] state;
 
-    O() {
+    public O() {
         state = new int[][]
                 {
                         {1, 1},
