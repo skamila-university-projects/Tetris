@@ -10,17 +10,12 @@ public class Field {
         isFull = false;
     }
 
-    public boolean isFull(){
-        return isFull;
-    }
-
-    public void resetField(){
-        color = 0;
-        isFull = false;
-    }
-
-    public void setField(int color){
+    public Field(int color){
+        this.color = 0;
         isFull = true;
     }
 
+    public boolean isFull(){
+        return isFull;
+    }
 }

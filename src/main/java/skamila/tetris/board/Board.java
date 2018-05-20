@@ -42,14 +42,16 @@ public class Board {
     }
 
     private void deleteRow(int rowIndex){
-        for (int i = rowIndex; i < height - 1; i++){
+
+        for (int i = rowIndex; i > 0; i--){
             for (int j = 0; j < width; j++){
-                board[i][j] = board [i + 1][j];
+                board[i][j] = board[i - 1][j];
             }
         }
 
-        for (int i = 0; i < width; i++){
-            board[height - 1][i].resetField();
+        for(int j = 0; j < width; j++){
+            board[0][j] = new Field();
         }
+
     }
 }
