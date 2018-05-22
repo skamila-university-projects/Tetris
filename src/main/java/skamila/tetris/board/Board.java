@@ -2,56 +2,50 @@ package skamila.tetris.board;
 
 public class Board {
 
-    private Field board[][];
-    private int height, width;
+    private int height;
 
-    public Board(int height, int width) {
+    private int width;
 
-        board = new Field[height][width];
-        this.height = height;
-        this.width = width;
+    private BoardField[][] fields;
 
-        for (int i = 0; i < this.height; i++){
-            for (int j = 0; j < this.width; j++){
-                board[i][j] = new Field();
-            }
-        }
+    public Board(BoardField[][] fields) {
+
+        this.fields = fields;
+
+        height = fields.length;
+        width = fields[0].length;
     }
 
-    public Board(Field board[][]){
-        this.board = board;
-        this.height = board.length;
-        this.width = board[0].length;
+    public int getHeight() {
+
+        return height;
     }
 
-    public Field[][] getFields(){
-        return board;
+    public int getWidth() {
+
+        return width;
     }
 
-    public void cleanBoard(){
-        for (int i = 0; i < height; i++){
-            if(isRowFull(i)) deleteRow(i);
+    public void setField(BoardField field) {
+
+        if (isFieldInBoard(field)) {
+            throw new OutOfBoardException(
+                "Max height=" + height + "field position X=" + field
+                    .getX() + "\n" + "Max width=" + width + "field position Y=" + field.getY() + "."
+            );
         }
+
+        fields[field.getX()][field.getY()] = field;
     }
 
-    private boolean isRowFull (int rowIndex){
-        for (int i = 0; i < width; i++){
-            if(!board[rowIndex][i].isFull()) return false;
-        }
-        return true;
+    public BoardField getField(int x, int y) {
+
+        return fields[x][y];
     }
 
-    private void deleteRow(int rowIndex){
+    public boolean isFieldInBoard(BoardField field) {
 
-        for (int i = rowIndex; i > 0; i--){
-            for (int j = 0; j < width; j++){
-                board[i][j] = board[i - 1][j];
-            }
-        }
-
-        for(int j = 0; j < width; j++){
-            board[0][j] = new Field();
-        }
-
+        return (field.getX() > height - 1) || (field.getX() < 0) || (field
+            .getY() > width - 1) || (field.getY() < 0);
     }
 }

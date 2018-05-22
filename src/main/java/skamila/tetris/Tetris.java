@@ -1,8 +1,5 @@
 package skamila.tetris;
 
-import skamila.tetris.block.Block;
-import skamila.tetris.block.Blockable;
-import skamila.tetris.block.StandardBlockFactory;
 import skamila.tetris.board.Board;
 
 import java.util.Random;
@@ -10,29 +7,62 @@ import java.util.Random;
 public class Tetris {
 
     private Board board;
-    private Block currentBlock, nextBlock;
-    Blockable[] blocks;
+
+    private TetrisBlock currentBlock, nextBlock;
+
+    TetrisBlockFactoryLambda[] blocks;
 
     public Tetris(Board board) {
+
         this.board = board;
-        blocks = new Blockable[2];
-        blocks[0] = () -> StandardBlockFactory.O();
-        blocks[1] = () -> StandardBlockFactory.L();
+        blocks = new TetrisBlockFactoryLambda[2];
+        blocks[0] = () -> TetrisBlockFactory.O();
+        blocks[1] = () -> TetrisBlockFactory.L();
         nextBlock = getRandomBlock();
     }
 
-    public void singleCycle(){
+    public void singleCycle() {
+
         currentBlock = nextBlock;
         nextBlock = getRandomBlock();
     }
 
-    private Block getRandomBlock(){
+    private TetrisBlock getRandomBlock() {
+
         Random generator = new Random();
         int randomNumber = generator.nextInt(blocks.length);
 
         return blocks[randomNumber].getBlock();
     }
 
+    public void cleanBoard() {
 
+        for (int i = 0; i < board.getHeight(); i++) {
+            if (isRowFull(i))
+                deleteRow(i);
+        }
+    }
+
+    private boolean isRowFull(int rowIndex) {
+
+        for (int i = 0; i < board.getWidth(); i++) {
+            // if(!board[rowIndex][i].isFull()) return false;
+        }
+        return true;
+    }
+
+    private void deleteRow(int rowIndex) {
+
+        for (int i = rowIndex; i > 0; i--) {
+            for (int j = 0; j < board.getWidth(); j++) {
+                // board[i][j] = board[i - 1][j];
+            }
+        }
+
+        for (int j = 0; j < board.getWidth(); j++) {
+            // board[0][j] = new BoardField();
+        }
+
+    }
 
 }
