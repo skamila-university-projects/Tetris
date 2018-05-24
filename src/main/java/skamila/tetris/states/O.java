@@ -4,16 +4,21 @@ import skamila.tetris.TetrisBlockState;
 
 public class O implements TetrisBlockState {
 
-    int[][] state;
+    Point[] state;
 
     public O() {
 
-        state = new int[][] { { 1, 1 }, { 1, 1 }, };
+        state = new Point[] {
+            new Point(0, 0),
+            new Point(0, 1),
+            new Point(1, 0),
+            new Point(1, 1),
+        };
     }
 
     @Override
-    public int getPositionValue(int x, int y) {
+    public Point[] getPositionValues() {
 
-        return state[x][y];
+        return state;
     }
 }

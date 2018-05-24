@@ -1,6 +1,8 @@
 package skamila.tetris;
 
+import skamila.tetris.states.Point;
+
 public interface TetrisBlockState {
 
-    int getPositionValue(int x, int y);
+    Point[] getPositionValues();
 }

@@ -6,14 +6,12 @@ import java.util.ArrayList;
 
 public class TetrisBlockFactory {
 
-    public static TetrisBlock L() {
+    public static TetrisBlock I() {
 
-        ArrayList<TetrisBlockState> tetrisBlockStates = new ArrayList<>();
+        TetrisBlockState[] tetrisBlockStates = new TetrisBlockState[2];
 
-        tetrisBlockStates.add(new L1());
-        tetrisBlockStates.add(new L2());
-        tetrisBlockStates.add(new L3());
-        tetrisBlockStates.add(new L4());
+        tetrisBlockStates[0] = new I1();
+        tetrisBlockStates[1] = new I2();
 
         TetrisBlock block = new TetrisBlockImp(tetrisBlockStates);
         block.randomizeActiveState();
@@ -23,9 +21,9 @@ public class TetrisBlockFactory {
 
     public static TetrisBlock O() {
 
-        ArrayList<TetrisBlockState> tetrisBlockStates = new ArrayList<>();
+        TetrisBlockState[] tetrisBlockStates = new TetrisBlockState[1];
 
-        tetrisBlockStates.add(new O());
+        tetrisBlockStates[0] = new O();
 
         TetrisBlock block = new TetrisBlockImp(tetrisBlockStates);
         block.randomizeActiveState();

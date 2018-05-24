@@ -2,9 +2,7 @@ package skamila.tetris.board;
 
 public class Board {
 
-    private int height;
-
-    private int width;
+    private int height, width;
 
     private BoardField[][] fields;
 

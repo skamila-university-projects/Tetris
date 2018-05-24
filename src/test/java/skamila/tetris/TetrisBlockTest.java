@@ -15,14 +15,14 @@ class TetrisBlockTest {
         TetrisBlockState state3 = mock(TetrisBlockState.class);
         TetrisBlockState state4 = mock(TetrisBlockState.class);
 
-        ArrayList<TetrisBlockState> states = new ArrayList<>();
+        TetrisBlockState[] states = new TetrisBlockState[4];
 
-        states.add(state1);
-        states.add(state2);
-        states.add(state3);
-        states.add(state4);
+        states[0] = state1;
+        states[1] = state2;
+        states[2] = state3;
+        states[3] = state4;
 
-        TetrisBlock block = new TetrisBlockImpl(states);
+        TetrisBlock block = new TetrisBlockImp(states);
 
         assertEquals(state1, block.getActiveState());
 
