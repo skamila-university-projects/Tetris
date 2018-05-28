@@ -1,12 +1,15 @@
 package skamila.tetris;
 
+import skamila.tetris.board.Board;
 import skamila.tetris.states.*;
 
 import java.util.ArrayList;
 
 public class TetrisBlockFactory {
 
-    public static TetrisBlock I() {
+    Board board;
+
+    public static TetrisBlock I(Board board) {
 
         TetrisBlockState[] tetrisBlockStates = new TetrisBlockState[2];
 
@@ -15,11 +18,12 @@ public class TetrisBlockFactory {
 
         TetrisBlock block = new TetrisBlockImp(tetrisBlockStates);
         block.randomizeActiveState();
+        block.countInitialShift(board);
 
         return block;
     }
 
-    public static TetrisBlock O() {
+    public static TetrisBlock O(Board board) {
 
         TetrisBlockState[] tetrisBlockStates = new TetrisBlockState[1];
 
@@ -27,6 +31,7 @@ public class TetrisBlockFactory {
 
         TetrisBlock block = new TetrisBlockImp(tetrisBlockStates);
         block.randomizeActiveState();
+        block.countInitialShift(board);
 
         return block;
     }

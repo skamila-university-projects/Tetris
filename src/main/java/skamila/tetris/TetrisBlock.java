@@ -15,4 +15,8 @@ public interface TetrisBlock {
     void moveRight(Board board);
 
     void moveDown(Board board);
+
+    void countInitialShift(Board board);
+
+    TetrisBlockState getShiftedActiveState();
 }

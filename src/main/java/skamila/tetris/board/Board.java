@@ -28,22 +28,22 @@ public class Board {
 
         if (isFieldInBoard(field)) {
             throw new OutOfBoardException(
-                "Max height=" + height + "field position X=" + field
-                    .getX() + "\n" + "Max width=" + width + "field position Y=" + field.getY() + "."
+                "Max height=" + height + "field position Y=" + field
+                    .getY() + "\n" + "Max width=" + width + "field position X=" + field.getX() + "."
             );
         }
 
-        fields[field.getX()][field.getY()] = field;
+        fields[field.getY()][field.getX()] = field;
     }
 
     public BoardField getField(int x, int y) {
 
-        return fields[x][y];
+        return fields[y][x];
     }
 
     public boolean isFieldInBoard(BoardField field) {
 
-        return (field.getX() > height - 1) || (field.getX() < 0) || (field
-            .getY() > width - 1) || (field.getY() < 0);
+        return (field.getY() > height - 1) || (field.getY() < 0) || (field
+            .getX() > width - 1) || (field.getX() < 0);
     }
 }

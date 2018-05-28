@@ -16,8 +16,8 @@ public class Tetris {
 
         this.board = board;
         blocks = new TetrisBlockFactoryLambda[2];
-        blocks[0] = () -> TetrisBlockFactory.O();
-        blocks[1] = () -> TetrisBlockFactory.I();
+        blocks[0] = () -> TetrisBlockFactory.O(board);
+        blocks[1] = () -> TetrisBlockFactory.I(board);
         nextBlock = getRandomBlock();
     }
 
