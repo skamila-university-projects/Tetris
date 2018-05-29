@@ -1,4 +1,4 @@
-package skamila.tetris.states;
+package skamila.tetris.block.states;
 
 public class Point {
 

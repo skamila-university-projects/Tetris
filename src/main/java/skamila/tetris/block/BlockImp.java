@@ -1,15 +1,13 @@
-package skamila.tetris;
+package skamila.tetris.block;
 
-import skamila.tetris.board.Board;
-import skamila.tetris.board.BoardField;
-import skamila.tetris.states.Point;
-
-import java.util.ArrayList;
 import java.util.Random;
 
-public class TetrisBlockImp implements TetrisBlock {
+import skamila.tetris.block.states.Point;
+import skamila.tetris.board.Board;
 
-    private TetrisBlockState[] states;
+public class BlockImp implements Block {
+
+    private BlockState[] states;
 
     private int activeStateIndex;
 
@@ -17,14 +15,14 @@ public class TetrisBlockImp implements TetrisBlock {
 
     private int shiftHorizontal;
 
-    public TetrisBlockImp(TetrisBlockState[] states) {
+    public BlockImp(BlockState[] states) {
 
         this.states = states;
 
     }
 
     @Override
-    public TetrisBlockState getActiveState() {
+    public BlockState getActiveState() {
 
         return states[activeStateIndex];
     }
@@ -49,44 +47,38 @@ public class TetrisBlockImp implements TetrisBlock {
     public void moveLeft(Board board) {
 
         Point[] points = states[activeStateIndex].getPositionValues();
+        boolean isBlockVisible = false;
 
         for (int i = 0; i < points.length; i++) {
+            if (points[i].getY() + shiftVertical >= 0)
+                isBlockVisible = true;
             if (points[i].getX() + shiftHorizontal - 1 < 0)
                 return;
-            if (
-                board
-                    .getField(
-                        points[i].getX() + shiftHorizontal - 1,
-                        points[i].getY() + shiftVertical
-                    )
-                    .isOccupied()
-            )
+            if (isLeftOccupied(board, points[i]))
                 return;
         }
 
-        shiftHorizontal--;
+        if (isBlockVisible)
+            shiftHorizontal--;
     }
 
     @Override
     public void moveRight(Board board) {
 
         Point[] points = states[activeStateIndex].getPositionValues();
+        boolean isBlockVisible = false;
 
         for (int i = 0; i < points.length; i++) {
+            if (points[i].getY() + shiftVertical >= 0)
+                isBlockVisible = true;
             if (points[i].getX() + shiftHorizontal + 1 >= board.getWidth())
                 return;
-            if (
-                board
-                    .getField(
-                        points[i].getX() + shiftHorizontal + 1,
-                        points[i].getY() + shiftVertical
-                    )
-                    .isOccupied()
-            )
+            if (isRightOccupied(board, points[i]))
                 return;
         }
 
-        shiftHorizontal++;
+        if (isBlockVisible)
+            shiftHorizontal++;
     }
 
     @Override
@@ -95,11 +87,12 @@ public class TetrisBlockImp implements TetrisBlock {
         Point[] points = states[activeStateIndex].getPositionValues();
 
         for (int i = 0; i < points.length; i++) {
+
             if (points[i].getY() + shiftVertical + 1 >= board.getHeight())
                 return;
             if (points[i].getY() + shiftVertical <= -2)
                 continue;
-            if (isNextOccupied(board, points[i]))
+            if (isUnderOccupied(board, points[i]))
                 return;
         }
 
@@ -108,7 +101,7 @@ public class TetrisBlockImp implements TetrisBlock {
         // zatapianie. tu czy nie tu?
     }
 
-    private boolean isNextOccupied(Board board, Point point) {
+    private boolean isUnderOccupied(Board board, Point point) {
 
         return board
             .getField(
@@ -118,9 +111,35 @@ public class TetrisBlockImp implements TetrisBlock {
             .isOccupied();
     }
 
-    public TetrisBlockState getShiftedActiveState() {
+    private boolean isLeftOccupied(Board board, Point point) {
 
-        TetrisBlockState activeState = states[activeStateIndex];
+        if (point.getY() + shiftVertical < 0)
+            return false;
+
+        return board
+            .getField(
+                point.getX() + shiftHorizontal - 1,
+                point.getY() + shiftVertical
+            )
+            .isOccupied();
+    }
+
+    private boolean isRightOccupied(Board board, Point point) {
+
+        if (point.getY() + shiftVertical < 0)
+            return false;
+
+        return board
+            .getField(
+                point.getX() + shiftHorizontal + 1,
+                point.getY() + shiftVertical
+            )
+            .isOccupied();
+    }
+
+    public BlockState getShiftedActiveState() {
+
+        BlockState activeState = states[activeStateIndex];
         Point[] points = activeState.getPositionValues();
         Point[] shiftedPoints = new Point[points.length];
 
@@ -131,7 +150,7 @@ public class TetrisBlockImp implements TetrisBlock {
             );
         }
 
-        return new TetrisBlockStateImp(shiftedPoints);
+        return new BlockStateImp(shiftedPoints);
     }
 
     public void countInitialShift(Board board) {
@@ -151,9 +170,8 @@ public class TetrisBlockImp implements TetrisBlock {
         }
 
         for (int i = 0; i < blockWidth.length; i++) {
-            if (blockWidth[i] == true) {
+            if (blockWidth[i] == true)
                 width++;
-            }
         }
         return width;
     }
@@ -169,9 +187,8 @@ public class TetrisBlockImp implements TetrisBlock {
         }
 
         for (int i = 0; i < blockHeight.length; i++) {
-            if (blockHeight[i] == true) {
+            if (blockHeight[i] == true)
                 height++;
-            }
         }
         return height;
     }

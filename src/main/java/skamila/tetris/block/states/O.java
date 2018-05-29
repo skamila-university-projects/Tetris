@@ -1,18 +1,18 @@
-package skamila.tetris.states;
+package skamila.tetris.block.states;
 
-import skamila.tetris.TetrisBlockState;
+import skamila.tetris.block.BlockState;
 
-public class I1 implements TetrisBlockState {
+public class O implements BlockState {
 
     Point[] state;
 
-    public I1() {
+    public O() {
 
         state = new Point[] {
             new Point(0, 0),
+            new Point(0, 1),
             new Point(1, 0),
-            new Point(2, 0),
-            new Point(3, 0),
+            new Point(1, 1),
         };
     }
 

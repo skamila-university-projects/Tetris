@@ -1,5 +1,8 @@
 package skamila.tetris;
 
+import skamila.tetris.block.Block;
+import skamila.tetris.block.BlockFactory;
+import skamila.tetris.block.BlockFactoryLambda;
 import skamila.tetris.board.Board;
 
 import java.util.Random;
@@ -8,16 +11,16 @@ public class Tetris {
 
     private Board board;
 
-    private TetrisBlock currentBlock, nextBlock;
+    private Block currentBlock, nextBlock;
 
-    TetrisBlockFactoryLambda[] blocks;
+    BlockFactoryLambda[] blocks;
 
     public Tetris(Board board) {
 
         this.board = board;
-        blocks = new TetrisBlockFactoryLambda[2];
-        blocks[0] = () -> TetrisBlockFactory.O(board);
-        blocks[1] = () -> TetrisBlockFactory.I(board);
+        blocks = new BlockFactoryLambda[2];
+        blocks[0] = () -> BlockFactory.O(board);
+        blocks[1] = () -> BlockFactory.I(board);
         nextBlock = getRandomBlock();
     }
 
@@ -27,7 +30,7 @@ public class Tetris {
         nextBlock = getRandomBlock();
     }
 
-    private TetrisBlock getRandomBlock() {
+    private Block getRandomBlock() {
 
         Random generator = new Random();
         int randomNumber = generator.nextInt(blocks.length);

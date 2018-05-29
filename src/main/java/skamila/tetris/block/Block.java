@@ -1,10 +1,10 @@
-package skamila.tetris;
+package skamila.tetris.block;
 
 import skamila.tetris.board.Board;
 
-public interface TetrisBlock {
+public interface Block {
 
-    TetrisBlockState getActiveState();
+    BlockState getActiveState();
 
     void rotate();
 
@@ -18,5 +18,5 @@ public interface TetrisBlock {
 
     void countInitialShift(Board board);
 
-    TetrisBlockState getShiftedActiveState();
+    BlockState getShiftedActiveState();
 }
