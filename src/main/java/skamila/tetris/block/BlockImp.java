@@ -28,12 +28,49 @@ public class BlockImp implements Block {
     }
 
     @Override
-    public void rotate() {
+    public void rotate(Board board) {
 
-        if (activeStateIndex == states.length - 1)
-            activeStateIndex = 0;
-        else
-            activeStateIndex++;
+        if (!isBlockVisible())
+            return;
+
+        int newStateIndex = activeStateIndex + 1;
+        if (newStateIndex == states.length)
+            newStateIndex = 0;
+
+        int newShiftHorizontal = shiftHorizontal;
+        boolean rightShift = false;
+        boolean leftShift = false;
+
+        Point[] points = states[newStateIndex].getPositionValues();
+
+        for (int i = 0; i < points.length; i++) {
+
+            if (points[i].getX() + newShiftHorizontal < 0 || isLeftOccupied(board, points[i])) {
+                if (leftShift == true)
+                    return;
+                newShiftHorizontal++;
+                points = movePoints(points, 1);
+                rightShift = true;
+                i = -1;
+            }
+            if (
+                points[i].getX() + newShiftHorizontal >= board.getWidth() || isRightOccupied(
+                    board,
+                    points[i]
+                )
+            ) {
+                if (rightShift == true)
+                    return;
+                newShiftHorizontal--;
+                points = movePoints(points, -1);
+                leftShift = true;
+                i = -1;
+            }
+
+        }
+
+        shiftHorizontal = newShiftHorizontal;
+        activeStateIndex = newStateIndex;
     }
 
     @Override
@@ -46,39 +83,36 @@ public class BlockImp implements Block {
     @Override
     public void moveLeft(Board board) {
 
+        if (!isBlockVisible())
+            return;
+
         Point[] points = states[activeStateIndex].getPositionValues();
-        boolean isBlockVisible = false;
 
         for (int i = 0; i < points.length; i++) {
-            if (points[i].getY() + shiftVertical >= 0)
-                isBlockVisible = true;
             if (points[i].getX() + shiftHorizontal - 1 < 0)
                 return;
             if (isLeftOccupied(board, points[i]))
                 return;
         }
-
-        if (isBlockVisible)
-            shiftHorizontal--;
+        shiftHorizontal--;
     }
 
     @Override
     public void moveRight(Board board) {
 
+        if (!isBlockVisible())
+            return;
+
         Point[] points = states[activeStateIndex].getPositionValues();
-        boolean isBlockVisible = false;
 
         for (int i = 0; i < points.length; i++) {
-            if (points[i].getY() + shiftVertical >= 0)
-                isBlockVisible = true;
             if (points[i].getX() + shiftHorizontal + 1 >= board.getWidth())
                 return;
             if (isRightOccupied(board, points[i]))
                 return;
         }
 
-        if (isBlockVisible)
-            shiftHorizontal++;
+        shiftHorizontal++;
     }
 
     @Override
@@ -99,6 +133,18 @@ public class BlockImp implements Block {
         shiftVertical++;
 
         // zatapianie. tu czy nie tu?
+    }
+
+    private boolean isBlockVisible() {
+
+        Point[] points = states[activeStateIndex].getPositionValues();
+
+        for (int i = 0; i < points.length; i++) {
+            if (points[i].getY() + shiftVertical >= 0)
+                return true;
+        }
+
+        return false;
     }
 
     private boolean isUnderOccupied(Board board, Point point) {
@@ -135,6 +181,19 @@ public class BlockImp implements Block {
                 point.getY() + shiftVertical
             )
             .isOccupied();
+    }
+
+    private Point[] movePoints(Point[] points, int shiftHorizontal) {
+
+        Point[] movedPoints = {
+            new Point(points[0].getX() + shiftHorizontal, points[0].getY()),
+            new Point(points[1].getX() + shiftHorizontal, points[1].getY()),
+            new Point(points[2].getX() + shiftHorizontal, points[2].getY()),
+            new Point(points[3].getX() + shiftHorizontal, points[3].getY())
+        };
+
+        return movedPoints;
+
     }
 
     public BlockState getShiftedActiveState() {

@@ -1,5 +1,6 @@
 package skamila.tetris.block;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import skamila.tetris.TetrisBoardFactory;
 import skamila.tetris.board.Board;
@@ -12,8 +13,11 @@ import static org.mockito.Mockito.mock;
 
 class BlockTest {
 
+    @Disabled
     @Test
-    void rotate() {
+    void oldRotate() {
+
+        Board board = TetrisBoardFactory.create();
 
         BlockState state1 = mock(BlockState.class);
         BlockState state2 = mock(BlockState.class);
@@ -31,17 +35,49 @@ class BlockTest {
 
         assertEquals(state1, block.getActiveState());
 
-        block.rotate();
+        block.rotate(board);
         assertEquals(state2, block.getActiveState());
 
-        block.rotate();
+        block.rotate(board);
         assertEquals(state3, block.getActiveState());
 
-        block.rotate();
+        block.rotate(board);
         assertEquals(state4, block.getActiveState());
 
-        block.rotate();
+        block.rotate(board);
         assertEquals(state1, block.getActiveState());
+    }
+
+    @Test
+    void rotate() {
+
+        BlockState[] blockStates = new BlockState[2];
+
+        blockStates[0] = new I1();
+        blockStates[1] = new I2();
+
+        Board board = TetrisBoardFactory.create();
+
+        Block I = new BlockImp(blockStates);
+        I.countInitialShift(board);
+
+        for (int i = 0; i < 8; i++) {
+            I.moveDown(board);
+        }
+
+        I.rotate(board);
+
+        Point[] points = I.getShiftedActiveState().getPositionValues();
+
+        assertEquals(3, points[0].getX());
+        assertEquals(4, points[1].getX());
+        assertEquals(5, points[2].getX());
+        assertEquals(6, points[3].getX());
+
+        assertEquals(5, points[0].getY());
+        assertEquals(5, points[1].getY());
+        assertEquals(5, points[2].getY());
+        assertEquals(5, points[3].getY());
     }
 
     @Test

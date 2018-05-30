@@ -6,7 +6,7 @@ public interface Block {
 
     BlockState getActiveState();
 
-    void rotate();
+    void rotate(Board board);
 
     void randomizeActiveState();
 
