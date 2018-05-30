@@ -6,6 +6,9 @@ public class O implements BlockState {
 
     Point[] state;
 
+    // X X
+    // X X
+
     public O() {
 
         state = new Point[] {

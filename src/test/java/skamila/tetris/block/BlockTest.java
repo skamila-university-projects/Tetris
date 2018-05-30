@@ -76,8 +76,7 @@ class BlockTest {
 
         BlockState[] blockStates = new BlockState[2];
 
-        blockStates[0] = new I1();
-        blockStates[1] = new I2();
+        blockStates[0] = new I2();
 
         Board board = TetrisBoardFactory.create();
 
@@ -103,8 +102,7 @@ class BlockTest {
 
         BlockState[] blockStates = new BlockState[2];
 
-        blockStates[0] = new I2();
-        blockStates[1] = new I1();
+        blockStates[0] = new I1();
 
         Board board = TetrisBoardFactory.create();
 

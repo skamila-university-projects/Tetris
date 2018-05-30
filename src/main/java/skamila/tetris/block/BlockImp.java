@@ -155,8 +155,34 @@ public class BlockImp implements Block {
 
     public void countInitialShift(Board board) {
 
-        shiftHorizontal = (board.getWidth() - countWidth()) / 2;
-        shiftVertical -= countHeight();
+        shiftHorizontal = (board.getWidth() - countWidth()) / 2 - firstindexX();
+        shiftVertical -= countHeight() + firstindexY();
+    }
+
+    private int firstindexX() {
+
+        Point[] points = states[activeStateIndex].getPositionValues();
+        int firstindexX = points[0].getX();
+
+        for (int i = 1; i < points.length; i++) {
+            if (points[i].getX() < firstindexX)
+                firstindexX = points[i].getX();
+        }
+
+        return firstindexX;
+    }
+
+    private int firstindexY() {
+
+        Point[] points = states[activeStateIndex].getPositionValues();
+        int firstindexY = points[0].getY();
+
+        for (int i = 1; i < points.length; i++) {
+            if (points[i].getY() < firstindexY)
+                firstindexY = points[i].getY();
+        }
+
+        return firstindexY;
     }
 
     private int countWidth() {
