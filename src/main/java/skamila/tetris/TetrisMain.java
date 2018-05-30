@@ -11,17 +11,20 @@ import javafx.stage.Stage;
 public class TetrisMain extends Application {
 
     public static void main(String[] args) {
+
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) {
+
         Button btn = new Button();
         btn.setText("Say 'Hello World'");
         btn.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
+
                 System.out.println("Hello World!");
             }
         });

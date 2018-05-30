@@ -1,14 +1,22 @@
 package skamila.tetris.block;
 
-import skamila.tetris.block.state.State;
+import skamila.tetris.board.Board;
 
 public interface Block {
 
-    void addState(State state);
-    State geActiveState();
+    BlockState getActiveState();
+
     void rotate();
+
     void randomizeActiveState();
-    void moveLeft();
-    void moveRight();
-    void moveDown();
+
+    void moveLeft(Board board);
+
+    void moveRight(Board board);
+
+    void moveDown(Board board);
+
+    void countInitialShift(Board board);
+
+    BlockState getShiftedActiveState();
 }

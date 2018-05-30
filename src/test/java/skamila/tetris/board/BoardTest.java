@@ -1,106 +1,94 @@
 package skamila.tetris.board;
 
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class BoardTest {
 
-    private Field e() {
-        return new Field();
-    }
-
-    private Field f() {
-        return new Field(1);
-    }
-
     @Test
-    void cleanBoardTwoRows() {
+    public void boardWithOneField() {
 
-            Field inputFields [][] = {
-                    {e(), e(), e(), f(), e()},
-                    {e(), f(), e(), e(), e()},
-                    {f(), f(), f(), f(), f()},
-                    {f(), e(), f(), f(), f()},
-                    {f(), f(), f(), f(), f()}
-            };
-            
-            Board board = new Board(inputFields);
-            board.cleanBoard();
-            Field[][] actualFields = board.getFields();
+        BoardField[][] fields = { { new BoardFieldImp(0, 0) } };
 
-            Field expectedFields [][] = {
-                    {e(), e(), e(), e(), e()},
-                    {e(), e(), e(), e(), e()},
-                    {e(), e(), e(), f(), e()},
-                    {e(), f(), e(), e(), e()},
-                    {f(), e(), f(), f(), f()}
-            };
+        Board board = new Board(fields);
 
-            for (int i = 0; i < actualFields.length; i++){
-                for (int j = 0; j < actualFields[i].length; j++){
-                    assertEquals(actualFields[i][j].isFull(), expectedFields[i][j].isFull());
-                }
-            }
-        }
-
-    @Test
-    void cleanBoardNoRowsToClean() {
-
-        Field inputFields [][] = {
-                {e(), e(), e(), f(), e()},
-                {e(), f(), e(), e(), e()},
-                {f(), f(), e(), f(), f()},
-                {f(), e(), f(), f(), f()},
-                {f(), f(), e(), f(), f()}
-        };
-
-        Board board = new Board(inputFields);
-        board.cleanBoard();
-        Field[][] actualFields = board.getFields();
-
-        Field expectedFields [][] = {
-                {e(), e(), e(), f(), e()},
-                {e(), f(), e(), e(), e()},
-                {f(), f(), e(), f(), f()},
-                {f(), e(), f(), f(), f()},
-                {f(), f(), e(), f(), f()}
-        };
-
-        for (int i = 0; i < actualFields.length; i++){
-            for (int j = 0; j < actualFields[i].length; j++){
-                assertEquals(actualFields[i][j].isFull(), expectedFields[i][j].isFull());
-            }
-        }
+        assertEquals(1, board.getHeight());
+        assertEquals(1, board.getWidth());
     }
 
     @Test
-    void cleanBoardAllRowsToClean() {
+    public void boardWithOneRow() {
 
-        Field inputFields [][] = {
-                {f(), f(), f(), f(), f()},
-                {f(), f(), f(), f(), f()},
-                {f(), f(), f(), f(), f()},
-                {f(), f(), f(), f(), f()},
-                {f(), f(), f(), f(), f()}
+        BoardField[][] fields = {
+            { new BoardFieldImp(0, 0), new BoardFieldImp(0, 1), new BoardFieldImp(0, 2) }
         };
 
-        Board board = new Board(inputFields);
-        board.cleanBoard();
-        Field[][] actualFields = board.getFields();
+        Board board = new Board(fields);
 
-        Field expectedFields [][] = {
-                {e(), e(), e(), e(), e()},
-                {e(), e(), e(), e(), e()},
-                {e(), e(), e(), e(), e()},
-                {e(), e(), e(), e(), e()},
-                {e(), e(), e(), e(), e()}
+        assertEquals(1, board.getHeight());
+        assertEquals(3, board.getWidth());
+    }
+
+    @Test
+    public void boardWithOneColumn() {
+
+        BoardField[][] fields = {
+            { new BoardFieldImp(0, 0) },
+            { new BoardFieldImp(1, 0) },
+            { new BoardFieldImp(2, 0) }
         };
 
-        for (int i = 0; i < actualFields.length; i++){
-            for (int j = 0; j < actualFields[i].length; j++){
-                assertEquals(actualFields[i][j].isFull(), expectedFields[i][j].isFull());
-            }
-        }
+        Board board = new Board(fields);
+
+        assertEquals(3, board.getHeight());
+        assertEquals(1, board.getWidth());
+    }
+
+    @Test
+    public void boardWithMultiRowColumns() {
+
+        BoardField[][] fields = {
+            { new BoardFieldImp(0, 0), new BoardFieldImp(0, 1), new BoardFieldImp(0, 2) },
+            { new BoardFieldImp(1, 0), new BoardFieldImp(1, 1), new BoardFieldImp(1, 2) },
+            { new BoardFieldImp(2, 0), new BoardFieldImp(2, 1), new BoardFieldImp(2, 2) }
+        };
+
+        Board board = new Board(fields);
+
+        assertEquals(3, board.getHeight());
+        assertEquals(3, board.getWidth());
+    }
+
+    @Test
+    public void outOfBoardException() {
+
+        BoardField[][] fields = {
+            { new BoardFieldImp(0, 0), new BoardFieldImp(0, 1), new BoardFieldImp(0, 2) },
+            { new BoardFieldImp(1, 0), new BoardFieldImp(1, 1), new BoardFieldImp(1, 2) },
+            { new BoardFieldImp(2, 0), new BoardFieldImp(2, 1), new BoardFieldImp(2, 2) }
+        };
+
+        Board board = new Board(fields);
+
+        board.setField(new BoardFieldImp(2, 2));
+        assertThrows(OutOfBoardException.class, () -> board.setField(new BoardFieldImp(3, 2)));
+        assertThrows(OutOfBoardException.class, () -> board.setField(new BoardFieldImp(2, 3)));
+        assertThrows(OutOfBoardException.class, () -> board.setField(new BoardFieldImp(-1, 2)));
+        assertThrows(OutOfBoardException.class, () -> board.setField(new BoardFieldImp(2, -1)));
+    }
+
+    @Test
+    public void getField() {
+
+        BoardField[][] fields = {
+            { new BoardFieldImp(0, 0), new BoardFieldImp(0, 1), new BoardFieldImp(0, 2) },
+            { new BoardFieldImp(1, 0), new BoardFieldImp(1, 1), new BoardFieldImp(1, 2) },
+            { new BoardFieldImp(2, 0), new BoardFieldImp(2, 1), new BoardFieldImp(2, 2) }
+        };
+
+        Board board = new Board(fields);
+        BoardField field = board.getField(1, 1);
+        assertEquals(1, field.getX());
+        assertEquals(1, field.getY());
     }
 }

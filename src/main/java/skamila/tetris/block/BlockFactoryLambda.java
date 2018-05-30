@@ -1,7 +1,6 @@
 package skamila.tetris.block;
 
-public interface Blockable {
+public interface BlockFactoryLambda {
 
     public Block getBlock();
-
 }
