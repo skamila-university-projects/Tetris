@@ -3,6 +3,8 @@ package skamila.tetris.block;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import skamila.tetris.TetrisBoardFactory;
+import skamila.tetris.TetrisBoardField;
+import skamila.tetris.TetrisBoardFieldImp;
 import skamila.tetris.board.Board;
 import skamila.tetris.block.states.I1;
 import skamila.tetris.block.states.I2;
@@ -78,6 +80,46 @@ class BlockTest {
         assertEquals(5, points[1].getY());
         assertEquals(5, points[2].getY());
         assertEquals(5, points[3].getY());
+    }
+
+    @Test
+    void rotate2() {
+
+        BlockState[] blockStates = new BlockState[2];
+
+        blockStates[0] = new I1();
+        blockStates[1] = new I2();
+
+        Board board = createBoardForTests();
+
+        Block I = new BlockImp(blockStates);
+        I.countInitialShift(board);
+
+        for (int i = 0; i < 4; i++) {
+            I.moveDown(board);
+        }
+
+        for (int i = 0; i < 4; i++) {
+            I.moveLeft(board);
+        }
+
+        for (int i = 0; i < 4; i++) {
+            I.moveDown(board);
+        }
+
+        I.rotate(board);
+
+        Point[] points = I.getShiftedActiveState().getPositionValues();
+
+        assertEquals(0, points[0].getX());
+        assertEquals(0, points[1].getX());
+        assertEquals(0, points[2].getX());
+        assertEquals(0, points[3].getX());
+
+        assertEquals(4, points[0].getY());
+        assertEquals(5, points[1].getY());
+        assertEquals(6, points[2].getY());
+        assertEquals(7, points[3].getY());
     }
 
     @Test
@@ -245,6 +287,47 @@ class BlockTest {
         assertEquals(8, points[1].getX());
         assertEquals(9, points[2].getX());
         assertEquals(9, points[3].getX());
+    }
+
+    private Board createBoardForTests() {
+
+        TetrisBoardField[][] fields = {
+            { e(), e(), e(), e(), e(), e(), e(), e(), e(), e() },
+            { e(), e(), e(), e(), e(), e(), e(), e(), e(), e() },
+            { e(), e(), e(), e(), e(), e(), e(), e(), e(), e() },
+            { e(), e(), e(), e(), e(), e(), e(), e(), e(), e() },
+            { e(), f(), e(), e(), e(), e(), e(), e(), e(), e() },
+            { e(), f(), e(), e(), e(), e(), e(), e(), e(), e() },
+            { e(), f(), e(), e(), e(), e(), e(), e(), e(), e() },
+            { e(), f(), e(), e(), e(), e(), e(), e(), e(), e() },
+            { e(), e(), e(), e(), e(), e(), e(), e(), e(), e() },
+            { e(), e(), e(), e(), e(), e(), e(), e(), e(), e() },
+            { e(), e(), e(), e(), e(), e(), e(), e(), e(), e() },
+            { e(), e(), e(), e(), e(), e(), e(), e(), e(), e() },
+            { e(), e(), e(), e(), e(), e(), e(), e(), e(), e() },
+            { e(), e(), e(), e(), e(), e(), e(), e(), e(), e() },
+            { e(), e(), e(), e(), e(), e(), e(), e(), e(), e() },
+            { e(), e(), e(), e(), e(), e(), e(), e(), e(), e() },
+            { e(), e(), e(), e(), e(), e(), e(), e(), e(), e() },
+            { e(), e(), e(), e(), e(), e(), e(), e(), e(), e() },
+            { e(), e(), e(), e(), e(), e(), e(), e(), e(), e() },
+            { e(), e(), e(), e(), e(), e(), e(), e(), e(), e() },
+
+        };
+
+        Board board = new Board(fields);
+
+        return board;
+    }
+
+    private TetrisBoardField f() {
+
+        return new TetrisBoardFieldImp(true);
+    }
+
+    private TetrisBoardField e() {
+
+        return new TetrisBoardFieldImp(false);
     }
 
 }

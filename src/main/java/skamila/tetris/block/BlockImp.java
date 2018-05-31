@@ -43,29 +43,49 @@ public class BlockImp implements Block {
 
         Point[] points = states[newStateIndex].getPositionValues();
 
-        for (int i = 0; i < points.length; i++) {
+        int i = 0;
 
-            if (points[i].getX() + newShiftHorizontal < 0 || isLeftOccupied(board, points[i])) {
+        while (i < points.length) {
+
+            if (
+                (points[i].getX() + newShiftHorizontal < 0) || (points[i]
+                    .getX() + newShiftHorizontal > 0 && isLeftOccupied(
+                        board,
+                        points[i],
+                        newShiftHorizontal
+                    ))
+            ) {
+
                 if (leftShift == true)
                     return;
+
                 newShiftHorizontal++;
-                points = movePoints(points, 1);
                 rightShift = true;
-                i = -1;
+                i = 0;
+                continue;
+
             }
+
             if (
-                points[i].getX() + newShiftHorizontal >= board.getWidth() || isRightOccupied(
-                    board,
-                    points[i]
-                )
+                (points[i].getX() + newShiftHorizontal >= board
+                    .getWidth()) || ((newShiftHorizontal < board.getWidth() - 1) && isRightOccupied(
+                        board,
+                        points[i],
+                        newShiftHorizontal
+                    ))
             ) {
+
                 if (rightShift == true)
                     return;
+
                 newShiftHorizontal--;
-                points = movePoints(points, -1);
                 leftShift = true;
                 i = -1;
+                continue;
+
             }
+
+            i++;
 
         }
 
@@ -170,6 +190,19 @@ public class BlockImp implements Block {
             .isOccupied();
     }
 
+    private boolean isLeftOccupied(Board board, Point point, int shiftHorizontal) {
+
+        if (point.getY() + shiftVertical < 0)
+            return false;
+
+        return board
+            .getField(
+                point.getX() + shiftHorizontal - 1,
+                point.getY() + shiftVertical
+            )
+            .isOccupied();
+    }
+
     private boolean isRightOccupied(Board board, Point point) {
 
         if (point.getY() + shiftVertical < 0)
@@ -183,17 +216,17 @@ public class BlockImp implements Block {
             .isOccupied();
     }
 
-    private Point[] movePoints(Point[] points, int shiftHorizontal) {
+    private boolean isRightOccupied(Board board, Point point, int shiftHorizontal) {
 
-        Point[] movedPoints = {
-            new Point(points[0].getX() + shiftHorizontal, points[0].getY()),
-            new Point(points[1].getX() + shiftHorizontal, points[1].getY()),
-            new Point(points[2].getX() + shiftHorizontal, points[2].getY()),
-            new Point(points[3].getX() + shiftHorizontal, points[3].getY())
-        };
+        if (point.getY() + shiftVertical < 0)
+            return false;
 
-        return movedPoints;
-
+        return board
+            .getField(
+                point.getX() + shiftHorizontal + 1,
+                point.getY() + shiftVertical
+            )
+            .isOccupied();
     }
 
     public BlockState getShiftedActiveState() {

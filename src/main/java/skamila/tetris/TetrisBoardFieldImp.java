@@ -12,10 +12,16 @@ public class TetrisBoardFieldImp implements TetrisBoardField {
         isFull = false;
     }
 
-    public TetrisBoardFieldImp(int color) {
+    public TetrisBoardFieldImp(boolean isFull) {
 
         this.color = 0;
-        isFull = true;
+        this.isFull = isFull;
+    }
+
+    public TetrisBoardFieldImp(boolean isFull, int color) {
+
+        this.color = color;
+        this.isFull = isFull;
     }
 
     @Override
