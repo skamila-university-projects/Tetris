@@ -49,7 +49,7 @@ class BlockTest {
     }
 
     @Test
-    void rotate() {
+    void rotateSimple() {
 
         BlockState[] blockStates = new BlockState[2];
 
@@ -81,7 +81,7 @@ class BlockTest {
     }
 
     @Test
-    void rotate2() {
+    void rotateNearWall() {
 
         BlockState[] blockStates = new BlockState[2];
 

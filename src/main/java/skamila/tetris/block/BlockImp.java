@@ -40,20 +40,13 @@ public class BlockImp implements Block {
         boolean rightShift = false;
         boolean leftShift = false;
 
-        StatePoint[] statePoints = states[newStateIndex].getPositionValues();
+        StatePoint[] points = states[newStateIndex].getPositionValues();
 
         int i = 0;
 
-        while (i < statePoints.length) {
+        while (i < points.length) {
 
-            if (
-                (statePoints[i].getX() + newShiftHorizontal < 0) || (statePoints[i]
-                    .getX() + newShiftHorizontal > 0 && isLeftOccupied(
-                        board,
-                        statePoints[i],
-                        newShiftHorizontal
-                    ))
-            ) {
+            if (points[i].getX() + newShiftHorizontal < 0) {
 
                 if (leftShift == true)
                     return;
@@ -65,14 +58,7 @@ public class BlockImp implements Block {
 
             }
 
-            if (
-                (statePoints[i].getX() + newShiftHorizontal >= board
-                    .getWidth()) || ((newShiftHorizontal < board.getWidth() - 1) && isRightOccupied(
-                        board,
-                        statePoints[i],
-                        newShiftHorizontal
-                    ))
-            ) {
+            if (points[i].getX() + newShiftHorizontal >= board.getWidth()) {
 
                 if (rightShift == true)
                     return;
@@ -83,9 +69,22 @@ public class BlockImp implements Block {
                 continue;
 
             }
-
             i++;
 
+        }
+
+        for (i = 0; i < points.length; i++) {
+            if (points[i].getY() + shiftVertical >= board.getHeight() - 1)
+                return;
+            if (
+                board
+                    .getField(
+                        points[i].getX() + newShiftHorizontal,
+                        points[i].getY() + shiftVertical
+                    )
+                    .isOccupied()
+            )
+                return;
         }
 
         shiftHorizontal = newShiftHorizontal;
