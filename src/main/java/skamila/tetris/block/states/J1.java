@@ -1,26 +1,27 @@
 package skamila.tetris.block.states;
 
 import skamila.tetris.block.BlockState;
+import skamila.tetris.block.StatePoint;
 
 public class J1 implements BlockState {
 
-    Point[] state;
+    StatePoint[] state;
 
     // X X X
     // X
 
     J1() {
 
-        state = new Point[] {
-            new Point(0, 1),
-            new Point(1, 1),
-            new Point(2, 1),
-            new Point(2, 2),
+        state = new StatePoint[] {
+            new StatePoint(0, 1),
+            new StatePoint(1, 1),
+            new StatePoint(2, 1),
+            new StatePoint(2, 2),
         };
     }
 
     @Override
-    public Point[] getPositionValues() {
+    public StatePoint[] getPositionValues() {
 
         return state;
     }

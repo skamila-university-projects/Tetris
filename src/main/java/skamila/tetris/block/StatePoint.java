@@ -1,12 +1,12 @@
-package skamila.tetris.block.states;
+package skamila.tetris.block;
 
-public class Point {
+public class StatePoint {
 
     int x;
 
     int y;
 
-    public Point(int x, int y) {
+    public StatePoint(int x, int y) {
 
         this.x = x;
         this.y = y;

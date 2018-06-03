@@ -24,16 +24,15 @@ public class Board {
         return width;
     }
 
-    public void setField(BoardField field) {
+    public void setField(BoardField field, int x, int y) {
 
-        if (isFieldInBoard(field)) {
+        if (isPositionInBoard(x, y)) {
             throw new OutOfBoardException(
-                "Max height=" + height + "field position Y=" + field
-                    .getY() + "\n" + "Max width=" + width + "field position X=" + field.getX() + "."
+                "Max height=" + height + "field position Y=" + y + "\n" + "Max width=" + width + "field position X=" + x + "."
             );
         }
 
-        fields[field.getY()][field.getX()] = field;
+        fields[y][x] = field;
     }
 
     public BoardField getField(int x, int y) {
@@ -41,9 +40,8 @@ public class Board {
         return fields[y][x];
     }
 
-    public boolean isFieldInBoard(BoardField field) {
+    public boolean isPositionInBoard(int x, int y) {
 
-        return (field.getY() > height - 1) || (field.getY() < 0) || (field
-            .getX() > width - 1) || (field.getX() < 0);
+        return (y > height - 1) || (y < 0) || (x > width - 1) || (x < 0);
     }
 }

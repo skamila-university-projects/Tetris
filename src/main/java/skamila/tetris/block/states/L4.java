@@ -1,10 +1,11 @@
 package skamila.tetris.block.states;
 
 import skamila.tetris.block.BlockState;
+import skamila.tetris.block.StatePoint;
 
 public class L4 implements BlockState {
 
-    Point[] state;
+    StatePoint[] state;
 
     // X
     // X
@@ -12,16 +13,16 @@ public class L4 implements BlockState {
 
     public L4() {
 
-        state = new Point[] {
-            new Point(1, 0),
-            new Point(1, 1),
-            new Point(1, 2),
-            new Point(2, 2),
+        state = new StatePoint[] {
+            new StatePoint(1, 0),
+            new StatePoint(1, 1),
+            new StatePoint(1, 2),
+            new StatePoint(2, 2),
         };
     }
 
     @Override
-    public Point[] getPositionValues() {
+    public StatePoint[] getPositionValues() {
 
         return state;
     }

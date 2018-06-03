@@ -2,7 +2,6 @@ package skamila.tetris.block;
 
 import java.util.Random;
 
-import skamila.tetris.block.states.Point;
 import skamila.tetris.board.Board;
 
 public class BlockImp implements Block {
@@ -41,17 +40,17 @@ public class BlockImp implements Block {
         boolean rightShift = false;
         boolean leftShift = false;
 
-        Point[] points = states[newStateIndex].getPositionValues();
+        StatePoint[] statePoints = states[newStateIndex].getPositionValues();
 
         int i = 0;
 
-        while (i < points.length) {
+        while (i < statePoints.length) {
 
             if (
-                (points[i].getX() + newShiftHorizontal < 0) || (points[i]
+                (statePoints[i].getX() + newShiftHorizontal < 0) || (statePoints[i]
                     .getX() + newShiftHorizontal > 0 && isLeftOccupied(
                         board,
-                        points[i],
+                        statePoints[i],
                         newShiftHorizontal
                     ))
             ) {
@@ -67,10 +66,10 @@ public class BlockImp implements Block {
             }
 
             if (
-                (points[i].getX() + newShiftHorizontal >= board
+                (statePoints[i].getX() + newShiftHorizontal >= board
                     .getWidth()) || ((newShiftHorizontal < board.getWidth() - 1) && isRightOccupied(
                         board,
-                        points[i],
+                        statePoints[i],
                         newShiftHorizontal
                     ))
             ) {
@@ -106,12 +105,12 @@ public class BlockImp implements Block {
         if (!isBlockVisible())
             return;
 
-        Point[] points = states[activeStateIndex].getPositionValues();
+        StatePoint[] statePoints = states[activeStateIndex].getPositionValues();
 
-        for (int i = 0; i < points.length; i++) {
-            if (points[i].getX() + shiftHorizontal - 1 < 0)
+        for (int i = 0; i < statePoints.length; i++) {
+            if (statePoints[i].getX() + shiftHorizontal - 1 < 0)
                 return;
-            if (isLeftOccupied(board, points[i]))
+            if (isLeftOccupied(board, statePoints[i]))
                 return;
         }
         shiftHorizontal--;
@@ -123,12 +122,12 @@ public class BlockImp implements Block {
         if (!isBlockVisible())
             return;
 
-        Point[] points = states[activeStateIndex].getPositionValues();
+        StatePoint[] statePoints = states[activeStateIndex].getPositionValues();
 
-        for (int i = 0; i < points.length; i++) {
-            if (points[i].getX() + shiftHorizontal + 1 >= board.getWidth())
+        for (int i = 0; i < statePoints.length; i++) {
+            if (statePoints[i].getX() + shiftHorizontal + 1 >= board.getWidth())
                 return;
-            if (isRightOccupied(board, points[i]))
+            if (isRightOccupied(board, statePoints[i]))
                 return;
         }
 
@@ -138,15 +137,15 @@ public class BlockImp implements Block {
     @Override
     public void moveDown(Board board) {
 
-        Point[] points = states[activeStateIndex].getPositionValues();
+        StatePoint[] statePoints = states[activeStateIndex].getPositionValues();
 
-        for (int i = 0; i < points.length; i++) {
+        for (int i = 0; i < statePoints.length; i++) {
 
-            if (points[i].getY() + shiftVertical + 1 >= board.getHeight())
+            if (statePoints[i].getY() + shiftVertical + 1 >= board.getHeight())
                 return;
-            if (points[i].getY() + shiftVertical <= -2)
+            if (statePoints[i].getY() + shiftVertical <= -2)
                 continue;
-            if (isUnderOccupied(board, points[i]))
+            if (isUnderOccupied(board, statePoints[i]))
                 return;
         }
 
@@ -157,74 +156,74 @@ public class BlockImp implements Block {
 
     private boolean isBlockVisible() {
 
-        Point[] points = states[activeStateIndex].getPositionValues();
+        StatePoint[] statePoints = states[activeStateIndex].getPositionValues();
 
-        for (int i = 0; i < points.length; i++) {
-            if (points[i].getY() + shiftVertical >= 0)
+        for (int i = 0; i < statePoints.length; i++) {
+            if (statePoints[i].getY() + shiftVertical >= 0)
                 return true;
         }
 
         return false;
     }
 
-    private boolean isUnderOccupied(Board board, Point point) {
+    private boolean isUnderOccupied(Board board, StatePoint statePoint) {
 
         return board
             .getField(
-                point.getX() + shiftHorizontal,
-                point.getY() + shiftVertical + 1
+                statePoint.getX() + shiftHorizontal,
+                statePoint.getY() + shiftVertical + 1
             )
             .isOccupied();
     }
 
-    private boolean isLeftOccupied(Board board, Point point) {
+    private boolean isLeftOccupied(Board board, StatePoint statePoint) {
 
-        if (point.getY() + shiftVertical < 0)
+        if (statePoint.getY() + shiftVertical < 0)
             return false;
 
         return board
             .getField(
-                point.getX() + shiftHorizontal - 1,
-                point.getY() + shiftVertical
+                statePoint.getX() + shiftHorizontal - 1,
+                statePoint.getY() + shiftVertical
             )
             .isOccupied();
     }
 
-    private boolean isLeftOccupied(Board board, Point point, int shiftHorizontal) {
+    private boolean isLeftOccupied(Board board, StatePoint statePoint, int shiftHorizontal) {
 
-        if (point.getY() + shiftVertical < 0)
+        if (statePoint.getY() + shiftVertical < 0)
             return false;
 
         return board
             .getField(
-                point.getX() + shiftHorizontal - 1,
-                point.getY() + shiftVertical
+                statePoint.getX() + shiftHorizontal - 1,
+                statePoint.getY() + shiftVertical
             )
             .isOccupied();
     }
 
-    private boolean isRightOccupied(Board board, Point point) {
+    private boolean isRightOccupied(Board board, StatePoint statePoint) {
 
-        if (point.getY() + shiftVertical < 0)
+        if (statePoint.getY() + shiftVertical < 0)
             return false;
 
         return board
             .getField(
-                point.getX() + shiftHorizontal + 1,
-                point.getY() + shiftVertical
+                statePoint.getX() + shiftHorizontal + 1,
+                statePoint.getY() + shiftVertical
             )
             .isOccupied();
     }
 
-    private boolean isRightOccupied(Board board, Point point, int shiftHorizontal) {
+    private boolean isRightOccupied(Board board, StatePoint statePoint, int shiftHorizontal) {
 
-        if (point.getY() + shiftVertical < 0)
+        if (statePoint.getY() + shiftVertical < 0)
             return false;
 
         return board
             .getField(
-                point.getX() + shiftHorizontal + 1,
-                point.getY() + shiftVertical
+                statePoint.getX() + shiftHorizontal + 1,
+                statePoint.getY() + shiftVertical
             )
             .isOccupied();
     }
@@ -232,17 +231,17 @@ public class BlockImp implements Block {
     public BlockState getShiftedActiveState() {
 
         BlockState activeState = states[activeStateIndex];
-        Point[] points = activeState.getPositionValues();
-        Point[] shiftedPoints = new Point[points.length];
+        StatePoint[] statePoints = activeState.getPositionValues();
+        StatePoint[] shiftedStatePoints = new StatePoint[statePoints.length];
 
-        for (int i = 0; i < points.length; i++) {
-            shiftedPoints[i] = new Point(
-                points[i].getX() + shiftHorizontal,
-                points[i].getY() + shiftVertical
+        for (int i = 0; i < statePoints.length; i++) {
+            shiftedStatePoints[i] = new StatePoint(
+                statePoints[i].getX() + shiftHorizontal,
+                statePoints[i].getY() + shiftVertical
             );
         }
 
-        return new BlockStateImp(shiftedPoints);
+        return new BlockStateImp(shiftedStatePoints);
     }
 
     public void countInitialShift(Board board) {
@@ -253,12 +252,12 @@ public class BlockImp implements Block {
 
     private int firstindexX() {
 
-        Point[] points = states[activeStateIndex].getPositionValues();
-        int firstindexX = points[0].getX();
+        StatePoint[] statePoints = states[activeStateIndex].getPositionValues();
+        int firstindexX = statePoints[0].getX();
 
-        for (int i = 1; i < points.length; i++) {
-            if (points[i].getX() < firstindexX)
-                firstindexX = points[i].getX();
+        for (int i = 1; i < statePoints.length; i++) {
+            if (statePoints[i].getX() < firstindexX)
+                firstindexX = statePoints[i].getX();
         }
 
         return firstindexX;
@@ -266,12 +265,12 @@ public class BlockImp implements Block {
 
     private int firstindexY() {
 
-        Point[] points = states[activeStateIndex].getPositionValues();
-        int firstindexY = points[0].getY();
+        StatePoint[] statePoints = states[activeStateIndex].getPositionValues();
+        int firstindexY = statePoints[0].getY();
 
-        for (int i = 1; i < points.length; i++) {
-            if (points[i].getY() < firstindexY)
-                firstindexY = points[i].getY();
+        for (int i = 1; i < statePoints.length; i++) {
+            if (statePoints[i].getY() < firstindexY)
+                firstindexY = statePoints[i].getY();
         }
 
         return firstindexY;
@@ -279,12 +278,12 @@ public class BlockImp implements Block {
 
     private int countWidth() {
 
-        Point[] points = states[activeStateIndex].getPositionValues();
+        StatePoint[] statePoints = states[activeStateIndex].getPositionValues();
         boolean[] blockWidth = new boolean[4];
         int width = 0;
 
-        for (int i = 0; i < points.length; i++) {
-            blockWidth[points[i].getX()] = true;
+        for (int i = 0; i < statePoints.length; i++) {
+            blockWidth[statePoints[i].getX()] = true;
         }
 
         for (int i = 0; i < blockWidth.length; i++) {
@@ -296,12 +295,12 @@ public class BlockImp implements Block {
 
     private int countHeight() {
 
-        Point[] points = states[activeStateIndex].getPositionValues();
+        StatePoint[] statePoints = states[activeStateIndex].getPositionValues();
         boolean[] blockHeight = new boolean[4];
         int height = 0;
 
-        for (int i = 0; i < points.length; i++) {
-            blockHeight[points[i].getY()] = true;
+        for (int i = 0; i < statePoints.length; i++) {
+            blockHeight[statePoints[i].getY()] = true;
         }
 
         for (int i = 0; i < blockHeight.length; i++) {

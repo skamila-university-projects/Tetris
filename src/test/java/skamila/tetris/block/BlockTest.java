@@ -2,13 +2,11 @@ package skamila.tetris.block;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import skamila.tetris.TetrisBoardFactory;
-import skamila.tetris.TetrisBoardField;
-import skamila.tetris.TetrisBoardFieldImp;
+import skamila.tetris.board.BoardFactory;
+import skamila.tetris.board.BoardField;
 import skamila.tetris.board.Board;
 import skamila.tetris.block.states.I1;
 import skamila.tetris.block.states.I2;
-import skamila.tetris.block.states.Point;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -19,7 +17,7 @@ class BlockTest {
     @Test
     void oldRotate() {
 
-        Board board = TetrisBoardFactory.create();
+        Board board = BoardFactory.create();
 
         BlockState state1 = mock(BlockState.class);
         BlockState state2 = mock(BlockState.class);
@@ -58,7 +56,7 @@ class BlockTest {
         blockStates[0] = new I1();
         blockStates[1] = new I2();
 
-        Board board = TetrisBoardFactory.create();
+        Board board = BoardFactory.create();
 
         Block I = new BlockImp(blockStates);
         I.countInitialShift(board);
@@ -69,17 +67,17 @@ class BlockTest {
 
         I.rotate(board);
 
-        Point[] points = I.getShiftedActiveState().getPositionValues();
+        StatePoint[] statePoints = I.getShiftedActiveState().getPositionValues();
 
-        assertEquals(3, points[0].getX());
-        assertEquals(4, points[1].getX());
-        assertEquals(5, points[2].getX());
-        assertEquals(6, points[3].getX());
+        assertEquals(3, statePoints[0].getX());
+        assertEquals(4, statePoints[1].getX());
+        assertEquals(5, statePoints[2].getX());
+        assertEquals(6, statePoints[3].getX());
 
-        assertEquals(5, points[0].getY());
-        assertEquals(5, points[1].getY());
-        assertEquals(5, points[2].getY());
-        assertEquals(5, points[3].getY());
+        assertEquals(5, statePoints[0].getY());
+        assertEquals(5, statePoints[1].getY());
+        assertEquals(5, statePoints[2].getY());
+        assertEquals(5, statePoints[3].getY());
     }
 
     @Test
@@ -109,44 +107,44 @@ class BlockTest {
 
         I.rotate(board);
 
-        Point[] points = I.getShiftedActiveState().getPositionValues();
+        StatePoint[] statePoints = I.getShiftedActiveState().getPositionValues();
 
-        assertEquals(0, points[0].getX());
-        assertEquals(0, points[1].getX());
-        assertEquals(0, points[2].getX());
-        assertEquals(0, points[3].getX());
+        assertEquals(0, statePoints[0].getX());
+        assertEquals(0, statePoints[1].getX());
+        assertEquals(0, statePoints[2].getX());
+        assertEquals(0, statePoints[3].getX());
 
-        assertEquals(4, points[0].getY());
-        assertEquals(5, points[1].getY());
-        assertEquals(6, points[2].getY());
-        assertEquals(7, points[3].getY());
+        assertEquals(4, statePoints[0].getY());
+        assertEquals(5, statePoints[1].getY());
+        assertEquals(6, statePoints[2].getY());
+        assertEquals(7, statePoints[3].getY());
     }
 
     @Test
     void moveDown() {
 
-        Board board = TetrisBoardFactory.create();
+        Board board = BoardFactory.create();
         Block O = BlockFactory.O(board);
-        Point[] points;
+        StatePoint[] statePoints;
 
         for (int i = 1; i <= board.getHeight(); i++) {
             O.moveDown(board);
-            points = O.getShiftedActiveState().getPositionValues();
+            statePoints = O.getShiftedActiveState().getPositionValues();
 
-            assertEquals(-2 + i, points[0].getY());
-            assertEquals(-1 + i, points[1].getY());
-            assertEquals(-2 + i, points[2].getY());
-            assertEquals(-1 + i, points[3].getY());
+            assertEquals(-2 + i, statePoints[0].getY());
+            assertEquals(-1 + i, statePoints[1].getY());
+            assertEquals(-2 + i, statePoints[2].getY());
+            assertEquals(-1 + i, statePoints[3].getY());
         }
 
         O.moveDown(board);
         O.moveDown(board);
-        points = O.getShiftedActiveState().getPositionValues();
+        statePoints = O.getShiftedActiveState().getPositionValues();
 
-        assertEquals(18, points[0].getY());
-        assertEquals(19, points[1].getY());
-        assertEquals(18, points[2].getY());
-        assertEquals(19, points[3].getY());
+        assertEquals(18, statePoints[0].getY());
+        assertEquals(19, statePoints[1].getY());
+        assertEquals(18, statePoints[2].getY());
+        assertEquals(19, statePoints[3].getY());
     }
 
     @Test
@@ -156,22 +154,22 @@ class BlockTest {
 
         blockStates[0] = new I2();
 
-        Board board = TetrisBoardFactory.create();
+        Board board = BoardFactory.create();
 
         Block I = new BlockImp(blockStates);
         I.countInitialShift(board);
 
-        Point[] points = I.getShiftedActiveState().getPositionValues();
+        StatePoint[] statePoints = I.getShiftedActiveState().getPositionValues();
 
-        assertEquals(3, points[0].getX());
-        assertEquals(4, points[1].getX());
-        assertEquals(5, points[2].getX());
-        assertEquals(6, points[3].getX());
+        assertEquals(3, statePoints[0].getX());
+        assertEquals(4, statePoints[1].getX());
+        assertEquals(5, statePoints[2].getX());
+        assertEquals(6, statePoints[3].getX());
 
-        assertEquals(-1, points[0].getY());
-        assertEquals(-1, points[1].getY());
-        assertEquals(-1, points[2].getY());
-        assertEquals(-1, points[3].getY());
+        assertEquals(-1, statePoints[0].getY());
+        assertEquals(-1, statePoints[1].getY());
+        assertEquals(-1, statePoints[2].getY());
+        assertEquals(-1, statePoints[3].getY());
 
     }
 
@@ -182,116 +180,116 @@ class BlockTest {
 
         blockStates[0] = new I1();
 
-        Board board = TetrisBoardFactory.create();
+        Board board = BoardFactory.create();
 
         Block I = new BlockImp(blockStates);
         I.countInitialShift(board);
 
-        Point[] points = I.getShiftedActiveState().getPositionValues();
+        StatePoint[] statePoints = I.getShiftedActiveState().getPositionValues();
 
-        assertEquals(4, points[0].getX());
-        assertEquals(4, points[1].getX());
-        assertEquals(4, points[2].getX());
-        assertEquals(4, points[3].getX());
+        assertEquals(4, statePoints[0].getX());
+        assertEquals(4, statePoints[1].getX());
+        assertEquals(4, statePoints[2].getX());
+        assertEquals(4, statePoints[3].getX());
 
-        assertEquals(-4, points[0].getY());
-        assertEquals(-3, points[1].getY());
-        assertEquals(-2, points[2].getY());
-        assertEquals(-1, points[3].getY());
+        assertEquals(-4, statePoints[0].getY());
+        assertEquals(-3, statePoints[1].getY());
+        assertEquals(-2, statePoints[2].getY());
+        assertEquals(-1, statePoints[3].getY());
 
     }
 
     @Test
     void moveLeft() {
 
-        Board board = TetrisBoardFactory.create();
+        Board board = BoardFactory.create();
         Block O = BlockFactory.O(board);
-        Point[] points;
+        StatePoint[] statePoints;
 
         O.moveLeft(board);
-        points = O.getShiftedActiveState().getPositionValues();
+        statePoints = O.getShiftedActiveState().getPositionValues();
 
-        assertEquals(4, points[0].getX());
-        assertEquals(4, points[1].getX());
-        assertEquals(5, points[2].getX());
-        assertEquals(5, points[3].getX());
+        assertEquals(4, statePoints[0].getX());
+        assertEquals(4, statePoints[1].getX());
+        assertEquals(5, statePoints[2].getX());
+        assertEquals(5, statePoints[3].getX());
 
         O.moveDown(board);
         O.moveLeft(board);
-        points = O.getShiftedActiveState().getPositionValues();
+        statePoints = O.getShiftedActiveState().getPositionValues();
 
-        assertEquals(3, points[0].getX());
-        assertEquals(3, points[1].getX());
-        assertEquals(4, points[2].getX());
-        assertEquals(4, points[3].getX());
+        assertEquals(3, statePoints[0].getX());
+        assertEquals(3, statePoints[1].getX());
+        assertEquals(4, statePoints[2].getX());
+        assertEquals(4, statePoints[3].getX());
 
         O.moveDown(board);
 
         for (int i = 1; i < board.getWidth() / 2 - 1; i++) {
             O.moveLeft(board);
-            points = O.getShiftedActiveState().getPositionValues();
+            statePoints = O.getShiftedActiveState().getPositionValues();
 
-            assertEquals(3 - i, points[0].getX());
-            assertEquals(3 - i, points[1].getX());
-            assertEquals(4 - i, points[2].getX());
-            assertEquals(4 - i, points[3].getX());
+            assertEquals(3 - i, statePoints[0].getX());
+            assertEquals(3 - i, statePoints[1].getX());
+            assertEquals(4 - i, statePoints[2].getX());
+            assertEquals(4 - i, statePoints[3].getX());
         }
 
         O.moveLeft(board);
-        points = O.getShiftedActiveState().getPositionValues();
-        assertEquals(0, points[0].getX());
-        assertEquals(0, points[1].getX());
-        assertEquals(1, points[2].getX());
-        assertEquals(1, points[3].getX());
+        statePoints = O.getShiftedActiveState().getPositionValues();
+        assertEquals(0, statePoints[0].getX());
+        assertEquals(0, statePoints[1].getX());
+        assertEquals(1, statePoints[2].getX());
+        assertEquals(1, statePoints[3].getX());
     }
 
     @Test
     void moveRight() {
 
-        Board board = TetrisBoardFactory.create();
+        Board board = BoardFactory.create();
         Block O = BlockFactory.O(board);
-        Point[] points;
+        StatePoint[] statePoints;
 
         O.moveRight(board);
-        points = O.getShiftedActiveState().getPositionValues();
+        statePoints = O.getShiftedActiveState().getPositionValues();
 
-        assertEquals(4, points[0].getX());
-        assertEquals(4, points[1].getX());
-        assertEquals(5, points[2].getX());
-        assertEquals(5, points[3].getX());
+        assertEquals(4, statePoints[0].getX());
+        assertEquals(4, statePoints[1].getX());
+        assertEquals(5, statePoints[2].getX());
+        assertEquals(5, statePoints[3].getX());
 
         O.moveDown(board);
         O.moveRight(board);
-        points = O.getShiftedActiveState().getPositionValues();
+        statePoints = O.getShiftedActiveState().getPositionValues();
 
-        assertEquals(5, points[0].getX());
-        assertEquals(5, points[1].getX());
-        assertEquals(6, points[2].getX());
-        assertEquals(6, points[3].getX());
+        assertEquals(5, statePoints[0].getX());
+        assertEquals(5, statePoints[1].getX());
+        assertEquals(6, statePoints[2].getX());
+        assertEquals(6, statePoints[3].getX());
 
         O.moveDown(board);
 
         for (int i = 1; i < board.getWidth() / 2 - 1; i++) {
             O.moveRight(board);
-            points = O.getShiftedActiveState().getPositionValues();
+            statePoints = O.getShiftedActiveState().getPositionValues();
 
-            assertEquals(5 + i, points[0].getX());
-            assertEquals(5 + i, points[1].getX());
-            assertEquals(6 + i, points[2].getX());
-            assertEquals(6 + i, points[3].getX());
+            assertEquals(5 + i, statePoints[0].getX());
+            assertEquals(5 + i, statePoints[1].getX());
+            assertEquals(6 + i, statePoints[2].getX());
+            assertEquals(6 + i, statePoints[3].getX());
         }
 
         O.moveRight(board);
-        points = O.getShiftedActiveState().getPositionValues();
-        assertEquals(8, points[0].getX());
-        assertEquals(8, points[1].getX());
-        assertEquals(9, points[2].getX());
-        assertEquals(9, points[3].getX());
+        statePoints = O.getShiftedActiveState().getPositionValues();
+        assertEquals(8, statePoints[0].getX());
+        assertEquals(8, statePoints[1].getX());
+        assertEquals(9, statePoints[2].getX());
+        assertEquals(9, statePoints[3].getX());
     }
 
     private Board createBoardForTests() {
 
-        TetrisBoardField[][] fields = {
+        BoardField[][] fields = {
             { e(), e(), e(), e(), e(), e(), e(), e(), e(), e() },
             { e(), e(), e(), e(), e(), e(), e(), e(), e(), e() },
             { e(), e(), e(), e(), e(), e(), e(), e(), e(), e() },
@@ -320,14 +318,14 @@ class BlockTest {
         return board;
     }
 
-    private TetrisBoardField f() {
+    private BoardField f() {
 
-        return new TetrisBoardFieldImp(true);
+        return new BoardField(true);
     }
 
-    private TetrisBoardField e() {
+    private BoardField e() {
 
-        return new TetrisBoardFieldImp(false);
+        return new BoardField(false);
     }
 
 }

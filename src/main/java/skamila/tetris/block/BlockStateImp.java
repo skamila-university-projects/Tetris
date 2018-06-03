@@ -1,19 +1,17 @@
 package skamila.tetris.block;
 
-import skamila.tetris.block.states.Point;
-
 public class BlockStateImp implements BlockState {
 
-    private Point[] points;
+    private StatePoint[] statePoints;
 
-    public BlockStateImp(Point[] points) {
+    public BlockStateImp(StatePoint[] statePoints) {
 
-        this.points = points;
+        this.statePoints = statePoints;
     }
 
     @Override
-    public Point[] getPositionValues() {
+    public StatePoint[] getPositionValues() {
 
-        return points;
+        return statePoints;
     }
 }

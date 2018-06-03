@@ -1,6 +1,10 @@
 package skamila.tetris.board;
 
 import org.junit.jupiter.api.Test;
+import skamila.tetris.board.Board;
+import skamila.tetris.board.BoardField;
+import skamila.tetris.board.OutOfBoardException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class BoardTest {
@@ -8,7 +12,7 @@ class BoardTest {
     @Test
     public void boardWithOneField() {
 
-        BoardField[][] fields = { { new BoardFieldImp(0, 0) } };
+        BoardField[][] fields = { { new BoardField() } };
 
         Board board = new Board(fields);
 
@@ -20,7 +24,7 @@ class BoardTest {
     public void boardWithOneRow() {
 
         BoardField[][] fields = {
-            { new BoardFieldImp(0, 0), new BoardFieldImp(0, 1), new BoardFieldImp(0, 2) }
+            { new BoardField(), new BoardField(), new BoardField() }
         };
 
         Board board = new Board(fields);
@@ -33,9 +37,9 @@ class BoardTest {
     public void boardWithOneColumn() {
 
         BoardField[][] fields = {
-            { new BoardFieldImp(0, 0) },
-            { new BoardFieldImp(1, 0) },
-            { new BoardFieldImp(2, 0) }
+            { new BoardField() },
+            { new BoardField() },
+            { new BoardField() },
         };
 
         Board board = new Board(fields);
@@ -48,9 +52,9 @@ class BoardTest {
     public void boardWithMultiRowColumns() {
 
         BoardField[][] fields = {
-            { new BoardFieldImp(0, 0), new BoardFieldImp(0, 1), new BoardFieldImp(0, 2) },
-            { new BoardFieldImp(1, 0), new BoardFieldImp(1, 1), new BoardFieldImp(1, 2) },
-            { new BoardFieldImp(2, 0), new BoardFieldImp(2, 1), new BoardFieldImp(2, 2) }
+            { new BoardField(), new BoardField(), new BoardField() },
+            { new BoardField(), new BoardField(), new BoardField() },
+            { new BoardField(), new BoardField(), new BoardField() },
         };
 
         Board board = new Board(fields);
@@ -63,32 +67,45 @@ class BoardTest {
     public void outOfBoardException() {
 
         BoardField[][] fields = {
-            { new BoardFieldImp(0, 0), new BoardFieldImp(0, 1), new BoardFieldImp(0, 2) },
-            { new BoardFieldImp(1, 0), new BoardFieldImp(1, 1), new BoardFieldImp(1, 2) },
-            { new BoardFieldImp(2, 0), new BoardFieldImp(2, 1), new BoardFieldImp(2, 2) }
+            { new BoardField(), new BoardField(), new BoardField() },
+            { new BoardField(), new BoardField(), new BoardField() },
+            { new BoardField(), new BoardField(), new BoardField() },
         };
 
         Board board = new Board(fields);
 
-        board.setField(new BoardFieldImp(2, 2));
-        assertThrows(OutOfBoardException.class, () -> board.setField(new BoardFieldImp(3, 2)));
-        assertThrows(OutOfBoardException.class, () -> board.setField(new BoardFieldImp(2, 3)));
-        assertThrows(OutOfBoardException.class, () -> board.setField(new BoardFieldImp(-1, 2)));
-        assertThrows(OutOfBoardException.class, () -> board.setField(new BoardFieldImp(2, -1)));
+        board.setField(new BoardField(), 2, 2);
+        assertThrows(
+            OutOfBoardException.class,
+            () -> board.setField(new BoardField(), 3, 2)
+        );
+        assertThrows(
+            OutOfBoardException.class,
+            () -> board.setField(new BoardField(), 2, 3)
+        );
+        assertThrows(
+            OutOfBoardException.class,
+            () -> board.setField(new BoardField(), -1, 2)
+        );
+        assertThrows(
+            OutOfBoardException.class,
+            () -> board.setField(new BoardField(), 2, -1)
+        );
     }
 
     @Test
     public void getField() {
 
+        BoardField testField = new BoardField();
+
         BoardField[][] fields = {
-            { new BoardFieldImp(0, 0), new BoardFieldImp(0, 1), new BoardFieldImp(0, 2) },
-            { new BoardFieldImp(1, 0), new BoardFieldImp(1, 1), new BoardFieldImp(1, 2) },
-            { new BoardFieldImp(2, 0), new BoardFieldImp(2, 1), new BoardFieldImp(2, 2) }
+            { new BoardField(), new BoardField(), new BoardField() },
+            { new BoardField(), testField, new BoardField() },
+            { new BoardField(), new BoardField(), new BoardField() },
         };
 
         Board board = new Board(fields);
         BoardField field = board.getField(1, 1);
-        assertEquals(1, field.getX());
-        assertEquals(1, field.getY());
+        assertEquals(testField, field);
     }
 }
