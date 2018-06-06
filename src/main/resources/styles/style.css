@@ -1,0 +1,34 @@
+@font-face {
+    src: url("../fonts/CommodorePixelizedv1.2.ttf"),
+}
+
+#main-menu-header {
+    -fx-font-size: 75px;
+}
+
+.pixelized {
+    -fx-font-family: "Commodore 64 Pixelized";
+}
+
+.menu-item {
+    -fx-font-size: 35px;
+    -fx-cursor: hand;
+}
+
+.game-background {
+    -fx-background-color: #0F243E
+}
+
+#game-details {
+    -fx-font-size: 15px;
+}
+
+#game-board {
+    -fx-border-color: #FFFFFF;
+    -fx-border-width: 2px;
+}
+
+#game-actions {
+    -fx-font-size: 15px;
+    -fx-spacing: 125px;
+}

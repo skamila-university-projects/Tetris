@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox id="game" fx:controller="skamila.tetris.controller.GameController" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="450.0" styleClass="game-background" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="225.0">
+         <children>
+            <HBox id="game-details" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" styleClass="pixelized">
+                     <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Wynik:" />
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Poziom:" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" styleClass="pixelized">
+                     <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="1" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <Canvas id="game-next-block" height="100.0" width="100.0" />
+         </children>
+      </HBox>
+      <Canvas id="game-board" height="600.0" width="300.0" />
+      <HBox id="game-actions" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="pixelized">
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Pauza" />
+            <Text fx:id="exit" fill="WHITE" onMouseClicked="#onClickExit" strokeType="OUTSIDE" strokeWidth="0.0" text="Wyjscie" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

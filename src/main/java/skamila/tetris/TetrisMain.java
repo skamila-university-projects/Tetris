@@ -18,7 +18,7 @@ public class TetrisMain extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        Parent root = FXMLLoader.load(getClass().getResource("/view/layout.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/menu.fxml"));
 
         Scene scene = new Scene(root);
 

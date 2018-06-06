@@ -6,14 +6,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox id="main-menu" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="450.0" stylesheets="@../styles/main-menu.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="skamila.tetris.controller.MainMenuController">
+<VBox id="main-menu" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="450.0" styleClass="game-background" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="skamila.tetris.controller.MainMenuController">
    <children>
       <Label id="main-menu-header" styleClass="pixelized" text="Tetris" textFill="WHITE">
          <VBox.margin>
             <Insets top="150.0" />
          </VBox.margin>
       </Label>
-      <Label id="main-menu-start" fx:id="start" onMouseEntered="#onMouseEnterStart" onMouseExited="#onMouseExitStart" text="Start" textFill="WHITE">
+      <Label id="main-menu-start" fx:id="start" onMouseClicked="#onClickStart" onMouseEntered="#onMouseEnterStart" onMouseExited="#onMouseExitStart" text="Start" textFill="WHITE">
          <font>
             <Font size="40.0" />
          </font>
