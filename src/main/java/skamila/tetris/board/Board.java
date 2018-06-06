@@ -40,6 +40,11 @@ public class Board {
         return fields[y][x];
     }
 
+    public BoardField[][] getFields() {
+
+        return fields;
+    }
+
     public boolean isPositionInBoard(int x, int y) {
 
         return (y > height - 1) || (y < 0) || (x > width - 1) || (x < 0);

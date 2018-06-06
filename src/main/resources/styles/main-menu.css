@@ -1,0 +1,20 @@
+@font-face {
+    src: url("../fonts/CommodorePixelizedv1.2.ttf"),
+}
+
+#main-menu {
+    -fx-background-color: #0F243E
+}
+
+#main-menu-header {
+    -fx-font-size: 75px;
+}
+
+.pixelized {
+    -fx-font-family: "Commodore 64 Pixelized"
+}
+
+.menu-item {
+    -fx-font-size: 35px;
+    -fx-cursor: hand;
+}

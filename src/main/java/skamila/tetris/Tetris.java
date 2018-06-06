@@ -4,6 +4,7 @@ import skamila.tetris.block.Block;
 import skamila.tetris.block.BlockFactory;
 import skamila.tetris.block.BlockFactoryLambda;
 import skamila.tetris.board.Board;
+import skamila.tetris.board.BoardField;
 
 import java.util.Random;
 
@@ -49,7 +50,8 @@ public class Tetris {
     private boolean isRowFull(int rowIndex) {
 
         for (int i = 0; i < board.getWidth(); i++) {
-            // if(!board[rowIndex][i].isFull()) return false;
+            if (!board.getField(i, rowIndex).isOccupied())
+                return false;
         }
         return true;
     }
@@ -58,12 +60,12 @@ public class Tetris {
 
         for (int i = rowIndex; i > 0; i--) {
             for (int j = 0; j < board.getWidth(); j++) {
-                // board[i][j] = board[i - 1][j];
+                board.setField(board.getField(j, i - 1), j, i);
             }
         }
 
         for (int j = 0; j < board.getWidth(); j++) {
-            // board[0][j] = new BoardField();
+            board.setField(new BoardField(), j, 0);
         }
 
     }
