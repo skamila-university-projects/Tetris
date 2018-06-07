@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
 <VBox id="settings" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="450.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="skamila.tetris.controller.SettingsController">
    <children>
-      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Ustaw poziom trudnosci:" />
-      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="1" />
-      <Text fx:id="exit" fill="WHITE" onMouseClicked="#onClickExit" strokeType="OUTSIDE" strokeWidth="0.0" text="Powrot" />
+      <Text id="settings-set-difficulty" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Ustaw poziom trudnosci:" />
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Text id="settings-decrease-difficulty" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;&lt;" />
+            <Text id="settings-difficulty" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text=" 1 " />
+            <Text id="settings-increase-difficulty" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="&gt;&gt;" />
+         </children>
+      </HBox>
+      <Text id="settings-exit" fx:id="exit" fill="WHITE" onMouseClicked="#onClickExit" strokeType="OUTSIDE" strokeWidth="0.0" text="Powrot" />
    </children>
    <styleClass>
       <String fx:value="game-background" />

@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox id="confirmation" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="450.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox id="confirmation" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="450.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="skamila.tetris.controller.GameController">
    <children>
       <Text id="confirmation-question" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Czy na pewno chcesz wyjsc?">
          <font>
@@ -18,8 +18,8 @@
          </font></Text>
       <HBox id="confirmation-yes-no" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Text id="confirmation-yes" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Tak" />
-            <Text id="confirmation-no" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Nie" />
+            <Text id="confirmation-yes" fx:id="yes" fill="WHITE" onMouseClicked="#onClickConfirmExit" strokeType="OUTSIDE" strokeWidth="0.0" text="Tak" />
+            <Text id="confirmation-no" fx:id="no" fill="WHITE" onMouseClicked="#onClickCancelExit" strokeType="OUTSIDE" strokeWidth="0.0" text="Nie" />
          </children>
       </HBox>
    </children>

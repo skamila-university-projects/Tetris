@@ -66,3 +66,13 @@
     -fx-font-size: 15px;
     -fx-spacing: 10px;
 }
+
+#leaderboard-title, #leaderboard-exit, #settings-set-difficulty, #settings-exit{
+     -fx-font-size: 20px;
+     -fx-spacing: 10px;
+ }
+
+#settings-decrease-difficulty, #settings-increase-difficulty, #settings-difficulty{
+     -fx-font-size: 25px;
+     -fx-spacing: 10px;
+ }

@@ -10,19 +10,12 @@ public class Leaderboard {
         names = new String[10];
         scores = new int[10];
 
-        for (int s : scores) {
-            s = 0;
-        }
     }
 
     public Leaderboard(int leaderboardLength){
 
         names = new String[leaderboardLength];
         scores = new int[leaderboardLength];
-
-        for(int s : scores){
-            s = 0;
-        }
 
     }
 
