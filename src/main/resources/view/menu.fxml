@@ -25,7 +25,7 @@
             <String fx:value="menu-item" />
          </styleClass>
       </Label>
-      <Label id="main-menu-settings" fx:id="settings" layoutX="188.0" layoutY="68.0" onMouseEntered="#onMouseEnterSettings" onMouseExited="#onMouseExitSettings" text="Ustawienia" textFill="WHITE">
+      <Label id="main-menu-settings" fx:id="settings" layoutX="188.0" layoutY="68.0" onMouseClicked="#onClickSettings" onMouseEntered="#onMouseEnterSettings" onMouseExited="#onMouseExitSettings" text="Ustawienia" textFill="WHITE">
          <VBox.margin>
             <Insets />
          </VBox.margin>
@@ -34,7 +34,7 @@
             <String fx:value="menu-item" />
          </styleClass>
       </Label>
-      <Label id="main-menu-scores" fx:id="scores" layoutX="188.0" layoutY="126.0" onMouseEntered="#onMouseEnterScores" onMouseExited="#onMouseExitScores" text="Wyniki" textFill="WHITE">
+      <Label id="main-menu-scores" fx:id="scores" layoutX="188.0" layoutY="126.0" onMouseClicked="#onClickLeaderboards" onMouseEntered="#onMouseEnterScores" onMouseExited="#onMouseExitScores" text="Wyniki" textFill="WHITE">
          <VBox.margin>
             <Insets />
          </VBox.margin>

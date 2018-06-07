@@ -45,6 +45,28 @@ public class MainMenuController {
     }
 
     @FXML
+    public void onClickLeaderboards() throws IOException {
+
+        Stage stage = (Stage) exit.getScene().getWindow();
+
+        Parent root = FXMLLoader.load(getClass().getResource("/view/leaderboard.fxml"));
+        Scene scene = new Scene(root);
+
+        stage.setScene(scene);
+    }
+
+    @FXML
+    public void onClickSettings() throws IOException {
+
+        Stage stage = (Stage) exit.getScene().getWindow();
+
+        Parent root = FXMLLoader.load(getClass().getResource("/view/settings.fxml"));
+        Scene scene = new Scene(root);
+
+        stage.setScene(scene);
+    }
+
+    @FXML
     public void onMouseEnterStart() {
 
         currentLabel = start.getText();

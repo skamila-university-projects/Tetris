@@ -9,12 +9,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class GameController {
+public class SettingsController {
 
     @FXML
     private Text exit;
-    @FXML
-    private Text pause;
 
     public void onClickExit() throws IOException {
 

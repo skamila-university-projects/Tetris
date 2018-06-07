@@ -32,3 +32,37 @@
     -fx-font-size: 15px;
     -fx-spacing: 125px;
 }
+
+#confirmation-question {
+    -fx-font-size: 20px;
+    -fx-spacing: 125px;
+}
+
+#confirmation-information-about-result {
+    -fx-font-size: 10px;
+    -fx-spacing: 125px;
+}
+
+#confirmation-yes-no {
+    -fx-font-size: 20px;
+    -fx-spacing: 125px;
+}
+
+#confirmation {
+    -fx-spacing: 10px;
+}
+
+#congratulations-congratulations{
+    -fx-font-size: 30px;
+    -fx-spacing: 20px;
+}
+
+#congratulations-name-request{
+    -fx-font-size: 15px;
+    -fx-spacing: 10px;
+}
+
+#congratulations-result{
+    -fx-font-size: 15px;
+    -fx-spacing: 10px;
+}

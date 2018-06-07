@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox id="confirmation" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="450.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text id="confirmation-question" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Czy na pewno chcesz wyjsc?">
+         <font>
+            <Font name="Commodore 64 Pixelized" size="18.0" />
+         </font></Text>
+      <Text id="confirmation-information-about-result" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="(twój wynik nie zostanie zapisany)">
+         <font>
+            <Font name="Commodore 64 Pixelized" size="10.0" />
+         </font></Text>
+      <HBox id="confirmation-yes-no" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Text id="confirmation-yes" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Tak" />
+            <Text id="confirmation-no" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Nie" />
+         </children>
+      </HBox>
+   </children>
+   <styleClass>
+      <String fx:value="game-background" />
+      <String fx:value="pixelized" />
+   </styleClass>
+</VBox>

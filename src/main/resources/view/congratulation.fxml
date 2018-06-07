@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+
+<VBox id="congratulation" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="450.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text id="congratulations-congratulations" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Gratulacje!" />
+      <Text id="congratulations-result" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Zajales X miejsce." />
+      <Text id="congratulations-name-request" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Wpisz swoje imie:" />
+   </children>
+   <styleClass>
+      <String fx:value="pixelized" />
+      <String fx:value="game-background" />
+   </styleClass>
+</VBox>

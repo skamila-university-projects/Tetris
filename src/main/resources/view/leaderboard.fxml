@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="450.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="skamila.tetris.controller.LeaderboardController">
+   <children>
+      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Najlepsze wyniki" />
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="1." />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="2." />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="3." />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="4." />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="5." />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="6." />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="7." />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="8." />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="9." />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="10." />
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="............................" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="............................" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="............................" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="............................" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="............................" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="............................" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="............................" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="............................" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="............................" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="............................" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <Text id="leadboard-exit" fx:id="exit" fill="WHITE" onMouseClicked="#onClickExit" strokeType="OUTSIDE" strokeWidth="0.0" text="Powrot" />
+   </children>
+   <styleClass>
+      <String fx:value="game-background" />
+      <String fx:value="pixelized" />
+   </styleClass>
+</VBox>
