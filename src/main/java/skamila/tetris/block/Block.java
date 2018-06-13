@@ -19,4 +19,6 @@ public interface Block {
     void countInitialShift(Board board);
 
     BlockState getShiftedActiveState();
+
+    String getColor();
 }

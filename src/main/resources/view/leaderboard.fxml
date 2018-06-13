@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="450.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="skamila.tetris.controller.LeaderboardController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="710.0" prefWidth="450.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="skamila.tetris.controller.LeaderboardController">
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
          <children>
@@ -35,15 +35,15 @@
         </rowConstraints>
          <children>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="1." GridPane.halignment="CENTER" />
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="2." GridPane.rowIndex="1" GridPane.halignment="CENTER" />
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="3." GridPane.rowIndex="2" GridPane.halignment="CENTER" />
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="4." GridPane.rowIndex="3" GridPane.halignment="CENTER" />
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="5." GridPane.rowIndex="4" GridPane.halignment="CENTER" />
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="7." GridPane.rowIndex="6" GridPane.halignment="CENTER" />
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="6." GridPane.rowIndex="5" GridPane.halignment="CENTER" />
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="8." GridPane.rowIndex="7" GridPane.halignment="CENTER" />
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="9." GridPane.rowIndex="8" GridPane.halignment="CENTER" />
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="10." GridPane.rowIndex="9" GridPane.halignment="CENTER" />
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="2." GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="3." GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="4." GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="5." GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="7." GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="6." GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="8." GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="9." GridPane.halignment="CENTER" GridPane.rowIndex="8" />
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="10." GridPane.halignment="CENTER" GridPane.rowIndex="9" />
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="............................" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="............................" GridPane.columnIndex="1" />
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="............................" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -58,7 +58,7 @@
       </GridPane>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
          <children>
-            <Text id="leaderboard-exit" fx:id="exit" fill="WHITE" onMouseClicked="#onClickExit" strokeType="OUTSIDE" strokeWidth="0.0" text="Powrot" />
+            <Text id="leaderboard-exit" fx:id="exit" fill="WHITE" onMouseClicked="#onClickExit" onMouseEntered="#onMouseEnter" onMouseExited="#onMouseExit" strokeType="OUTSIDE" strokeWidth="0.0" text="Powrot" />
          </children>
       </VBox>
    </children>

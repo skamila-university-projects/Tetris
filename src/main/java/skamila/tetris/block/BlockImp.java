@@ -14,6 +14,8 @@ public class BlockImp implements Block {
 
     private int shiftHorizontal;
 
+    private String color = "#709255";
+
     public BlockImp(BlockState[] states) {
 
         this.states = states;
@@ -309,4 +311,8 @@ public class BlockImp implements Block {
         return height;
     }
 
+    public String getColor() {
+
+        return color;
+    }
 }

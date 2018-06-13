@@ -5,6 +5,7 @@ import skamila.tetris.board.Board;
 import skamila.tetris.board.BoardField;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 class TetrisTest {
 
@@ -30,7 +31,7 @@ class TetrisTest {
         };
 
         Board board = new Board(inputFields);
-        Tetris tetris = new Tetris(board);
+        Tetris tetris = new Tetris(board, mock(TetrisGameLoop.class));
         tetris.cleanBoard();
         BoardField[][] actualFields = board.getFields();
 
@@ -61,7 +62,7 @@ class TetrisTest {
         };
 
         Board board = new Board(inputFields);
-        Tetris tetris = new Tetris(board);
+        Tetris tetris = new Tetris(board, mock(TetrisGameLoop.class));
         tetris.cleanBoard();
         BoardField[][] actualFields = board.getFields();
 
@@ -92,7 +93,7 @@ class TetrisTest {
         };
 
         Board board = new Board(inputFields);
-        Tetris tetris = new Tetris(board);
+        Tetris tetris = new Tetris(board, mock(TetrisGameLoop.class));
         tetris.cleanBoard();
         BoardField[][] actualFields = board.getFields();
 

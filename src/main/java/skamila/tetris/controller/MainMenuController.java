@@ -1,15 +1,26 @@
 package skamila.tetris.controller;
 
+import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import skamila.tetris.Tetris;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class MainMenuController {
+public class MainMenuController implements Initializable {
 
     @FXML
     private Label start;
@@ -23,29 +34,77 @@ public class MainMenuController {
     @FXML
     private Label exit;
 
+    @FXML
+    private VBox mainMenuContainer;
+
     private String currentLabel;
 
-    @FXML
-    public void onClickExit() {
+    private Label activeMenuItem;
 
-        Stage stage = (Stage) exit.getScene().getWindow();
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
 
-        stage.close();
+        currentLabel = start.getText();
+        start.setText("> " + currentLabel + " <");
+
+        activeMenuItem = start;
     }
 
-    @FXML
-    public void onClickStart() throws IOException {
+    public void onMouseEnterMenuItem(Event event) {
+
+        setActiveLabel((Label) event.getSource());
+    }
+
+    public void onKeyPress(KeyEvent event) throws IOException {
+
+        KeyCode keyCode = event.getCode();
+        VBox menuContainer = (VBox) event.getSource();
+
+        VBox menuItemsContainer = (VBox) menuContainer.lookup("#menuItems");
+
+        ObservableList<Node> menuItems = menuItemsContainer.getChildren();
+
+        if (keyCode == KeyCode.DOWN) {
+            int activeItemIndex = menuItems.indexOf(activeMenuItem) + 1;
+            if (activeItemIndex > 3) {
+                activeItemIndex = 0;
+            }
+
+            setActiveLabel((Label) menuItems.get(activeItemIndex));
+        }
+
+        if (keyCode == KeyCode.UP) {
+            int activeItemIndex = menuItems.indexOf(activeMenuItem) - 1;
+            if (activeItemIndex < 0) {
+                activeItemIndex = 3;
+            }
+
+            setActiveLabel((Label) menuItems.get(activeItemIndex));
+        }
+
+        if (keyCode == KeyCode.ENTER) {
+            activeMenuItem.fireEvent(new Event(MouseEvent.MOUSE_CLICKED));
+        }
+    }
+
+    public void onClickLabelStart() throws IOException {
 
         Stage stage = (Stage) exit.getScene().getWindow();
 
-        Parent root = FXMLLoader.load(getClass().getResource("/view/game.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/game.fxml"));
+        loader.setControllerFactory(param -> new GameController(Tetris.create()));
+
+        Parent root = loader.load();
+
         Scene scene = new Scene(root);
 
         stage.setScene(scene);
+        stage.show();
+
+        root.lookup("#game").requestFocus();
     }
 
-    @FXML
-    public void onClickLeaderboards() throws IOException {
+    public void onClickLabelLeaderboards() throws IOException {
 
         Stage stage = (Stage) exit.getScene().getWindow();
 
@@ -55,8 +114,7 @@ public class MainMenuController {
         stage.setScene(scene);
     }
 
-    @FXML
-    public void onClickSettings() throws IOException {
+    public void onClickLabelSettings() throws IOException {
 
         Stage stage = (Stage) exit.getScene().getWindow();
 
@@ -66,55 +124,20 @@ public class MainMenuController {
         stage.setScene(scene);
     }
 
-    @FXML
-    public void onMouseEnterStart() {
+    public void onClickLabelExit() {
 
-        currentLabel = start.getText();
-        start.setText("> " + currentLabel + " <");
+        Stage stage = (Stage) exit.getScene().getWindow();
+
+        stage.close();
     }
 
-    @FXML
-    public void onMouseExitStart() {
+    private void setActiveLabel(Label newLabel) {
 
-        start.setText(currentLabel);
-    }
+        activeMenuItem.setText(currentLabel);
 
-    @FXML
-    public void onMouseEnterSettings() {
+        currentLabel = newLabel.getText();
+        newLabel.setText("> " + currentLabel + " <");
 
-        currentLabel = settings.getText();
-        settings.setText("> " + currentLabel + " <");
-    }
-
-    @FXML
-    public void onMouseExitSettings() {
-
-        settings.setText(currentLabel);
-    }
-
-    @FXML
-    public void onMouseEnterScores() {
-
-        currentLabel = scores.getText();
-        scores.setText("> " + currentLabel + " <");
-    }
-
-    @FXML
-    public void onMouseExitScores() {
-
-        scores.setText(currentLabel);
-    }
-
-    @FXML
-    public void onMouseEnterExit() {
-
-        currentLabel = exit.getText();
-        exit.setText("> " + currentLabel + " <");
-    }
-
-    @FXML
-    public void onMouseExitExit() {
-
-        exit.setText(currentLabel);
+        activeMenuItem = newLabel;
     }
 }

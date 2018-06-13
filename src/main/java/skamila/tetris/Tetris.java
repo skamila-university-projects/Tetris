@@ -1,14 +1,19 @@
 package skamila.tetris;
 
-import skamila.tetris.block.Block;
-import skamila.tetris.block.BlockFactory;
-import skamila.tetris.block.BlockFactoryLambda;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import skamila.tetris.block.*;
 import skamila.tetris.board.Board;
+import skamila.tetris.board.BoardFactory;
 import skamila.tetris.board.BoardField;
+import skamila.tetris.render.Renderer;
+import skamila.tetris.render.RoundCornerBoardRenderer;
+import skamila.tetris.render.RoundCornerNextBlockRenderer;
 
 import java.util.Random;
 
-public class Tetris {
+public class Tetris implements Runnable {
 
     private Board board;
 
@@ -16,19 +21,33 @@ public class Tetris {
 
     BlockFactoryLambda[] blocks;
 
-    public Tetris(Board board) {
+    private Canvas canvasGame;
+
+    private static Tetris tetris;
+
+    private int updatesPerFrame;
+
+    private Canvas nextBlockCanvas;
+
+    boolean isPaused = false;
+
+    boolean isRunning = false;
+
+    TetrisGameLoop gameLoop;
+
+    public Tetris(Board board, TetrisGameLoop gameLoop) {
 
         this.board = board;
+        this.gameLoop = gameLoop;
         blocks = new BlockFactoryLambda[2];
         blocks[0] = () -> BlockFactory.O(board);
         blocks[1] = () -> BlockFactory.I(board);
         nextBlock = getRandomBlock();
     }
 
-    public void singleCycle() {
+    public void run() {
 
-        currentBlock = nextBlock;
-        nextBlock = getRandomBlock();
+        gameLoop.run(this, canvasGame, nextBlockCanvas);
     }
 
     private Block getRandomBlock() {
@@ -70,4 +89,45 @@ public class Tetris {
 
     }
 
+    public static Tetris create() {
+
+        if (tetris == null) {
+
+            Renderer[] renderers = {
+                new RoundCornerBoardRenderer(),
+                new RoundCornerNextBlockRenderer()
+            };
+
+            Board board = BoardFactory.create();
+            tetris = new Tetris(board, new TetrisGameLoop(renderers));
+        }
+
+        return tetris;
+    }
+
+    public void setGameCanvas(Canvas canvasGame) {
+
+        this.canvasGame = canvasGame;
+    }
+
+    public void setNextBlockCanvas(Canvas nextBlockCanvas) {
+
+        this.nextBlockCanvas = nextBlockCanvas;
+    }
+
+    public Block getNextBlock() {
+
+        return nextBlock;
+    }
+
+    public void setRandomBlock() {
+
+        currentBlock = nextBlock;
+        nextBlock = getRandomBlock();
+    }
+
+    public TetrisGameLoop getGameLoop() {
+
+        return gameLoop;
+    }
 }

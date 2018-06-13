@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox id="main-menu" fx:id="mainMenuContainer" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#onKeyPress" prefHeight="750.0" prefWidth="450.0" styleClass="game-background" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="skamila.tetris.controller.MainMenuController">
+   <children>
+      <VBox fx:id="menuHeader" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <Label id="main-menu-header" styleClass="pixelized" text="Tetris" textFill="WHITE">
+               <VBox.margin>
+                  <Insets top="150.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+      <VBox fx:id="menuItems" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <Label id="main-menu-start" fx:id="start" onMouseClicked="#onClickLabelStart" onMouseEntered="#onMouseEnterMenuItem" text="Start" textFill="WHITE">
+               <font>
+                  <Font size="40.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="100.0" />
+               </VBox.margin>
+               <styleClass>
+                  <String fx:value="pixelized" />
+                  <String fx:value="menu-item" />
+               </styleClass>
+            </Label>
+            <Label id="main-menu-settings" fx:id="settings" onMouseClicked="#onClickLabelSettings" onMouseEntered="#onMouseEnterMenuItem" text="Ustawienia" textFill="WHITE">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <styleClass>
+                  <String fx:value="pixelized" />
+                  <String fx:value="menu-item" />
+               </styleClass>
+            </Label>
+            <Label id="main-menu-scores" fx:id="scores" onMouseClicked="#onClickLabelLeaderboards" onMouseEntered="#onMouseEnterMenuItem" text="Wyniki" textFill="WHITE">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <styleClass>
+                  <String fx:value="pixelized" />
+                  <String fx:value="menu-item" />
+               </styleClass>
+            </Label>
+            <Label id="main-menu-exit" fx:id="exit" onMouseClicked="#onClickLabelExit" onMouseEntered="#onMouseEnterMenuItem" text="Wyjscie" textFill="WHITE">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <styleClass>
+                  <String fx:value="pixelized" />
+                  <String fx:value="menu-item" />
+               </styleClass>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+</VBox>
