@@ -1,5 +1,9 @@
 package skamila.tetris.board;
 
+import skamila.tetris.block.Block;
+import skamila.tetris.block.BlockState;
+import skamila.tetris.block.StatePoint;
+
 public class Board {
 
     private int height, width;
@@ -48,5 +52,18 @@ public class Board {
     public boolean isPositionInBoard(int x, int y) {
 
         return (y > height - 1) || (y < 0) || (x > width - 1) || (x < 0);
+    }
+
+    public void mergeBlock(Block block) {
+
+        BlockState state = block.getShiftedActiveState();
+        StatePoint[] positions = state.getPositionValues();
+
+        for (StatePoint p : positions) {
+            if (p.getY() < 0)
+                continue;
+            setField(new BoardField(block.getColor()), p.getX(), p.getY());
+        }
+
     }
 }

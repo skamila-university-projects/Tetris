@@ -27,7 +27,6 @@ public class Leaderboard {
         load();
     }
 
-
     public Leaderboard(String filePath, int leaderboardLength) throws IllegalArgumentException {
 
         this.names = new String[leaderboardLength];
@@ -38,7 +37,7 @@ public class Leaderboard {
 
     public void addNewScore(String name, int score) {
 
-        if(isTheBestScore(score)){
+        if (isTheBestScore(score)) {
 
             int position = positionOnLeaderboard(score);
 
@@ -51,7 +50,8 @@ public class Leaderboard {
 
     }
 
-    public void clean(){
+    public void clean() {
+
         this.names = new String[names.length];
         this.scores = new int[scores.length];
     }
@@ -70,7 +70,7 @@ public class Leaderboard {
     int positionOnLeaderboard(int score) throws IllegalArgumentException {
 
         for (int i = 0; i < scores.length; i++) {
-            if (score > scores[i]){
+            if (score > scores[i]) {
                 return i;
             }
         }
@@ -87,13 +87,13 @@ public class Leaderboard {
         return scores[position];
     }
 
-    private void load(){
+    private void load() {
 
         Path path = Paths.get(filePath);
         BufferedReader reader = null;
 
-        try{
-            if (Files.notExists(path)){
+        try {
+            if (Files.notExists(path)) {
                 Files.newOutputStream(path, CREATE, APPEND);
                 return;
             }
@@ -104,8 +104,8 @@ public class Leaderboard {
             String[] tmpEntry;
             String currentLine;
 
-            while((currentLine = reader.readLine()) != null && i < names.length){
-                tmpEntry= getEntry(currentLine);
+            while ((currentLine = reader.readLine()) != null && i < names.length) {
+                tmpEntry = getEntry(currentLine);
                 names[i] = tmpEntry[0];
                 scores[i] = Integer.parseInt(tmpEntry[1]);
                 i++;
@@ -113,8 +113,9 @@ public class Leaderboard {
 
             reader.close();
 
-        } catch (IOException e){
-            //error przydalby sie
+        }
+        catch (IOException e) {
+            // error przydalby sie
             System.out.println("Błąd z zapisami!");
         }
 
@@ -140,13 +141,15 @@ public class Leaderboard {
 
     }
 
-    void print(){
+    void print() {
+
         for (int i = 0; i < names.length; i++) {
             System.out.println(names[i] + "   " + scores[i]);
         }
     }
 
-    private String[] getEntry(String line){
+    private String[] getEntry(String line) {
+
         return line.split("\\|");
     }
 
@@ -155,13 +158,14 @@ public class Leaderboard {
         File file = new File(filePath);
         PrintWriter write = null;
 
-        try{
+        try {
             write = new PrintWriter(filePath);
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
             System.out.println("Nie można zaktualizować listy wyników");
         }
 
-        for (int i = 0; i < names.length; i++){
+        for (int i = 0; i < names.length; i++) {
             write.print(names[i] + "|" + scores[i] + "\n");
         }
 

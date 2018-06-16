@@ -4,21 +4,27 @@ public class BoardField {
 
     private boolean isFull;
 
-    private int color;
+    private String color;
 
     public BoardField() {
 
-        color = 0;
+        color = "#303447";
         isFull = false;
     }
 
     public BoardField(boolean isFull) {
 
-        this.color = 0;
+        this.color = "#303447";
         this.isFull = isFull;
     }
 
-    public BoardField(boolean isFull, int color) {
+    public BoardField(String color) {
+
+        this.color = color;
+        this.isFull = true;
+    }
+
+    public BoardField(boolean isFull, String color) {
 
         this.color = color;
         this.isFull = isFull;
@@ -37,5 +43,10 @@ public class BoardField {
     public boolean isOccupied() {
 
         return isFull;
+    }
+
+    public String getColor() {
+
+        return color;
     }
 }

@@ -33,7 +33,17 @@ public class Tetris implements Runnable {
 
     boolean isRunning = false;
 
+    int level = 1;
+
     TetrisGameLoop gameLoop;
+
+    private Thread thread;
+
+    private boolean isBlockOnBoard;
+
+    private long currentTime;
+
+    private int blockCounter;
 
     public Tetris(Board board, TetrisGameLoop gameLoop) {
 
@@ -64,29 +74,6 @@ public class Tetris implements Runnable {
             if (isRowFull(i))
                 deleteRow(i);
         }
-    }
-
-    private boolean isRowFull(int rowIndex) {
-
-        for (int i = 0; i < board.getWidth(); i++) {
-            if (!board.getField(i, rowIndex).isOccupied())
-                return false;
-        }
-        return true;
-    }
-
-    private void deleteRow(int rowIndex) {
-
-        for (int i = rowIndex; i > 0; i--) {
-            for (int j = 0; j < board.getWidth(); j++) {
-                board.setField(board.getField(j, i - 1), j, i);
-            }
-        }
-
-        for (int j = 0; j < board.getWidth(); j++) {
-            board.setField(new BoardField(), j, 0);
-        }
-
     }
 
     public static Tetris create() {
@@ -124,10 +111,85 @@ public class Tetris implements Runnable {
 
         currentBlock = nextBlock;
         nextBlock = getRandomBlock();
+        currentBlock.countInitialShift(board);
+        isBlockOnBoard = true;
     }
 
     public TetrisGameLoop getGameLoop() {
 
         return gameLoop;
+    }
+
+    public void setThread(Thread thread) {
+
+        this.thread = thread;
+    }
+
+    public Thread getThread() {
+
+        return thread;
+    }
+
+    public void singleCycle() {
+
+        long cycleStartTime = System.nanoTime() / 10000000;
+        System.out.println((cycleStartTime - currentTime) / 100 >= 1);
+        if ((cycleStartTime - currentTime) / 100 >= 1) {
+            currentBlock.moveDown(board);
+            currentTime = System.nanoTime() / 10000000;
+            if (currentBlock.isMergable(board)) {
+                board.mergeBlock(currentBlock);
+                cleanBoard();
+                isBlockOnBoard = false;
+                blockCounter++;
+                if (blockCounter >= 10) {
+                    level++;
+                    blockCounter = 0;
+                }
+            }
+        }
+    }
+
+    private boolean isRowFull(int rowIndex) {
+
+        for (int i = 0; i < board.getWidth(); i++) {
+            if (!board.getField(i, rowIndex).isOccupied())
+                return false;
+        }
+        return true;
+    }
+
+    private void deleteRow(int rowIndex) {
+
+        for (int i = rowIndex; i > 0; i--) {
+            for (int j = 0; j < board.getWidth(); j++) {
+                board.setField(board.getField(j, i - 1), j, i);
+            }
+        }
+
+        for (int j = 0; j < board.getWidth(); j++) {
+            board.setField(new BoardField(), j, 0);
+        }
+
+    }
+
+    public boolean isBockOnBoard() {
+
+        return isBlockOnBoard;
+    }
+
+    public void saveCurrentTime() {
+
+        currentTime = System.nanoTime() / 10000000;
+    }
+
+    public Board getBoard() {
+
+        return board;
+    }
+
+    public Block getCurrentBlock() {
+
+        return currentBlock;
     }
 }

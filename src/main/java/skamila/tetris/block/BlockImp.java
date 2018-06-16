@@ -152,7 +152,24 @@ public class BlockImp implements Block {
 
         shiftVertical++;
 
-        // zatapianie. tu czy nie tu?
+    }
+
+    public boolean isMergable(Board board) {
+
+        StatePoint[] statePoints = states[activeStateIndex].getPositionValues();
+
+        for (int i = 0; i < statePoints.length; i++) {
+
+            if (statePoints[i].getY() + shiftVertical <= -2)
+                continue;
+
+            if (statePoints[i].getY() + shiftVertical + 1 >= board.getHeight())
+                return true;
+
+            if (isUnderOccupied(board, statePoints[i]))
+                return true;
+        }
+        return false;
     }
 
     private boolean isBlockVisible() {

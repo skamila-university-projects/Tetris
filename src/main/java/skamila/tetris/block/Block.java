@@ -18,6 +18,8 @@ public interface Block {
 
     void countInitialShift(Board board);
 
+    boolean isMergable(Board board);
+
     BlockState getShiftedActiveState();
 
     String getColor();

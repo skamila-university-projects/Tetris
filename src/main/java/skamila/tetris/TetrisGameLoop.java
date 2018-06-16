@@ -13,6 +13,8 @@ public class TetrisGameLoop {
 
     private boolean isPaused = false;
 
+    private Tetris tetris;
+
     public TetrisGameLoop(Renderer[] renderers) {
 
         this.renderers = renderers;
@@ -20,8 +22,9 @@ public class TetrisGameLoop {
 
     public void run(Tetris tetris, Canvas canvasGame, Canvas nextBlockCanvas) {
 
+        this.tetris = tetris;
         long startOfFrameTime = System.nanoTime(); // aktualny czas
-        double UPDATE_SPEED = 1000000000.0 / 60.0; // czas co jaki update ma być wywoływany (60
+        double UPDATE_SPEED = 1000000000.0 / 30.0; // czas co jaki update ma być wywoływany (30
         // updates per second)
         long updateTime = 0; // czas realizacji update
         long endOfFrameTime = 0; // czas w którym zakończyła się realizacja jednej ramki
@@ -31,7 +34,21 @@ public class TetrisGameLoop {
         long frames = 0;
         double fps = 0.0;
 
-        while (isRunning && !isPaused) {
+        while (isRunning) {
+            if (isPaused) {
+                try {
+                    System.out.println("Sleep");
+                    Thread.sleep(Long.MAX_VALUE);
+                }
+                catch (InterruptedException e) {
+
+                }
+            }
+            if (!isRunning) {
+                System.out.println("isRunning " + isRunning);
+                return;
+            }
+
             updatesPerFrame = 0;
             endOfFrameTime = System.nanoTime(); // tu jest pobierany czas zakończenia ramki
             updateTime = endOfFrameTime - startOfFrameTime; // tutaj wyliczany jest czas trwania
@@ -64,11 +81,18 @@ public class TetrisGameLoop {
 
             frames++; // zliczamy ramki dla obliczenia fps
         }
+
+        System.out.println("exited");
     }
 
     private void update(Tetris tetris, double update_speed) {
 
-        tetris.setRandomBlock();
+        if (!tetris.isBockOnBoard()) {
+            System.out.println("NeedBlock");
+            tetris.setRandomBlock();
+            tetris.saveCurrentTime();
+        }
+        tetris.singleCycle();
 
         updatesPerFrame++;
     }
@@ -81,26 +105,36 @@ public class TetrisGameLoop {
 
     public void start() {
 
+        System.out.println("Start");
         isRunning = true;
     }
 
     public void stop() {
 
+        System.out.println("Stop");
         isRunning = false;
     }
 
     public void pause() {
 
+        System.out.println("Pause");
         isPaused = true;
     }
 
     public void unpouse() {
 
+        System.out.println("unpause");
         isPaused = false;
+        tetris.getThread().interrupt();
     }
 
     public boolean isPaused() {
 
         return isPaused;
+    }
+
+    public boolean isRunning() {
+
+        return isRunning;
     }
 }

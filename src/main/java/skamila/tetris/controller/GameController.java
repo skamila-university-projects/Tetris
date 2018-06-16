@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import skamila.tetris.Tetris;
@@ -19,7 +20,13 @@ import java.util.ResourceBundle;
 public class GameController implements Initializable {
 
     @FXML
+    private VBox game;
+
+    @FXML
     private Text exit;
+
+    @FXML
+    private VBox confirmation;
 
     @FXML
     private Text pause;
@@ -42,16 +49,23 @@ public class GameController implements Initializable {
 
     public GameController(Tetris tetris) {
 
+        System.out.println("Instance");
         this.tetris = tetris;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        if (confirmation != null)
+            return;
+
+        System.out.println("Initialize");
         tetris.setGameCanvas(canvasGame);
         tetris.setNextBlockCanvas(canvasNextBlock);
         tetris.getGameLoop().start();
+
         thread = new Thread(tetris);
+        tetris.setThread(thread);
         thread.start();
     }
 
@@ -62,8 +76,6 @@ public class GameController implements Initializable {
         } else {
             tetris.getGameLoop().pause();
         }
-
-        System.out.println("Is poused: " + tetris.getGameLoop().isPaused());
     }
 
     public void onClickExit() throws IOException {
@@ -73,19 +85,17 @@ public class GameController implements Initializable {
         Stage stage = (Stage) exit.getScene().getWindow();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/confirmation.fxml"));
-        loader.setControllerFactory(param -> new GameController(Tetris.create()));
+        loader.setController(this);
 
-        Parent root = loader.load();
-
-        Scene scene = new Scene(root);
-
-        stage.setScene(scene);
-        root.lookup("#confirmation").requestFocus();
+        Scene confirmationScene = new Scene(loader.load());
+        stage.setScene(confirmationScene);
     }
 
     public void onClickConfirmExit() throws IOException {
 
         tetris.getGameLoop().stop();
+        tetris.getGameLoop().unpouse();
+        tetris.getThread().interrupt();
 
         Stage stage = (Stage) yes.getScene().getWindow();
 
@@ -98,19 +108,11 @@ public class GameController implements Initializable {
 
     public void onClickCancelExit() throws IOException {
 
+        Stage stage = (Stage) confirmation.getScene().getWindow();
+
+        stage.setScene(game.getScene());
+
         tetris.getGameLoop().unpouse();
-
-        Stage stage = (Stage) no.getScene().getWindow();
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/game.fxml"));
-        loader.setControllerFactory(param -> new GameController(Tetris.create()));
-
-        Parent root = loader.load();
-
-        Scene scene = new Scene(root);
-
-        stage.setScene(scene);
-        root.lookup("#game").requestFocus();
     }
 
     public void onKeyPress(KeyEvent event) throws IOException {

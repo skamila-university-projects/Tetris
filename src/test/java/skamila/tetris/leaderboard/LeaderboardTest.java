@@ -29,10 +29,9 @@ class LeaderboardTest {
         assertEquals(leaderboard.getScore(4), 1000);
     }
 
-
-
     @Test
     void isTheBestScore() {
+
         Leaderboard leaderboard = new Leaderboard("test-files/leaderboardABC.txt");
         assertEquals(true, leaderboard.isTheBestScore(200));
         assertEquals(true, leaderboard.isTheBestScore(100));
@@ -43,6 +42,7 @@ class LeaderboardTest {
 
     @Test
     void positionOnLeaderboard() throws IllegalArgumentException {
+
         Leaderboard leaderboard = new Leaderboard("test-files/leaderboardABC.txt");
         assertEquals(0, leaderboard.positionOnLeaderboard(200));
         assertEquals(1, leaderboard.positionOnLeaderboard(100));
@@ -52,6 +52,7 @@ class LeaderboardTest {
 
     @Test
     void moveResults1() throws IllegalArgumentException {
+
         Leaderboard leaderboard = new Leaderboard("test-files/leaderboardABC.txt");
         leaderboard.moveResults(0);
 
@@ -68,6 +69,7 @@ class LeaderboardTest {
 
     @Test
     void moveResults2() throws IllegalArgumentException {
+
         Leaderboard leaderboard = new Leaderboard("test-files/leaderboardABC.txt");
         leaderboard.moveResults(1);
 
