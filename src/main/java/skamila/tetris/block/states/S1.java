@@ -10,7 +10,7 @@ public class S1 implements BlockState {
     // X X
     // X X
 
-    S1() {
+    public S1() {
 
         state = new StatePoint[] {
             new StatePoint(1, 1),

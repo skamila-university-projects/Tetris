@@ -67,7 +67,7 @@ public class BlockImp implements Block {
 
                 newShiftHorizontal--;
                 leftShift = true;
-                i = -1;
+                i = 0;
                 continue;
 
             }
@@ -79,7 +79,7 @@ public class BlockImp implements Block {
             if (points[i].getY() + shiftVertical >= board.getHeight() - 1)
                 return;
             if (
-                board
+                points[i].getY() + shiftVertical > 0 && board
                     .getField(
                         points[i].getX() + newShiftHorizontal,
                         points[i].getY() + shiftVertical

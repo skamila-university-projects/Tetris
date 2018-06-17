@@ -11,7 +11,7 @@ public class J4 implements BlockState {
     // X
     // X
 
-    J4() {
+    public J4() {
 
         state = new StatePoint[] {
             new StatePoint(1, 0),

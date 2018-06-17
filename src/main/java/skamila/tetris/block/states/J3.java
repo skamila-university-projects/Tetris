@@ -10,7 +10,7 @@ public class J3 implements BlockState {
     // X
     // X X X
 
-    J3() {
+    public J3() {
 
         state = new StatePoint[] {
             new StatePoint(0, 0),

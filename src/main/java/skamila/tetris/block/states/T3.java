@@ -10,7 +10,7 @@ public class T3 implements BlockState {
     // X
     // X X X
 
-    T3() {
+    public T3() {
 
         state = new StatePoint[] {
             new StatePoint(1, 0),
