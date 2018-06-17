@@ -43,6 +43,12 @@ public class GameController implements Initializable {
     @FXML
     private Canvas canvasNextBlock;
 
+    @FXML
+    private Text pointsText;
+
+    @FXML
+    private Text levelText;
+
     private Tetris tetris;
 
     private Thread thread;
@@ -63,6 +69,9 @@ public class GameController implements Initializable {
         tetris.setGameCanvas(canvasGame);
         tetris.setNextBlockCanvas(canvasNextBlock);
         tetris.getGameLoop().start();
+
+        tetris.setPointTextHolder(pointsText);
+        tetris.setLevelTextHolder(levelText);
 
         thread = new Thread(tetris);
         tetris.setThread(thread);
@@ -132,9 +141,43 @@ public class GameController implements Initializable {
             }
         }
 
+        if (event.getCode() == KeyCode.RIGHT) {
+
+            tetris.getCurrentBlock().moveRight(tetris.getBoard());
+        }
+
+        if (event.getCode() == KeyCode.LEFT) {
+
+            tetris.getCurrentBlock().moveLeft(tetris.getBoard());
+        }
+
+        if (event.getCode() == KeyCode.UP) {
+
+            tetris.getCurrentBlock().rotate(tetris.getBoard());
+        }
+
+        if (event.getCode() == KeyCode.DOWN) {
+
+            tetris.getCurrentBlock().moveDown(tetris.getBoard());
+        }
+
         if (event.getCode() == KeyCode.N) {
 
             if (no != null) {
+                onClickCancelExit();
+            }
+        }
+
+        if (event.getCode() == KeyCode.T) {
+            if (yes != null) {
+                System.out.println("yes");
+                onClickConfirmExit();
+            }
+        }
+
+        if (event.getCode() == KeyCode.N) {
+            if (yes != null) {
+                System.out.println("no");
                 onClickCancelExit();
             }
         }

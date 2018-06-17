@@ -18,6 +18,12 @@ public class BlockImp implements Block {
 
     public BlockImp(BlockState[] states) {
 
+        //                  green,      yellow,    blue,      red,       purple,    orange,  color of sea
+        String[] colors = {"#ABDC18", "#FFD953", "#0098D9", "#D5111B", "#7B377B", "#DC750E", "#009669"};
+        Random generator = new Random();
+        int randomNumber = generator.nextInt(colors.length);
+
+        this.color = colors[randomNumber];
         this.states = states;
 
     }

@@ -118,8 +118,10 @@ public class MainMenuController implements Initializable {
 
         Stage stage = (Stage) exit.getScene().getWindow();
 
-        Parent root = FXMLLoader.load(getClass().getResource("/view/settings.fxml"));
-        Scene scene = new Scene(root);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/settings.fxml"));
+        loader.setControllerFactory(param -> new SettingsController(Tetris.create()));
+
+        Scene scene = new Scene(loader.load());
 
         stage.setScene(scene);
     }

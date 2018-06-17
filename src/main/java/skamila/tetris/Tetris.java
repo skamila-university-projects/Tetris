@@ -1,12 +1,12 @@
 package skamila.tetris;
 
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import skamila.tetris.block.*;
 import skamila.tetris.board.Board;
 import skamila.tetris.board.BoardFactory;
 import skamila.tetris.board.BoardField;
+import skamila.tetris.leaderboard.Leaderboard;
 import skamila.tetris.render.Renderer;
 import skamila.tetris.render.RoundCornerBoardRenderer;
 import skamila.tetris.render.RoundCornerNextBlockRenderer;
@@ -35,6 +35,10 @@ public class Tetris implements Runnable {
 
     int level = 1;
 
+    int points;
+
+    private Leaderboard leadderbpard;
+
     TetrisGameLoop gameLoop;
 
     private Thread thread;
@@ -45,13 +49,23 @@ public class Tetris implements Runnable {
 
     private int blockCounter;
 
-    public Tetris(Board board, TetrisGameLoop gameLoop) {
+    private Text pointsText;
+
+    private Text levelText;
+
+    public Tetris(Board board, Leaderboard leadderbpard, TetrisGameLoop gameLoop) {
 
         this.board = board;
+        this.leadderbpard = leadderbpard;
         this.gameLoop = gameLoop;
-        blocks = new BlockFactoryLambda[2];
-        blocks[0] = () -> BlockFactory.O(board);
-        blocks[1] = () -> BlockFactory.I(board);
+        blocks = new BlockFactoryLambda[7];
+        blocks[0] = () -> BlockFactory.I(board);
+        blocks[1] = () -> BlockFactory.J(board);
+        blocks[2] = () -> BlockFactory.L(board);
+        blocks[3] = () -> BlockFactory.O(board);
+        blocks[4] = () -> BlockFactory.S(board);
+        blocks[5] = () -> BlockFactory.T(board);
+        blocks[6] = () -> BlockFactory.Z(board);
         nextBlock = getRandomBlock();
     }
 
@@ -76,6 +90,16 @@ public class Tetris implements Runnable {
         }
     }
 
+    public void addPoints() {
+
+        for (int i = 0; i < board.getHeight(); i++) {
+            if (isRowFull(i))
+                points += 10 * level;
+        }
+
+        pointsText.setText(points + "");
+    }
+
     public static Tetris create() {
 
         if (tetris == null) {
@@ -86,7 +110,11 @@ public class Tetris implements Runnable {
             };
 
             Board board = BoardFactory.create();
-            tetris = new Tetris(board, new TetrisGameLoop(renderers));
+            tetris = new Tetris(
+                board,
+                new Leaderboard("leaderboard.txt"),
+                new TetrisGameLoop(renderers)
+            );
         }
 
         return tetris;
@@ -133,17 +161,19 @@ public class Tetris implements Runnable {
     public void singleCycle() {
 
         long cycleStartTime = System.nanoTime() / 10000000;
-        System.out.println((cycleStartTime - currentTime) / 100 >= 1);
-        if ((cycleStartTime - currentTime) / 100 >= 1) {
+        //System.out.println((cycleStartTime - currentTime) / 100.0 + " >= " + (1 - (level / 10.0)));
+        if ((cycleStartTime - currentTime) / 100.0 >= (1 - (level / 10.0))) {
             currentBlock.moveDown(board);
             currentTime = System.nanoTime() / 10000000;
             if (currentBlock.isMergable(board)) {
                 board.mergeBlock(currentBlock);
+                addPoints();
                 cleanBoard();
                 isBlockOnBoard = false;
                 blockCounter++;
                 if (blockCounter >= 10) {
                     level++;
+                    levelText.setText(level + "");
                     blockCounter = 0;
                 }
             }
@@ -191,5 +221,31 @@ public class Tetris implements Runnable {
     public Block getCurrentBlock() {
 
         return currentBlock;
+    }
+
+    public String getPoints() {
+
+        return points + "";
+    }
+
+    public String getLevel() {
+
+        return level + "";
+    }
+
+    public void setPointTextHolder(Text pointsText) {
+
+        this.pointsText = pointsText;
+    }
+
+    public void setLevelTextHolder(Text levelText) {
+
+        this.levelText = levelText;
+        levelText.setText(level + "");
+    }
+
+    public void setLevel(int difficultyLvl) {
+
+        level = difficultyLvl;
     }
 }

@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import skamila.tetris.Tetris;
 
 import java.io.IOException;
 import java.net.URL;
@@ -22,10 +23,18 @@ public class SettingsController implements Initializable {
 
     private int difficultyLvl = 1;
 
+    private Tetris tetris;
+
+    public SettingsController(Tetris tetris) {
+
+        this.tetris = tetris;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        difficultyLvlText.setText("1");
+        difficultyLvlText.setText(tetris.getLevel());
+        difficultyLvl = new Integer(tetris.getLevel()).intValue();
     }
 
     public void onClickExit() throws IOException {
@@ -46,6 +55,7 @@ public class SettingsController implements Initializable {
             difficultyLvl = 1;
         }
 
+        tetris.setLevel(difficultyLvl);
         difficultyLvlText.setText(Integer.toString(difficultyLvl));
     }
 
@@ -57,6 +67,7 @@ public class SettingsController implements Initializable {
             difficultyLvl = 10;
         }
 
+        tetris.setLevel(difficultyLvl);
         difficultyLvlText.setText(Integer.toString(difficultyLvl));
     }
 

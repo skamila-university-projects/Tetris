@@ -81,7 +81,7 @@ class BlockTest {
     }
 
     @Test
-    void rotateNearWall() {
+    void rotateNearLeftWall() {
 
         BlockState[] blockStates = new BlockState[2];
 
@@ -118,6 +118,78 @@ class BlockTest {
         assertEquals(5, statePoints[1].getY());
         assertEquals(6, statePoints[2].getY());
         assertEquals(7, statePoints[3].getY());
+    }
+
+    @Test
+    void rotateNearRightWall() {
+
+        BlockState[] blockStates = new BlockState[2];
+
+        blockStates[0] = new I1();
+        blockStates[1] = new I2();
+
+        Board board = createBoardForTests();
+
+        Block I = new BlockImp(blockStates);
+        I.countInitialShift(board);
+
+        for (int i = 0; i < 4; i++) {
+            I.moveDown(board);
+        }
+
+        for (int i = 0; i < 5; i++) {
+            I.moveRight(board);
+        }
+
+        for (int i = 0; i < 4; i++) {
+            I.moveDown(board);
+        }
+
+        I.rotate(board);
+
+        StatePoint[] statePoints = I.getShiftedActiveState().getPositionValues();
+
+        assertEquals(6, statePoints[0].getX());
+        assertEquals(7, statePoints[1].getX());
+        assertEquals(8, statePoints[2].getX());
+        assertEquals(9, statePoints[3].getX());
+
+        assertEquals(5, statePoints[0].getY());
+        assertEquals(5, statePoints[1].getY());
+        assertEquals(5, statePoints[2].getY());
+        assertEquals(5, statePoints[3].getY());
+    }
+
+    @Test
+    void rotateNearTopWall() {
+
+        BlockState[] blockStates = new BlockState[2];
+
+        blockStates[0] = new I1();
+        blockStates[1] = new I2();
+
+        Board board = createBoardForTests();
+
+        Block I = new BlockImp(blockStates);
+        I.countInitialShift(board);
+
+        for (int i = 0; i < 1; i++) {
+            I.moveDown(board);
+        }
+
+        I.rotate(board);
+
+        StatePoint[] statePoints = I.getShiftedActiveState().getPositionValues();
+
+        assertEquals(6, statePoints[0].getX());
+        assertEquals(7, statePoints[1].getX());
+        assertEquals(8, statePoints[2].getX());
+        assertEquals(9, statePoints[3].getX());
+
+        assertEquals(5, statePoints[0].getY());
+        assertEquals(5, statePoints[1].getY());
+        assertEquals(5, statePoints[2].getY());
+        assertEquals(5, statePoints[3].getY());
     }
 
     @Test
