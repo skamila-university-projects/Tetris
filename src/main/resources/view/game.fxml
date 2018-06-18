@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -39,8 +40,22 @@
       </HBox>
       <HBox id="game-actions" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="pixelized">
          <children>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Pauza" onMouseClicked="#onClickPause"/>
-            <Text fx:id="exit" fill="WHITE" onMouseClicked="#onClickExit" strokeType="OUTSIDE" strokeWidth="0.0" text="Wyjscie" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Text fill="WHITE" onMouseClicked="#onClickPause" onMouseEntered="#onMouseEnterOption" onMouseExited="#onMouseExitOption" strokeType="OUTSIDE" strokeWidth="0.0" text="Pauza" />
+               </children>
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Text fx:id="exit" fill="WHITE" onMouseClicked="#onClickExit" onMouseEntered="#onMouseEnterOption" onMouseExited="#onMouseExitOption" strokeType="OUTSIDE" strokeWidth="0.0" text="Wyjscie" />
+               </children>
+               <HBox.margin>
+                  <Insets right="30.0" />
+               </HBox.margin>
+            </HBox>
          </children>
       </HBox>
    </children>

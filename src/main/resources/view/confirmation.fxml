@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -18,8 +19,22 @@
          </font></Text>
       <HBox id="confirmation-yes-no" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Text id="confirmation-yes" fx:id="yes" fill="WHITE" onMouseClicked="#onClickConfirmExit" strokeType="OUTSIDE" strokeWidth="0.0" text="Tak" />
-            <Text id="confirmation-no" fx:id="no" fill="WHITE" onMouseClicked="#onClickCancelExit" strokeType="OUTSIDE" strokeWidth="0.0" text="Nie" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Text id="confirmation-yes" fx:id="yes" fill="WHITE" onMouseClicked="#onClickConfirmExit" onMouseEntered="#onMouseEnterOption" onMouseExited="#onMouseExitOption" strokeType="OUTSIDE" strokeWidth="0.0" text="Tak" />
+               </children>
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Text id="confirmation-no" fx:id="no" fill="WHITE" onMouseClicked="#onClickCancelExit" onMouseEntered="#onMouseEnterOption" onMouseExited="#onMouseExitOption" strokeType="OUTSIDE" strokeWidth="0.0" text="Nie" />
+               </children>
+               <HBox.margin>
+                  <Insets right="50.0" />
+               </HBox.margin>
+            </HBox>
          </children>
       </HBox>
    </children>

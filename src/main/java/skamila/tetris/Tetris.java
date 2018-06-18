@@ -33,7 +33,9 @@ public class Tetris implements Runnable {
 
     boolean isRunning = false;
 
-    int level = 1;
+    static int beginLevel = 1;
+
+    private int level = 1;
 
     int points;
 
@@ -242,6 +244,11 @@ public class Tetris implements Runnable {
 
         this.levelText = levelText;
         levelText.setText(level + "");
+    }
+
+    public void applyCurrentLevel() {
+
+        level = beginLevel;
     }
 
     public void setLevel(int difficultyLvl) {

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox id="game-over" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="710.0" prefWidth="450.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="skamila.tetris.controller.GameOverController">
+    <children>
+        <Text id="congratulations-congratulations" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Koniec gry" />
+        <Text id="congratulations-result" fx:id="congratulationScores" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Zdobyles Y punktow." />
+        <Text id="congratulations-name-request" fx:id="gameOverExit" fill="WHITE" onMouseClicked="#onClickExit" onMouseEntered="#onMouseEnterOption" onMouseExited="#onMouseExitOption" strokeType="OUTSIDE" strokeWidth="0.0" text="Powrot" />
+    </children>
+    <styleClass>
+        <String fx:value="pixelized" />
+        <String fx:value="game-background" />
+    </styleClass>
+</VBox>

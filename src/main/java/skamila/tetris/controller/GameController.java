@@ -57,6 +57,8 @@ public class GameController implements Initializable {
 
         System.out.println("Instance");
         this.tetris = tetris;
+        tetris.applyCurrentLevel();
+
     }
 
     @Override

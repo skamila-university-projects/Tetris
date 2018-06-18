@@ -4,11 +4,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox id="congratulation" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="710.0" prefWidth="450.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox id="congratulation" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#onPressKeyEnterName" prefHeight="710.0" prefWidth="450.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="skamila.tetris.controller.GameOverController">
    <children>
       <Text id="congratulations-congratulations" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Gratulacje!" />
-      <Text id="congratulations-result" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Zajales X miejsce." />
+      <Text id="congratulations-result" fx:id="congratulationScores" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Zdobyles Y punktow." />
+      <Text id="congratulations-result" fx:id="congratulationPlace" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Zajales X miejsce." />
       <Text id="congratulations-name-request" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Wpisz swoje imie:" />
+      <Text id="congratulations-name-request" fx:id="congratulationUserName" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text id="congratulations-name-request" fx:id="congratulationSave" fill="WHITE" onMouseClicked="#onClickSave" onMouseEntered="#onMouseEnterOption" onMouseExited="#onMouseExitOption" strokeType="OUTSIDE" strokeWidth="0.0" text="Zapisz" />
    </children>
    <styleClass>
       <String fx:value="pixelized" />

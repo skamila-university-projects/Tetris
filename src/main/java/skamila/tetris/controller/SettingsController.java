@@ -49,7 +49,7 @@ public class SettingsController implements Initializable {
 
     public void onClickIncreaseDifficulty() {
 
-        if (difficultyLvl < 10) {
+        if (difficultyLvl < 9) {
             difficultyLvl++;
         } else {
             difficultyLvl = 1;
@@ -64,7 +64,7 @@ public class SettingsController implements Initializable {
         if (difficultyLvl > 1) {
             difficultyLvl--;
         } else {
-            difficultyLvl = 10;
+            difficultyLvl = 9;
         }
 
         tetris.setLevel(difficultyLvl);
