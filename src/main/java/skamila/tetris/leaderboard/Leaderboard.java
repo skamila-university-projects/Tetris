@@ -1,7 +1,5 @@
 package skamila.tetris.leaderboard;
 
-import net.sf.saxon.trans.Err;
-
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -56,7 +54,7 @@ public class Leaderboard {
         this.scores = new int[scores.length];
     }
 
-    boolean isTheBestScore(int score) {
+    public boolean isTheBestScore(int score) {
 
         for (int s : scores) {
             if (score > s)
@@ -67,7 +65,7 @@ public class Leaderboard {
 
     }
 
-    int positionOnLeaderboard(int score) throws IllegalArgumentException {
+    public int positionOnLeaderboard(int score) throws IllegalArgumentException {
 
         for (int i = 0; i < scores.length; i++) {
             if (score > scores[i]) {
@@ -115,8 +113,7 @@ public class Leaderboard {
 
         }
         catch (IOException e) {
-            // error przydalby sie
-            System.out.println("Błąd z zapisami!");
+            System.out.print(e.getMessage());
         }
 
     }
@@ -141,11 +138,9 @@ public class Leaderboard {
 
     }
 
-    void print() {
+    public int length() {
 
-        for (int i = 0; i < names.length; i++) {
-            System.out.println(names[i] + "   " + scores[i]);
-        }
+        return scores.length;
     }
 
     private String[] getEntry(String line) {
@@ -162,7 +157,7 @@ public class Leaderboard {
             write = new PrintWriter(filePath);
         }
         catch (FileNotFoundException e) {
-            System.out.println("Nie można zaktualizować listy wyników");
+            System.out.println(e.getMessage());
         }
 
         for (int i = 0; i < names.length; i++) {

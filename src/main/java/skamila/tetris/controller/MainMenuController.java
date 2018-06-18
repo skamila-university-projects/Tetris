@@ -15,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import skamila.tetris.Tetris;
+import skamila.tetris.leaderboard.Leaderboard;
 
 import java.io.IOException;
 import java.net.URL;
@@ -108,9 +109,12 @@ public class MainMenuController implements Initializable {
 
         Stage stage = (Stage) exit.getScene().getWindow();
 
-        Parent root = FXMLLoader.load(getClass().getResource("/view/leaderboard.fxml"));
-        Scene scene = new Scene(root);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/leaderboard.fxml"));
+        loader.setControllerFactory(
+            param -> new LeaderboardController(new Leaderboard("leaderboard.txt"))
+        );
 
+        Scene scene = new Scene(loader.load());
         stage.setScene(scene);
     }
 

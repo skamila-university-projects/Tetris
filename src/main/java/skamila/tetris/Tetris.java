@@ -6,11 +6,12 @@ import skamila.tetris.block.*;
 import skamila.tetris.board.Board;
 import skamila.tetris.board.BoardFactory;
 import skamila.tetris.board.BoardField;
+import skamila.tetris.controller.GameController;
 import skamila.tetris.leaderboard.Leaderboard;
 import skamila.tetris.render.Renderer;
 import skamila.tetris.render.RoundCornerBoardRenderer;
 import skamila.tetris.render.RoundCornerNextBlockRenderer;
-
+import skamila.tetris.render.StartAnimation;
 import java.util.Random;
 
 public class Tetris implements Runnable {
@@ -39,8 +40,6 @@ public class Tetris implements Runnable {
 
     int points;
 
-    private Leaderboard leadderbpard;
-
     TetrisGameLoop gameLoop;
 
     private Thread thread;
@@ -55,10 +54,14 @@ public class Tetris implements Runnable {
 
     private Text levelText;
 
-    public Tetris(Board board, Leaderboard leadderbpard, TetrisGameLoop gameLoop) {
+    private GameController controler;
+
+    private Leaderboard leaderboard;
+
+    public Tetris(Board board, Leaderboard leaderboard, TetrisGameLoop gameLoop) {
 
         this.board = board;
-        this.leadderbpard = leadderbpard;
+        this.leaderboard = leaderboard;
         this.gameLoop = gameLoop;
         blocks = new BlockFactoryLambda[7];
         blocks[0] = () -> BlockFactory.I(board);
@@ -104,20 +107,18 @@ public class Tetris implements Runnable {
 
     public static Tetris create() {
 
-        if (tetris == null) {
+        Renderer[] renderers = {
+            new RoundCornerBoardRenderer(),
+            new RoundCornerNextBlockRenderer(),
+            new StartAnimation()
+        };
 
-            Renderer[] renderers = {
-                new RoundCornerBoardRenderer(),
-                new RoundCornerNextBlockRenderer()
-            };
-
-            Board board = BoardFactory.create();
-            tetris = new Tetris(
-                board,
-                new Leaderboard("leaderboard.txt"),
-                new TetrisGameLoop(renderers)
-            );
-        }
+        Board board = BoardFactory.create();
+        tetris = new Tetris(
+            board,
+            new Leaderboard("leaderboard.txt"),
+            new TetrisGameLoop(renderers)
+        );
 
         return tetris;
     }
@@ -163,7 +164,6 @@ public class Tetris implements Runnable {
     public void singleCycle() {
 
         long cycleStartTime = System.nanoTime() / 10000000;
-        //System.out.println((cycleStartTime - currentTime) / 100.0 + " >= " + (1 - (level / 10.0)));
         if ((cycleStartTime - currentTime) / 100.0 >= (1 - (level / 10.0))) {
             currentBlock.moveDown(board);
             currentTime = System.nanoTime() / 10000000;
@@ -171,9 +171,22 @@ public class Tetris implements Runnable {
                 board.mergeBlock(currentBlock);
                 addPoints();
                 cleanBoard();
+                if (isEndGame(currentBlock)) {
+                    getGameLoop().stop();
+                    long timer = System.nanoTime() / 10000000;
+                    while (timer < 10) {
+                        timer = System.nanoTime() / 10000000;
+                    }
+
+                    if (leaderboard.isTheBestScore(points))
+                        controler.congratulation();
+                    else
+                        controler.gameOver();
+
+                }
                 isBlockOnBoard = false;
                 blockCounter++;
-                if (blockCounter >= 10) {
+                if (level < 9 && blockCounter >= 10) {
                     level++;
                     levelText.setText(level + "");
                     blockCounter = 0;
@@ -225,9 +238,9 @@ public class Tetris implements Runnable {
         return currentBlock;
     }
 
-    public String getPoints() {
+    public int getPoints() {
 
-        return points + "";
+        return points;
     }
 
     public String getLevel() {
@@ -253,6 +266,29 @@ public class Tetris implements Runnable {
 
     public void setLevel(int difficultyLvl) {
 
-        level = difficultyLvl;
+        beginLevel = difficultyLvl;
+    }
+
+    public boolean isEndGame(Block block) {
+
+        BlockState state = block.getShiftedActiveState();
+        StatePoint[] positions = state.getPositionValues();
+
+        for (StatePoint p : positions) {
+            if (p.getY() < 0)
+                return true;
+        }
+
+        return false;
+    }
+
+    public void setController(GameController gameController) {
+
+        controler = gameController;
+    }
+
+    public Leaderboard getLeaderboard() {
+
+        return leaderboard;
     }
 }

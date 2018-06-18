@@ -15,9 +15,12 @@ public class TetrisGameLoop {
 
     private Tetris tetris;
 
+    private boolean animation;
+
     public TetrisGameLoop(Renderer[] renderers) {
 
         this.renderers = renderers;
+        this.animation = true;
     }
 
     public void run(Tetris tetris, Canvas canvasGame, Canvas nextBlockCanvas) {
@@ -37,7 +40,6 @@ public class TetrisGameLoop {
         while (isRunning) {
             if (isPaused) {
                 try {
-                    System.out.println("Sleep");
                     Thread.sleep(Long.MAX_VALUE);
                 }
                 catch (InterruptedException e) {
@@ -45,7 +47,6 @@ public class TetrisGameLoop {
                 }
             }
             if (!isRunning) {
-                System.out.println("isRunning " + isRunning);
                 return;
             }
 
@@ -82,13 +83,11 @@ public class TetrisGameLoop {
             frames++; // zliczamy ramki dla obliczenia fps
         }
 
-        System.out.println("exited");
     }
 
     private void update(Tetris tetris, double update_speed) {
 
         if (!tetris.isBockOnBoard()) {
-            System.out.println("NeedBlock");
             tetris.setRandomBlock();
             tetris.saveCurrentTime();
         }
@@ -99,31 +98,32 @@ public class TetrisGameLoop {
 
     private void render(Tetris tetris, Canvas canvasGame, Canvas nextBlockCanvas) {
 
-        renderers[0].render(tetris, canvasGame);
-        renderers[1].render(tetris, nextBlockCanvas);
+        if (animation) {
+            renderers[2].render(tetris, canvasGame);
+            animation = false;
+        } else {
+            renderers[0].render(tetris, canvasGame);
+            renderers[1].render(tetris, nextBlockCanvas);
+        }
     }
 
     public void start() {
 
-        System.out.println("Start");
         isRunning = true;
     }
 
     public void stop() {
 
-        System.out.println("Stop");
         isRunning = false;
     }
 
     public void pause() {
 
-        System.out.println("Pause");
         isPaused = true;
     }
 
     public void unpouse() {
 
-        System.out.println("unpause");
         isPaused = false;
         tetris.getThread().interrupt();
     }

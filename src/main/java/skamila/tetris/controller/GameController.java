@@ -1,5 +1,7 @@
 package skamila.tetris.controller;
 
+import javafx.application.Platform;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -49,13 +51,18 @@ public class GameController implements Initializable {
     @FXML
     private Text levelText;
 
+    boolean showGameOver;
+
+    boolean showCongratulations;
+
+    private String optionText;
+
     private Tetris tetris;
 
     private Thread thread;
 
     public GameController(Tetris tetris) {
 
-        System.out.println("Instance");
         this.tetris = tetris;
         tetris.applyCurrentLevel();
 
@@ -67,17 +74,18 @@ public class GameController implements Initializable {
         if (confirmation != null)
             return;
 
-        System.out.println("Initialize");
         tetris.setGameCanvas(canvasGame);
         tetris.setNextBlockCanvas(canvasNextBlock);
         tetris.getGameLoop().start();
 
         tetris.setPointTextHolder(pointsText);
         tetris.setLevelTextHolder(levelText);
+        tetris.setController(this);
 
         thread = new Thread(tetris);
         tetris.setThread(thread);
         thread.start();
+
     }
 
     public void onClickPause() {
@@ -123,7 +131,7 @@ public class GameController implements Initializable {
 
         stage.setScene(game.getScene());
 
-        tetris.getGameLoop().unpouse();
+        // tetris.getGameLoop().unpouse();
     }
 
     public void onKeyPress(KeyEvent event) throws IOException {
@@ -172,16 +180,93 @@ public class GameController implements Initializable {
 
         if (event.getCode() == KeyCode.T) {
             if (yes != null) {
-                System.out.println("yes");
                 onClickConfirmExit();
             }
         }
 
         if (event.getCode() == KeyCode.N) {
             if (yes != null) {
-                System.out.println("no");
                 onClickCancelExit();
             }
         }
+    }
+
+    public void onMouseEnterOption(Event event) {
+
+        Text text = (Text) event.getSource();
+        optionText = text.getText();
+        text.setText("> " + optionText + " <");
+
+    }
+
+    public void onMouseExitOption(Event event) {
+
+        Text text = (Text) event.getSource();
+        text.setText(optionText);
+
+    }
+
+    public void showGameOver() throws IOException {
+
+        Stage stage = (Stage) exit.getScene().getWindow();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/game-over.fxml"));
+        loader.setControllerFactory(
+            param -> new GameOverController(tetris.getPoints(), tetris.getLeaderboard())
+        );
+
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+
+        stage.setScene(scene);
+        stage.show();
+
+        root.lookup("#game-over").requestFocus();
+    }
+
+    public void showCongratulation() throws IOException {
+
+        Stage stage = (Stage) exit.getScene().getWindow();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/congratulation.fxml"));
+        loader.setControllerFactory(
+            param -> new GameOverController(tetris.getPoints(), tetris.getLeaderboard())
+        );
+
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+
+        stage.setScene(scene);
+        stage.show();
+
+        root.lookup("#congratulation").requestFocus();
+    }
+
+    public void gameOver() {
+
+        Platform.runLater(() -> {
+            try {
+                showGameOver();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        );
+    }
+
+    public void congratulation() {
+
+        Platform.runLater(() -> {
+            try {
+                showCongratulation();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        );
     }
 }
