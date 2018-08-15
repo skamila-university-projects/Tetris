@@ -165,12 +165,12 @@ public class Tetris implements Runnable {
 
         long cycleStartTime = System.nanoTime() / 10000000;
         if ((cycleStartTime - currentTime) / 100.0 >= (1 - (level / 10.0))) {
-            currentBlock.moveDown(board);
-            currentTime = System.nanoTime() / 10000000;
+
             if (currentBlock.isMergable(board)) {
                 board.mergeBlock(currentBlock);
                 addPoints();
                 cleanBoard();
+
                 if (isEndGame(currentBlock)) {
                     getGameLoop().stop();
                     long timer = System.nanoTime() / 10000000;
@@ -184,14 +184,20 @@ public class Tetris implements Runnable {
                         controler.gameOver();
 
                 }
+
                 isBlockOnBoard = false;
                 blockCounter++;
+
                 if (level < 9 && blockCounter >= 10) {
                     level++;
                     levelText.setText(level + "");
                     blockCounter = 0;
                 }
+
             }
+
+            currentBlock.moveDown(board);
+            currentTime = System.nanoTime() / 10000000;
         }
     }
 
