@@ -17,45 +17,19 @@ import java.util.Random;
 public class Tetris implements Runnable {
 
     private Board board;
-
     private Block currentBlock, nextBlock;
-
-    BlockFactoryLambda[] blocks;
-
+    private BlockFactoryLambda[] blocks;
     private Canvas canvasGame;
-
     private static Tetris tetris;
-
-    private int updatesPerFrame;
-
     private Canvas nextBlockCanvas;
-
-    boolean isPaused = false;
-
-    boolean isRunning = false;
-
-    static int beginLevel = 1;
-
-    private int level = 1;
-
-    int points;
-
-    TetrisGameLoop gameLoop;
-
-    private Thread thread;
-
     private boolean isBlockOnBoard;
-
+    private static int beginLevel = 1;
+    private int level, points, blockCounter;
+    private TetrisGameLoop gameLoop;
+    private Thread thread;
     private long currentTime;
-
-    private int blockCounter;
-
-    private Text pointsText;
-
-    private Text levelText;
-
+    private Text pointsText, levelText;
     private GameController controler;
-
     private Leaderboard leaderboard;
 
     public Tetris(Board board, Leaderboard leaderboard, TetrisGameLoop gameLoop) {
@@ -63,15 +37,18 @@ public class Tetris implements Runnable {
         this.board = board;
         this.leaderboard = leaderboard;
         this.gameLoop = gameLoop;
-        blocks = new BlockFactoryLambda[7];
-        blocks[0] = () -> BlockFactory.I(board);
-        blocks[1] = () -> BlockFactory.J(board);
-        blocks[2] = () -> BlockFactory.L(board);
-        blocks[3] = () -> BlockFactory.O(board);
-        blocks[4] = () -> BlockFactory.S(board);
-        blocks[5] = () -> BlockFactory.T(board);
-        blocks[6] = () -> BlockFactory.Z(board);
-        nextBlock = getRandomBlock();
+        this.level = beginLevel;
+
+        this.blocks = new BlockFactoryLambda[7];
+        this.blocks[0] = () -> BlockFactory.I(board);
+        this.blocks[1] = () -> BlockFactory.J(board);
+        this.blocks[2] = () -> BlockFactory.L(board);
+        this.blocks[3] = () -> BlockFactory.O(board);
+        this.blocks[4] = () -> BlockFactory.S(board);
+        this.blocks[5] = () -> BlockFactory.T(board);
+        this.blocks[6] = () -> BlockFactory.Z(board);
+
+        this.nextBlock = getRandomBlock();
     }
 
     public void run() {
@@ -252,6 +229,11 @@ public class Tetris implements Runnable {
     public String getLevel() {
 
         return level + "";
+    }
+
+    public String getBeginLevel() {
+
+        return beginLevel + "";
     }
 
     public void setPointTextHolder(Text pointsText) {

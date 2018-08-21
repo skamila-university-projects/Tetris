@@ -33,8 +33,8 @@ public class SettingsController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        difficultyLvlText.setText(tetris.getLevel());
-        difficultyLvl = new Integer(tetris.getLevel()).intValue();
+        difficultyLvlText.setText(tetris.getBeginLevel());
+        difficultyLvl = new Integer(tetris.getBeginLevel()).intValue();
     }
 
     public void onClickExit() throws IOException {
