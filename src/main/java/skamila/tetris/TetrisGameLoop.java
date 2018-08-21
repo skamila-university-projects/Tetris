@@ -99,6 +99,7 @@ public class TetrisGameLoop {
     private void render(Tetris tetris, Canvas canvasGame, Canvas nextBlockCanvas) {
 
         if (animation) {
+            renderers[1].render(tetris, nextBlockCanvas);
             renderers[2].render(tetris, canvasGame);
             animation = false;
         } else {

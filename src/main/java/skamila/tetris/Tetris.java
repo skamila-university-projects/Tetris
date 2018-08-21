@@ -164,7 +164,7 @@ public class Tetris implements Runnable {
     public void singleCycle() {
 
         long cycleStartTime = System.nanoTime() / 10000000;
-        if ((cycleStartTime - currentTime) / 100.0 >= (1 - (level / 10.0))) {
+        if ((cycleStartTime - currentTime) / 100.0 >= (1.02 - (level / 10.0))) {
 
             if (currentBlock.isMergable(board)) {
                 board.mergeBlock(currentBlock);
