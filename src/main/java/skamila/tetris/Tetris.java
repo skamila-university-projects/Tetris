@@ -29,7 +29,7 @@ public class Tetris implements Runnable {
     private Thread thread;
     private long currentTime;
     private Text pointsText, levelText;
-    private GameController controler;
+    private GameController controller;
     private Leaderboard leaderboard;
 
     public Tetris(Board board, Leaderboard leaderboard, TetrisGameLoop gameLoop) {
@@ -156,9 +156,9 @@ public class Tetris implements Runnable {
                     }
 
                     if (leaderboard.isTheBestScore(points))
-                        controler.congratulation();
+                        controller.congratulation();
                     else
-                        controler.gameOver();
+                        controller.gameOver();
 
                 }
 
@@ -272,7 +272,7 @@ public class Tetris implements Runnable {
 
     public void setController(GameController gameController) {
 
-        controler = gameController;
+        controller = gameController;
     }
 
     public Leaderboard getLeaderboard() {
