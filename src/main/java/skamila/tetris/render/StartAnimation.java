@@ -9,8 +9,6 @@ import skamila.tetris.board.BoardFactory;
 
 public class StartAnimation implements Renderer {
 
-    private int sleep = 1000;
-
     @Override
     public void render(Tetris tetris, Canvas canvasGame) {
 
@@ -34,13 +32,6 @@ public class StartAnimation implements Renderer {
             y += 28;
         }
 
-        try {
-            Thread.sleep(sleep);
-        }
-        catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         Board board2 = BoardFactory.start2();
 
         gc.clearRect(0, 0, canvasGame.getWidth(), canvasGame.getHeight());
@@ -57,13 +48,6 @@ public class StartAnimation implements Renderer {
                 x += 28;
             }
             y += 28;
-        }
-
-        try {
-            Thread.sleep(sleep);
-        }
-        catch (InterruptedException e) {
-            e.printStackTrace();
         }
 
         Board board1 = BoardFactory.start1();
@@ -84,13 +68,6 @@ public class StartAnimation implements Renderer {
             y += 28;
         }
 
-        try {
-            Thread.sleep(sleep);
-        }
-        catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         Board boardGo = BoardFactory.startGo();
 
         gc.clearRect(0, 0, canvasGame.getWidth(), canvasGame.getHeight());
@@ -107,13 +84,6 @@ public class StartAnimation implements Renderer {
                 x += 28;
             }
             y += 28;
-        }
-
-        try {
-            Thread.sleep(sleep);
-        }
-        catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 }

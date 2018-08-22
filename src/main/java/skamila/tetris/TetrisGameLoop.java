@@ -75,8 +75,14 @@ public class TetrisGameLoop extends AnimationTimer {
     private void render(Tetris tetris, Canvas canvasGame, Canvas nextBlockCanvas) {
         if (animation) {
             renderers[1].render(tetris, nextBlockCanvas);
-            renderers[2].render(tetris, canvasGame);
-            animation = false;
+
+            if (accumulatedTime < 1000000000) {
+                renderers[2].render(tetris, canvasGame);
+            } else if (accumulatedTime < 2000000000) {
+                renderers[3].render(tetris, canvasGame);
+            } else {
+                animation = false;
+            }
         } else {
             renderers[0].render(tetris, canvasGame);
             renderers[1].render(tetris, nextBlockCanvas);

@@ -85,7 +85,8 @@ public class Tetris implements Runnable {
         Renderer[] renderers = {
             new RoundCornerBoardRenderer(),
             new RoundCornerNextBlockRenderer(),
-            new StartAnimation()
+            new StartAnimation3(),
+            new StartAnimation2()
         };
 
         Board board = BoardFactory.create();
