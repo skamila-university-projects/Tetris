@@ -65,7 +65,6 @@ public class GameController implements Initializable {
 
         this.tetris = tetris;
         tetris.applyCurrentLevel();
-
     }
 
     @Override

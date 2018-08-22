@@ -1,9 +1,14 @@
 package skamila.tetris;
 
+import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 import skamila.tetris.render.Renderer;
 
-public class TetrisGameLoop {
+public class TetrisGameLoop extends AnimationTimer {
+
+    private Canvas canvasGame;
+
+    private Canvas nextBlockCanvas;
 
     private Renderer[] renderers;
 
@@ -17,72 +22,43 @@ public class TetrisGameLoop {
 
     private boolean animation;
 
-    public TetrisGameLoop(Renderer[] renderers) {
+    private long endOfFrameTime;
+
+    private long accumulatedTime;
+
+    private long fpsAccumulator;
+
+    private long frames;
+
+    private double fps;
+
+    public TetrisGameLoop(
+        Renderer[] renderers
+    ) {
 
         this.renderers = renderers;
         this.animation = true;
     }
 
-    public void run(Tetris tetris, Canvas canvasGame, Canvas nextBlockCanvas) {
+    @Override
+    public void handle(long startOfFrameTime) {
 
-        this.tetris = tetris;
-        long startOfFrameTime = System.nanoTime(); // aktualny czas
-        double UPDATE_SPEED = 1000000000.0 / 30.0; // czas co jaki update ma być wywoływany (30
-        // updates per second)
-        long updateTime = 0; // czas realizacji update
-        long endOfFrameTime = 0; // czas w którym zakończyła się realizacja jednej ramki
-        long accumulatedTime = 0;
-
-        long fpsAccumulator = 0;
-        long frames = 0;
-        double fps = 0.0;
-
-        while (isRunning) {
-            if (isPaused) {
-                try {
-                    Thread.sleep(Long.MAX_VALUE);
-                }
-                catch (InterruptedException e) {
-
-                }
-            }
-            if (!isRunning) {
-                return;
-            }
-
-            updatesPerFrame = 0;
-            endOfFrameTime = System.nanoTime(); // tu jest pobierany czas zakończenia ramki
-            updateTime = endOfFrameTime - startOfFrameTime; // tutaj wyliczany jest czas trwania
-            // ramki
-            startOfFrameTime = endOfFrameTime; // tutaj ramka się zaczyna
-
-            accumulatedTime += updateTime; // suma czasów realizacji każdej ramk
-
-            if (accumulatedTime >= UPDATE_SPEED) {
-                render(tetris, canvasGame, nextBlockCanvas);
-            }
-
-            while (accumulatedTime >= UPDATE_SPEED) { // jeżeli suma czasów realizacji ramek jest
-                // większa od czasu między wykonywaniem update
-                update(tetris, UPDATE_SPEED); // to wykonywany jest update. update wykownywany jest
-                                              // tak
-                // długo aż wyczerpie się zakumulowany
-                accumulatedTime -= UPDATE_SPEED; // czas z poprzednich klatek.
-            }
-
-            fpsAccumulator += updateTime;
-            if (fpsAccumulator >= 250000000) { // co 0.25 s obliczamy fps
-                fps = frames * (4.0 * (250000000.0 / fpsAccumulator)); // monożymy ilość klatek x4
-                // bo sprawdzamy co 1/4
-                // sekundy * korekcja
-
-                frames = 0; // zerujemy ilość ramek
-                fpsAccumulator = 0; // zerujemy akumulator
-            }
-
-            frames++; // zliczamy ramki dla obliczenia fps
+        if (endOfFrameTime == 0) {
+            endOfFrameTime = startOfFrameTime;
+            return;
         }
 
+        long updateTime = startOfFrameTime - endOfFrameTime;
+
+        endOfFrameTime = startOfFrameTime;
+        accumulatedTime += updateTime; // suma czasów realizacji każdej ramk
+
+        double UPDATE_SPEED = 1000000000.0 / 30.0;
+
+        if (!isPaused) {
+            update(tetris, UPDATE_SPEED);
+        }
+        render(tetris, canvasGame, nextBlockCanvas);
     }
 
     private void update(Tetris tetris, double update_speed) {
@@ -92,12 +68,11 @@ public class TetrisGameLoop {
             tetris.saveCurrentTime();
         }
         tetris.singleCycle();
-
+        System.out.println(3);
         updatesPerFrame++;
     }
 
     private void render(Tetris tetris, Canvas canvasGame, Canvas nextBlockCanvas) {
-
         if (animation) {
             renderers[1].render(tetris, nextBlockCanvas);
             renderers[2].render(tetris, canvasGame);
@@ -108,15 +83,16 @@ public class TetrisGameLoop {
         }
     }
 
-    public void start() {
-
-        isRunning = true;
-    }
-
-    public void stop() {
-
-        isRunning = false;
-    }
+//     public void start() {
+//
+//        super.start();
+//        isRunning = true;
+//     }
+//
+//     public void stop() {
+//
+//        isRunning = false;
+//     }
 
     public void pause() {
 
@@ -137,5 +113,17 @@ public class TetrisGameLoop {
     public boolean isRunning() {
 
         return isRunning;
+    }
+
+    public void setTetris(Tetris tetris) {
+        this.tetris = tetris;
+    }
+
+    public void setCanvasGame(Canvas canvasGame) {
+        this.canvasGame = canvasGame;
+    }
+
+    public void setNextBlockCanvas(Canvas nextBlockCanvas) {
+        this.nextBlockCanvas = nextBlockCanvas;
     }
 }

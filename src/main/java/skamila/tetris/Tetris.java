@@ -8,10 +8,8 @@ import skamila.tetris.board.BoardFactory;
 import skamila.tetris.board.BoardField;
 import skamila.tetris.controller.GameController;
 import skamila.tetris.leaderboard.Leaderboard;
-import skamila.tetris.render.Renderer;
-import skamila.tetris.render.RoundCornerBoardRenderer;
-import skamila.tetris.render.RoundCornerNextBlockRenderer;
-import skamila.tetris.render.StartAnimation;
+import skamila.tetris.render.*;
+
 import java.util.Random;
 
 public class Tetris implements Runnable {
@@ -37,23 +35,23 @@ public class Tetris implements Runnable {
         this.board = board;
         this.leaderboard = leaderboard;
         this.gameLoop = gameLoop;
-        this.level = beginLevel;
-
-        this.blocks = new BlockFactoryLambda[7];
-        this.blocks[0] = () -> BlockFactory.I(board);
-        this.blocks[1] = () -> BlockFactory.J(board);
-        this.blocks[2] = () -> BlockFactory.L(board);
-        this.blocks[3] = () -> BlockFactory.O(board);
-        this.blocks[4] = () -> BlockFactory.S(board);
-        this.blocks[5] = () -> BlockFactory.T(board);
-        this.blocks[6] = () -> BlockFactory.Z(board);
-
-        this.nextBlock = getRandomBlock();
+        this.gameLoop.setTetris(this);
+        this.gameLoop.setCanvasGame(canvasGame);
+        this.gameLoop.setNextBlockCanvas(nextBlockCanvas);
+        blocks = new BlockFactoryLambda[7];
+        blocks[0] = () -> BlockFactory.I(board);
+        blocks[1] = () -> BlockFactory.J(board);
+        blocks[2] = () -> BlockFactory.L(board);
+        blocks[3] = () -> BlockFactory.O(board);
+        blocks[4] = () -> BlockFactory.S(board);
+        blocks[5] = () -> BlockFactory.T(board);
+        blocks[6] = () -> BlockFactory.Z(board);
+        nextBlock = getRandomBlock();
     }
 
     public void run() {
 
-        gameLoop.run(this, canvasGame, nextBlockCanvas);
+        gameLoop.start();
     }
 
     private Block getRandomBlock() {
@@ -103,11 +101,13 @@ public class Tetris implements Runnable {
     public void setGameCanvas(Canvas canvasGame) {
 
         this.canvasGame = canvasGame;
+        gameLoop.setCanvasGame(canvasGame);
     }
 
     public void setNextBlockCanvas(Canvas nextBlockCanvas) {
 
         this.nextBlockCanvas = nextBlockCanvas;
+        gameLoop.setNextBlockCanvas(nextBlockCanvas);
     }
 
     public Block getNextBlock() {
