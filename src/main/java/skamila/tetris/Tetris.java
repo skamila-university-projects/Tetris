@@ -50,7 +50,6 @@ public class Tetris implements Runnable {
     }
 
     public void run() {
-
         gameLoop.start();
     }
 
@@ -86,7 +85,9 @@ public class Tetris implements Runnable {
             new RoundCornerBoardRenderer(),
             new RoundCornerNextBlockRenderer(),
             new StartAnimation3(),
-            new StartAnimation2()
+            new StartAnimation2(),
+            new StartAnimation1(),
+            new StartAnimationGo()
         };
 
         Board board = BoardFactory.create();
@@ -100,24 +101,20 @@ public class Tetris implements Runnable {
     }
 
     public void setGameCanvas(Canvas canvasGame) {
-
         this.canvasGame = canvasGame;
         gameLoop.setCanvasGame(canvasGame);
     }
 
     public void setNextBlockCanvas(Canvas nextBlockCanvas) {
-
         this.nextBlockCanvas = nextBlockCanvas;
         gameLoop.setNextBlockCanvas(nextBlockCanvas);
     }
 
     public Block getNextBlock() {
-
         return nextBlock;
     }
 
     public void setRandomBlock() {
-
         currentBlock = nextBlock;
         nextBlock = getRandomBlock();
         currentBlock.countInitialShift(board);
@@ -125,17 +122,14 @@ public class Tetris implements Runnable {
     }
 
     public TetrisGameLoop getGameLoop() {
-
         return gameLoop;
     }
 
     public void setThread(Thread thread) {
-
         this.thread = thread;
     }
 
     public Thread getThread() {
-
         return thread;
     }
 
@@ -144,7 +138,7 @@ public class Tetris implements Runnable {
         long cycleStartTime = System.nanoTime() / 10000000;
         if ((cycleStartTime - currentTime) / 100.0 >= (1.02 - (level / 10.0))) {
 
-            if (currentBlock.isMergable(board)) {
+            if (currentBlock.isMergeable(board)) {
                 board.mergeBlock(currentBlock);
                 addPoints();
                 cleanBoard();
@@ -160,7 +154,6 @@ public class Tetris implements Runnable {
                         controller.congratulation();
                     else
                         controller.gameOver();
-
                 }
 
                 isBlockOnBoard = false;
@@ -203,58 +196,43 @@ public class Tetris implements Runnable {
     }
 
     public boolean isBockOnBoard() {
-
         return isBlockOnBoard;
     }
 
     public void saveCurrentTime() {
-
         currentTime = System.nanoTime() / 10000000;
     }
 
     public Board getBoard() {
-
         return board;
     }
 
     public Block getCurrentBlock() {
-
         return currentBlock;
     }
 
     public int getPoints() {
-
         return points;
     }
 
-    public String getLevel() {
-
-        return level + "";
-    }
-
     public String getBeginLevel() {
-
         return beginLevel + "";
     }
 
     public void setPointTextHolder(Text pointsText) {
-
         this.pointsText = pointsText;
     }
 
     public void setLevelTextHolder(Text levelText) {
-
         this.levelText = levelText;
         levelText.setText(level + "");
     }
 
     public void applyCurrentLevel() {
-
         level = beginLevel;
     }
 
     public void setLevel(int difficultyLvl) {
-
         beginLevel = difficultyLvl;
     }
 
@@ -272,12 +250,10 @@ public class Tetris implements Runnable {
     }
 
     public void setController(GameController gameController) {
-
         controller = gameController;
     }
 
     public Leaderboard getLeaderboard() {
-
         return leaderboard;
     }
 }

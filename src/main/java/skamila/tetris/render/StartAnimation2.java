@@ -14,7 +14,7 @@ public class StartAnimation2 implements Renderer {
 
         GraphicsContext gc = canvasGame.getGraphicsContext2D();
         double y = 0.5;
-        Board board2 = BoardFactory.start2();
+        Board board = BoardFactory.start2();
 
         gc.clearRect(0, 0, canvasGame.getWidth(), canvasGame.getHeight());
 
@@ -25,7 +25,7 @@ public class StartAnimation2 implements Renderer {
         for (int i = 0; i < 20; i++) {
             double x = 0.5;
             for (int j = 0; j < 10; j++) {
-                gc.setFill(Color.web(board2.getField(j, i).getColor()));
+                gc.setFill(Color.web(board.getField(j, i).getColor()));
                 gc.fillRoundRect(x, y, 26, 26, 15, 15);
                 x += 28;
             }

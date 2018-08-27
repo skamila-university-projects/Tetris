@@ -7,21 +7,21 @@ import skamila.tetris.Tetris;
 import skamila.tetris.board.Board;
 import skamila.tetris.board.BoardFactory;
 
-public class StartAnimation3 implements Renderer {
+public class StartAnimation1 implements Renderer {
 
     @Override
     public void render(Tetris tetris, Canvas canvasGame) {
 
         GraphicsContext gc = canvasGame.getGraphicsContext2D();
-
-        Board board = BoardFactory.start3();
+        double y = 0.5;
+        Board board = BoardFactory.start1();
 
         gc.clearRect(0, 0, canvasGame.getWidth(), canvasGame.getHeight());
 
         gc.setStroke(Color.web("#262938"));
         gc.setLineWidth(1.0);
 
-        double y = 0.5;
+        y = 0.5;
         for (int i = 0; i < 20; i++) {
             double x = 0.5;
             for (int j = 0; j < 10; j++) {

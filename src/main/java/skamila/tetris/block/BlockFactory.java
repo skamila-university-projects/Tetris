@@ -5,8 +5,6 @@ import skamila.tetris.block.states.*;
 
 public class BlockFactory {
 
-    Board board;
-
     public static Block I(Board board) {
 
         BlockState[] blockStates = new BlockState[2];

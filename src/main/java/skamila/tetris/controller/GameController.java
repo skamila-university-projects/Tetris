@@ -90,7 +90,7 @@ public class GameController implements Initializable {
     public void onClickPause() {
 
         if (tetris.getGameLoop().isPaused()) {
-            tetris.getGameLoop().unpouse();
+            tetris.getGameLoop().unpause();
         } else {
             tetris.getGameLoop().pause();
         }
@@ -112,7 +112,7 @@ public class GameController implements Initializable {
     public void onClickConfirmExit() throws IOException {
 
         tetris.getGameLoop().stop();
-        tetris.getGameLoop().unpouse();
+        tetris.getGameLoop().unpause();
         tetris.getThread().interrupt();
 
         Stage stage = (Stage) yes.getScene().getWindow();
@@ -130,7 +130,7 @@ public class GameController implements Initializable {
 
         stage.setScene(game.getScene());
 
-        // tetris.getGameLoop().unpouse();
+        // tetris.getGameLoop().unpause();
     }
 
     public void onKeyPress(KeyEvent event) throws IOException {

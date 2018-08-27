@@ -12,11 +12,7 @@ public class TetrisGameLoop extends AnimationTimer {
 
     private Renderer[] renderers;
 
-    private int updatesPerFrame;
-
-    private boolean isRunning = false;
-
-    private boolean isPaused = false;
+    private boolean isPaused;
 
     private Tetris tetris;
 
@@ -26,18 +22,11 @@ public class TetrisGameLoop extends AnimationTimer {
 
     private long accumulatedTime;
 
-    private long fpsAccumulator;
-
-    private long frames;
-
-    private double fps;
-
-    public TetrisGameLoop(
-        Renderer[] renderers
-    ) {
+    public TetrisGameLoop(Renderer[] renderers) {
 
         this.renderers = renderers;
         this.animation = true;
+        this.isPaused = true;
     }
 
     @Override
@@ -51,37 +40,41 @@ public class TetrisGameLoop extends AnimationTimer {
         long updateTime = startOfFrameTime - endOfFrameTime;
 
         endOfFrameTime = startOfFrameTime;
-        accumulatedTime += updateTime; // suma czasów realizacji każdej ramk
-
-        double UPDATE_SPEED = 1000000000.0 / 30.0;
+        accumulatedTime += updateTime;
 
         if (!isPaused) {
-            update(tetris, UPDATE_SPEED);
+            update(tetris);
         }
         render(tetris, canvasGame, nextBlockCanvas);
     }
 
-    private void update(Tetris tetris, double update_speed) {
+    private void update(Tetris tetris) {
 
         if (!tetris.isBockOnBoard()) {
             tetris.setRandomBlock();
             tetris.saveCurrentTime();
         }
+
         tetris.singleCycle();
-        System.out.println(3);
-        updatesPerFrame++;
     }
 
     private void render(Tetris tetris, Canvas canvasGame, Canvas nextBlockCanvas) {
+
         if (animation) {
+
             renderers[1].render(tetris, nextBlockCanvas);
 
-            if (accumulatedTime < 1000000000) {
+            if (accumulatedTime < 1000000000L) {
                 renderers[2].render(tetris, canvasGame);
-            } else if (accumulatedTime < 2000000000) {
+            } else if (accumulatedTime < 2000000000L) {
                 renderers[3].render(tetris, canvasGame);
+            } else if (accumulatedTime < 3000000000L) {
+                renderers[4].render(tetris, canvasGame);
+            } else if (accumulatedTime < 4000000000L) {
+                renderers[5].render(tetris, canvasGame);
             } else {
                 animation = false;
+                unpause();
             }
         } else {
             renderers[0].render(tetris, canvasGame);
@@ -89,36 +82,17 @@ public class TetrisGameLoop extends AnimationTimer {
         }
     }
 
-//     public void start() {
-//
-//        super.start();
-//        isRunning = true;
-//     }
-//
-//     public void stop() {
-//
-//        isRunning = false;
-//     }
-
     public void pause() {
-
         isPaused = true;
     }
 
-    public void unpouse() {
-
+    public void unpause() {
         isPaused = false;
-        tetris.getThread().interrupt();
     }
 
     public boolean isPaused() {
 
         return isPaused;
-    }
-
-    public boolean isRunning() {
-
-        return isRunning;
     }
 
     public void setTetris(Tetris tetris) {

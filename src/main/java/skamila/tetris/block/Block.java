@@ -18,7 +18,7 @@ public interface Block {
 
     void countInitialShift(Board board);
 
-    boolean isMergable(Board board);
+    boolean isMergeable(Board board);
 
     BlockState getShiftedActiveState();
 

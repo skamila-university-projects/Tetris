@@ -167,7 +167,7 @@ public class BlockImp implements Block {
 
     }
 
-    public boolean isMergable(Board board) {
+    public boolean isMergeable(Board board) {
 
         StatePoint[] statePoints = states[activeStateIndex].getPositionValues();
 
@@ -278,7 +278,7 @@ public class BlockImp implements Block {
     public void countInitialShift(Board board) {
 
         shiftHorizontal = (board.getWidth() - countWidth()) / 2 - firstindexX();
-        shiftVertical -= countHeight() + firstindexY();
+        shiftVertical = -(countHeight() + firstindexY());
     }
 
     private int firstindexX() {
@@ -338,6 +338,7 @@ public class BlockImp implements Block {
             if (blockHeight[i] == true)
                 height++;
         }
+
         return height;
     }
 
