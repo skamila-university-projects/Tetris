@@ -1,9 +1,9 @@
 package skamila.tetris;
 
 import org.junit.jupiter.api.Test;
-import skamila.tetris.board.Board;
-import skamila.tetris.board.BoardField;
-import skamila.tetris.leaderboard.Leaderboard;
+import skamila.tetris.api.board.*;
+import skamila.tetris.api.leaderboard.Leaderboard;
+import skamila.tetris.pc.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
