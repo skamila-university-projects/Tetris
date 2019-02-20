@@ -13,7 +13,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import skamila.tetris.pc.Tetris;
+import skamila.tetris.pc.TetrisGame;
 
 import java.io.IOException;
 import java.net.URL;
@@ -22,49 +22,26 @@ import java.util.ResourceBundle;
 public class GameController implements Initializable {
 
     @FXML
-    private VBox game;
+    private VBox game, confirmation;
 
     @FXML
-    private Text exit;
+    private Text exit, pause, yes, no, pointsText, levelText;
 
     @FXML
-    private VBox confirmation;
+    private Canvas canvasGame, canvasNextBlock;
 
-    @FXML
-    private Text pause;
-
-    @FXML
-    private Text yes;
-
-    @FXML
-    private Text no;
-
-    @FXML
-    private Canvas canvasGame;
-
-    @FXML
-    private Canvas canvasNextBlock;
-
-    @FXML
-    private Text pointsText;
-
-    @FXML
-    private Text levelText;
-
-    boolean showGameOver;
-
-    boolean showCongratulations;
+    boolean showGameOver, showCongratulations;
 
     private String optionText;
 
-    private Tetris tetris;
+    private TetrisGame tetrisGame;
 
     private Thread thread;
 
-    public GameController(Tetris tetris) {
+    public GameController(TetrisGame tetrisGame) {
 
-        this.tetris = tetris;
-        tetris.applyCurrentLevel();
+        this.tetrisGame = tetrisGame;
+        tetrisGame.getTetris().applyCurrentLevel();
     }
 
     @Override
@@ -73,32 +50,32 @@ public class GameController implements Initializable {
         if (confirmation != null)
             return;
 
-        tetris.setGameCanvas(canvasGame);
-        tetris.setNextBlockCanvas(canvasNextBlock);
-        tetris.getGameLoop().start();
+        tetrisGame.setGameCanvas(canvasGame);
+        tetrisGame.setNextBlockCanvas(canvasNextBlock);
+        tetrisGame.start();
 
-        tetris.setPointTextHolder(pointsText);
-        tetris.setLevelTextHolder(levelText);
-        tetris.setController(this);
+        tetrisGame.setPointTextHolder(pointsText);
+        tetrisGame.setLevelTextHolder(levelText);
+        tetrisGame.setController(this);
 
-        thread = new Thread(tetris);
-        tetris.setThread(thread);
+        thread = new Thread(tetrisGame);
+        tetrisGame.getTetris().setThread(thread);
         thread.start();
 
     }
 
     public void onClickPause() {
 
-        if (tetris.getGameLoop().isPaused()) {
-            tetris.getGameLoop().unpause();
+        if (tetrisGame.getTetris().isPaused()) {
+            tetrisGame.getTetris().unpause();
         } else {
-            tetris.getGameLoop().pause();
+            tetrisGame.getTetris().pause();
         }
     }
 
     public void onClickExit() throws IOException {
 
-        tetris.getGameLoop().pause();
+        tetrisGame.getTetris().pause();
 
         Stage stage = (Stage) exit.getScene().getWindow();
 
@@ -111,9 +88,9 @@ public class GameController implements Initializable {
 
     public void onClickConfirmExit() throws IOException {
 
-        tetris.getGameLoop().stop();
-        tetris.getGameLoop().unpause();
-        tetris.getThread().interrupt();
+        tetrisGame.stop();
+        tetrisGame.getTetris().unpause();
+        tetrisGame.getTetris().getThread().interrupt();
 
         Stage stage = (Stage) yes.getScene().getWindow();
 
@@ -130,7 +107,7 @@ public class GameController implements Initializable {
 
         stage.setScene(game.getScene());
 
-        // tetris.getGameLoop().unpause();
+        // tetrisGame.getGameLoop().unpause();
     }
 
     public void onKeyPress(KeyEvent event) throws IOException {
@@ -152,22 +129,22 @@ public class GameController implements Initializable {
 
         if (event.getCode() == KeyCode.RIGHT) {
 
-            tetris.getCurrentBlock().moveRight(tetris.getBoard());
+            tetrisGame.getTetris().getCurrentBlock().moveRight(tetrisGame.getTetris().getBoard());
         }
 
         if (event.getCode() == KeyCode.LEFT) {
 
-            tetris.getCurrentBlock().moveLeft(tetris.getBoard());
+            tetrisGame.getTetris().getCurrentBlock().moveLeft(tetrisGame.getTetris().getBoard());
         }
 
         if (event.getCode() == KeyCode.UP) {
 
-            tetris.getCurrentBlock().rotate(tetris.getBoard());
+            tetrisGame.getTetris().getCurrentBlock().rotate(tetrisGame.getTetris().getBoard());
         }
 
         if (event.getCode() == KeyCode.DOWN) {
 
-            tetris.getCurrentBlock().moveDown(tetris.getBoard());
+            tetrisGame.getTetris().getCurrentBlock().moveDown(tetrisGame.getTetris().getBoard());
         }
 
         if (event.getCode() == KeyCode.N) {
@@ -211,7 +188,7 @@ public class GameController implements Initializable {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/game-over.fxml"));
         loader.setControllerFactory(
-            param -> new GameOverController(tetris.getPoints(), tetris.getLeaderboard())
+            param -> new GameOverController(tetrisGame.getTetris().getPoints(), tetrisGame.getTetris().getLeaderboard())
         );
 
         Parent root = loader.load();
@@ -230,7 +207,7 @@ public class GameController implements Initializable {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/congratulation.fxml"));
         loader.setControllerFactory(
-            param -> new GameOverController(tetris.getPoints(), tetris.getLeaderboard())
+            param -> new GameOverController(tetrisGame.getTetris().getPoints(), tetrisGame.getTetris().getLeaderboard())
         );
 
         Parent root = loader.load();

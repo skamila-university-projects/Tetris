@@ -3,7 +3,7 @@ package skamila.tetris.pc.render;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import skamila.tetris.pc.Tetris;
+import skamila.tetris.api.Tetris;
 import skamila.tetris.api.block.StatePoint;
 
 public class RoundCornerNextBlockRenderer implements Renderer {

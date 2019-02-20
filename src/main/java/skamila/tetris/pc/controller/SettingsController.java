@@ -7,7 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import skamila.tetris.pc.Tetris;
+import skamila.tetris.api.Tetris;
 
 import java.io.IOException;
 import java.net.URL;
@@ -33,7 +33,7 @@ public class SettingsController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        difficultyLvlText.setText(tetris.getBeginLevel());
+        difficultyLvlText.setText(tetris.getBeginLevel() + "");
         difficultyLvl = new Integer(tetris.getBeginLevel()).intValue();
     }
 

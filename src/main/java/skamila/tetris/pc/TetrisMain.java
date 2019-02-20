@@ -34,8 +34,8 @@ public class TetrisMain extends Application {
             @Override
             public void handle(WindowEvent t) {
 
-                Tetris tetris = Tetris.create();
-                tetris.getGameLoop().stop();
+                TetrisGame tetrisGame = new TetrisGame();
+                tetrisGame.stop();
 
                 Platform.exit();
                 System.exit(0);

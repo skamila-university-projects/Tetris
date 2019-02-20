@@ -14,9 +14,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import skamila.tetris.pc.Tetris;
+import skamila.tetris.api.Tetris;
 import skamila.tetris.api.leaderboard.Leaderboard;
 import skamila.tetris.pc.PcLeaderboardInOut;
+import skamila.tetris.pc.TetrisGame;
 
 import java.io.IOException;
 import java.net.URL;
@@ -94,7 +95,7 @@ public class MainMenuController implements Initializable {
         Stage stage = (Stage) exit.getScene().getWindow();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/game.fxml"));
-        loader.setControllerFactory(param -> new GameController(Tetris.create()));
+        loader.setControllerFactory(param -> new GameController(new TetrisGame()));
 
         Parent root = loader.load();
 

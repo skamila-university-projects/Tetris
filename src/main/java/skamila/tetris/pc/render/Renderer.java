@@ -1,7 +1,7 @@
 package skamila.tetris.pc.render;
 
 import javafx.scene.canvas.Canvas;
-import skamila.tetris.pc.Tetris;
+import skamila.tetris.api.Tetris;
 
 public interface Renderer {
 
