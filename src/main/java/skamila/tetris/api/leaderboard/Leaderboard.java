@@ -93,9 +93,4 @@ public class Leaderboard {
         return scores.length;
     }
 
-    private String[] getEntry(String line) {
-
-        return line.split("\\|");
-    }
-
 }

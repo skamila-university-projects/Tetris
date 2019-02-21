@@ -29,6 +29,11 @@ public class AnimationRender {
         gc.setStroke(Color.web("#262938"));
         gc.setLineWidth(1.0);
 
+        drawBoards(board, gc);
+
+    }
+
+    private static void drawBoards(Board board, GraphicsContext gc){
         double y = 0.5;
         for (int i = 0; i < 20; i++) {
             double x = 0.5;

@@ -112,56 +112,43 @@ public class GameController implements Initializable {
 
     public void onKeyPress(KeyEvent event) throws IOException {
 
+        if (!tetrisGame.getTetris().isPaused()) {
+
+            if (event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.D) {
+
+                tetrisGame.getTetris().getCurrentBlock().moveRight(tetrisGame.getTetris().getBoard());
+
+            } else if (event.getCode() == KeyCode.LEFT || event.getCode() == KeyCode.A) {
+
+                tetrisGame.getTetris().getCurrentBlock().moveLeft(tetrisGame.getTetris().getBoard());
+
+            } else if (event.getCode() == KeyCode.UP || event.getCode() == KeyCode.W) {
+
+                tetrisGame.getTetris().getCurrentBlock().rotate(tetrisGame.getTetris().getBoard());
+
+            } else if (event.getCode() == KeyCode.DOWN || event.getCode() == KeyCode.S) {
+
+                tetrisGame.getTetris().getCurrentBlock().moveDown(tetrisGame.getTetris().getBoard());
+            }
+        }
+
         if (event.getCode() == KeyCode.ESCAPE) {
+
             onClickExit();
-        }
 
-        if (event.getCode() == KeyCode.P) {
+        } else if (event.getCode() == KeyCode.P) {
+
             onClickPause();
-        }
 
-        if (event.getCode() == KeyCode.Y) {
+        } else if (event.getCode() == KeyCode.Y || event.getCode() == KeyCode.T) {
 
             if (yes != null) {
                 onClickConfirmExit();
             }
-        }
 
-        if (event.getCode() == KeyCode.RIGHT) {
-
-            tetrisGame.getTetris().getCurrentBlock().moveRight(tetrisGame.getTetris().getBoard());
-        }
-
-        if (event.getCode() == KeyCode.LEFT) {
-
-            tetrisGame.getTetris().getCurrentBlock().moveLeft(tetrisGame.getTetris().getBoard());
-        }
-
-        if (event.getCode() == KeyCode.UP) {
-
-            tetrisGame.getTetris().getCurrentBlock().rotate(tetrisGame.getTetris().getBoard());
-        }
-
-        if (event.getCode() == KeyCode.DOWN) {
-
-            tetrisGame.getTetris().getCurrentBlock().moveDown(tetrisGame.getTetris().getBoard());
-        }
-
-        if (event.getCode() == KeyCode.N) {
+        } else if (event.getCode() == KeyCode.N) {
 
             if (no != null) {
-                onClickCancelExit();
-            }
-        }
-
-        if (event.getCode() == KeyCode.T) {
-            if (yes != null) {
-                onClickConfirmExit();
-            }
-        }
-
-        if (event.getCode() == KeyCode.N) {
-            if (yes != null) {
                 onClickCancelExit();
             }
         }
@@ -188,7 +175,7 @@ public class GameController implements Initializable {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/game-over.fxml"));
         loader.setControllerFactory(
-            param -> new GameOverController(tetrisGame.getTetris().getPoints(), tetrisGame.getTetris().getLeaderboard())
+                param -> new GameOverController(tetrisGame.getTetris().getPoints(), tetrisGame.getTetris().getLeaderboard())
         );
 
         Parent root = loader.load();
@@ -207,7 +194,7 @@ public class GameController implements Initializable {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/congratulation.fxml"));
         loader.setControllerFactory(
-            param -> new GameOverController(tetrisGame.getTetris().getPoints(), tetrisGame.getTetris().getLeaderboard())
+                param -> new GameOverController(tetrisGame.getTetris().getPoints(), tetrisGame.getTetris().getLeaderboard())
         );
 
         Parent root = loader.load();
@@ -223,26 +210,24 @@ public class GameController implements Initializable {
     public void gameOver() {
 
         Platform.runLater(() -> {
-            try {
-                showGameOver();
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+                    try {
+                        showGameOver();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
         );
     }
 
     public void congratulation() {
 
         Platform.runLater(() -> {
-            try {
-                showCongratulation();
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+                    try {
+                        showCongratulation();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
         );
     }
 }

@@ -28,8 +28,8 @@ public class TetrisGame extends AnimationTimer implements Runnable{
     public TetrisGame(Tetris tetris) {
 
         this.renderers = new Renderer[]{
-                new RoundCornerBoardRenderer(),
-                new RoundCornerNextBlockRenderer(),
+                new BoardRenderer(),
+                new NextBlockRenderer(),
         };
 
         this.animation = true;

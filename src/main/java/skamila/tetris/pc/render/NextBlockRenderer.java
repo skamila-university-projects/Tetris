@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 import skamila.tetris.api.Tetris;
 import skamila.tetris.api.block.StatePoint;
 
-public class RoundCornerNextBlockRenderer implements Renderer {
+public class NextBlockRenderer implements Renderer {
 
     @Override
     public void render(Tetris tetris, Canvas nextBlockCanvas) {
@@ -15,8 +15,13 @@ public class RoundCornerNextBlockRenderer implements Renderer {
 
         gc.clearRect(0, 0, nextBlockCanvas.getWidth(), nextBlockCanvas.getHeight());
 
-        StatePoint[] statePoints = tetris.getNextBlock().getActiveState().getPositionValues();
+        drawNextBlockBoard(tetris, gc, makePointsBoard(tetris));
 
+    }
+
+    private int[][] makePointsBoard(Tetris tetris){
+
+        StatePoint[] statePoints = tetris.getNextBlock().getActiveState().getPositionValues();
         int[][] points = new int[4][4];
 
         for (int i = 0; i < statePoints.length; i++) {
@@ -25,13 +30,24 @@ public class RoundCornerNextBlockRenderer implements Renderer {
             points[y][x] = 1;
         }
 
-        double y = 0.5;
+        return points;
 
+    }
+
+    private void drawNextBlockBoard(Tetris tetris, GraphicsContext gc, int[][] points){
+
+        double y = 0.5;
         for (int i = 0; i < 4; i++) {
             double x = 0.5;
             for (int j = 0; j < 4; j++) {
                 if (points[i][j] == 1) {
-                    gc.setFill(Color.web(tetris.getNextBlock().getColor()));
+
+                    if(tetris.isPaused()){
+                        gc.setFill(Color.web("#888888"));
+                    } else {
+                        gc.setFill(Color.web(tetris.getNextBlock().getColor()));
+                    }
+
                 } else {
                     gc.setFill(Color.web("#303447"));
                 }
@@ -40,5 +56,7 @@ public class RoundCornerNextBlockRenderer implements Renderer {
             }
             y += 20;
         }
+
     }
+
 }
