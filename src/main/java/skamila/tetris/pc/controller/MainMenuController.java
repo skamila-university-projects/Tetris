@@ -113,7 +113,7 @@ public class MainMenuController implements Initializable {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/leaderboard.fxml"));
         loader.setControllerFactory(
-            param -> new LeaderboardController(new Leaderboard(new PcLeaderboardInOut("leaderboard.txt")))
+                param -> new LeaderboardController(new Leaderboard(new PcLeaderboardInOut("leaderboard.txt")))
         );
 
         Scene scene = new Scene(loader.load());
@@ -125,7 +125,7 @@ public class MainMenuController implements Initializable {
         Stage stage = (Stage) exit.getScene().getWindow();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/settings.fxml"));
-        loader.setControllerFactory(param -> new SettingsController(Tetris.create()));
+        loader.setControllerFactory(param -> new SettingsController(Tetris.create((new Leaderboard(new PcLeaderboardInOut("leaderboard.txt"))))));
 
         Scene scene = new Scene(loader.load());
 

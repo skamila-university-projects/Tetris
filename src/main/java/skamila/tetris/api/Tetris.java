@@ -3,7 +3,6 @@ package skamila.tetris.api;
 import skamila.tetris.api.block.*;
 import skamila.tetris.api.board.*;
 import skamila.tetris.api.leaderboard.Leaderboard;
-import skamila.tetris.pc.PcLeaderboardInOut;
 
 import java.util.Random;
 
@@ -38,12 +37,9 @@ public class Tetris {
         }
     }
 
-    public static Tetris create() {
+    public static Tetris create(Leaderboard leaderboard) {
 
-        return new Tetris(
-            BoardFactory.create(),
-            new Leaderboard(new PcLeaderboardInOut("leaderboard.txt"))
-        );
+        return new Tetris(BoardFactory.create(), leaderboard);
 
     }
 
@@ -159,7 +155,7 @@ public class Tetris {
         currentTime = System.nanoTime() / 10000000;
     }
 
-    public boolean isEndGame() {
+    private boolean isEndGame() {
 
         BlockState state = currentBlock.getShiftedActiveState();
         StatePoint[] positions = state.getPositionValues();

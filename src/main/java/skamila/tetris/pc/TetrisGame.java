@@ -4,6 +4,7 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.text.Text;
 import skamila.tetris.api.Tetris;
+import skamila.tetris.api.leaderboard.Leaderboard;
 import skamila.tetris.pc.controller.GameController;
 import skamila.tetris.pc.render.*;
 
@@ -21,7 +22,7 @@ public class TetrisGame extends AnimationTimer implements Runnable{
 
     public TetrisGame() {
 
-        this(Tetris.create());
+        this(Tetris.create(new Leaderboard(new PcLeaderboardInOut("leaderboard.txt"))));
 
     }
 
