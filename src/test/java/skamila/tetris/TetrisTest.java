@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import skamila.tetris.api.Tetris;
 import skamila.tetris.api.board.*;
 import skamila.tetris.api.leaderboard.Leaderboard;
-import skamila.tetris.pc.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -33,8 +32,8 @@ class TetrisTest {
         };
 
         Board board = new Board(inputFields);
-        TetrisGame tetrisGame = new TetrisGame(new Tetris(board, mock(Leaderboard.class)));
-        tetrisGame.getTetris().cleanBoard();
+        Tetris tetris = new Tetris(board, mock(Leaderboard.class));
+        tetris.cleanBoard();
         BoardField[][] actualFields = board.getFields();
 
         BoardField expectedFields[][] = {
@@ -64,8 +63,8 @@ class TetrisTest {
         };
 
         Board board = new Board(inputFields);
-        TetrisGame tetrisGame = new TetrisGame(new Tetris(board, mock(Leaderboard.class)));
-        tetrisGame.getTetris().cleanBoard();
+        Tetris tetris = new Tetris(board, mock(Leaderboard.class));
+        tetris.cleanBoard();
         BoardField[][] actualFields = board.getFields();
 
         BoardField expectedFields[][] = {
@@ -95,8 +94,8 @@ class TetrisTest {
         };
 
         Board board = new Board(inputFields);
-        TetrisGame tetrisGame = new TetrisGame(new Tetris(board, mock(Leaderboard.class)));
-        tetrisGame.getTetris().cleanBoard();
+        Tetris tetris = new Tetris(board, mock(Leaderboard.class));
+        tetris.cleanBoard();
         BoardField[][] actualFields = board.getFields();
 
         BoardField expectedFields[][] = {
