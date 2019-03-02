@@ -1,0 +1,66 @@
+@font-face {
+    font-family: "Commodore 64 Pixelized";
+    src: url("../fonts/CommodorePixelizedv1.2.ttf");
+}
+#main-menu-header {
+    -fx-font-size: 75px
+}
+.pixelized {
+    -fx-font-family: "Commodore 64 Pixelized"
+}
+.menu-item {
+    -fx-font-size: 35px;
+    -fx-cursor: hand
+}
+.game-background {
+    -fx-background-color: #262938
+}
+#game-details {
+    -fx-font-size: 15px
+}
+#game-board {
+    -fx-border-color: #ffffff;
+    -fx-border-width: 2px
+}
+#game-actions {
+    -fx-font-size: 15px;
+    -fx-spacing: 125px
+}
+#game-container, #game-next-block-container {
+    -fx-background-color: #262938
+}
+#confirmation-question {
+    -fx-font-size: 20px;
+    -fx-spacing: 125px
+}
+#confirmation-information-about-result {
+    -fx-font-size: 10px;
+    -fx-spacing: 125px
+}
+#confirmation-yes-no {
+    -fx-font-size: 20px;
+    -fx-spacing: 125px
+}
+#confirmation {
+    -fx-spacing: 10px
+}
+#congratulations-congratulations {
+    -fx-font-size: 30px;
+    -fx-spacing: 20px
+}
+#congratulations-name-request {
+    -fx-font-size: 15px;
+    -fx-spacing: 10px
+}
+#congratulations-result {
+    -fx-font-size: 15px;
+    -fx-spacing: 10px
+}
+#leaderboard-title, #leaderboard-exit, #settings-set-difficulty, #settings-exit {
+    -fx-font-size: 20px;
+    -fx-spacing: 10px
+}
+#settings-decrease-difficulty, #settings-increase-difficulty, #settings-difficulty {
+    -fx-font-size: 25px;
+    -fx-spacing: 10px
+}
