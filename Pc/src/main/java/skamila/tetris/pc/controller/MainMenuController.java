@@ -16,7 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import skamila.tetris.api.Tetris;
 import skamila.tetris.api.leaderboard.Leaderboard;
-import skamila.tetris.pc.PcLeaderboardInOut;
+import skamila.tetris.pc.LeaderboardManager;
 import skamila.tetris.pc.TetrisGame;
 
 import java.io.IOException;
@@ -112,8 +112,12 @@ public class MainMenuController implements Initializable {
 		Stage stage = (Stage) exit.getScene().getWindow();
 
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/leaderboard.fxml"));
-		loader.setControllerFactory(
-				param -> new LeaderboardController(new Leaderboard(new PcLeaderboardInOut("leaderboard.txt"))));
+
+		LeaderboardManager leaderboardManager = new LeaderboardManager("leaderboard.txt");
+		leaderboardManager.loadFromFile();
+
+		loader.setControllerFactory(param -> new LeaderboardController(
+				new Leaderboard(leaderboardManager.getNames(), leaderboardManager.getScores())));
 
 		Scene scene = new Scene(loader.load());
 		stage.setScene(scene);
@@ -123,9 +127,12 @@ public class MainMenuController implements Initializable {
 
 		Stage stage = (Stage) exit.getScene().getWindow();
 
+		LeaderboardManager leaderboardManager = new LeaderboardManager("leaderboard.txt");
+		leaderboardManager.loadFromFile();
+		Tetris tetris = Tetris.create(new Leaderboard(leaderboardManager.getNames(), leaderboardManager.getScores()));
+
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/settings.fxml"));
-		loader.setControllerFactory(param -> new SettingsController(
-				Tetris.create((new Leaderboard(new PcLeaderboardInOut("leaderboard.txt"))))));
+		loader.setControllerFactory(param -> new SettingsController(tetris));
 
 		Scene scene = new Scene(loader.load());
 

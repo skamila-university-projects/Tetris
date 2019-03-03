@@ -6,14 +6,9 @@ public class Leaderboard {
 
 	private int[] scores;
 
-	LeaderboardInOut leaderboardInOut;
-
-	public Leaderboard(LeaderboardInOut leaderboardInOut) throws IllegalArgumentException {
-
-		this.leaderboardInOut = leaderboardInOut;
-		leaderboardInOut.load();
-		names = leaderboardInOut.getNames();
-		scores = leaderboardInOut.getScores();
+	public Leaderboard(String[] names, int[] scores) {
+		this.names = names;
+		this.scores = scores;
 	}
 
 	public void addNewScore(String name, int score) {
@@ -25,16 +20,8 @@ public class Leaderboard {
 			moveResults(position);
 			names[position] = name;
 			scores[position] = score;
-
-			leaderboardInOut.update();
 		}
 
-	}
-
-	public void clean() {
-
-		this.names = new String[names.length];
-		this.scores = new int[scores.length];
 	}
 
 	public boolean isTheBestScore(int score) {
@@ -59,13 +46,23 @@ public class Leaderboard {
 	}
 
 	public String getName(int position) {
-
 		return names[position];
 	}
 
 	public int getScore(int position) {
-
 		return scores[position];
+	}
+
+	public String[] getNames() {
+		return names;
+	}
+
+	public int[] getScores() {
+		return scores;
+	}
+
+	public int length() {
+		return scores.length;
 	}
 
 	void moveResults(int newPosition) {
@@ -86,11 +83,6 @@ public class Leaderboard {
 		scores = newScores;
 		names = newNames;
 
-	}
-
-	public int length() {
-
-		return scores.length;
 	}
 
 }

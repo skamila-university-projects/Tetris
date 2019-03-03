@@ -11,6 +11,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import skamila.tetris.api.leaderboard.Leaderboard;
+import skamila.tetris.pc.LeaderboardManager;
 
 import java.io.IOException;
 import java.net.URL;
@@ -37,7 +38,7 @@ public class GameOverController implements Initializable {
 
 	private Leaderboard leaderboard;
 
-	String userName;
+	private String userName;
 
 	private int score;
 
@@ -62,6 +63,8 @@ public class GameOverController implements Initializable {
 	public void onClickSave(Event event) throws IOException {
 
 		leaderboard.addNewScore(userName, score);
+		LeaderboardManager leaderboardManager = new LeaderboardManager("leaderboard.txt");
+		leaderboardManager.saveDataToFile(leaderboard);
 
 		Stage stage = (Stage) congratulationSave.getScene().getWindow();
 
@@ -92,13 +95,10 @@ public class GameOverController implements Initializable {
 
 		switch (code) {
 			case BACK_SPACE : {
-				if (userName.length() == 0) {
-
-				} else if (userName.length() == 1) {
-					userName = "";
-				} else {
+				if (userName.length() != 0) {
 					userName = userName.substring(0, userName.length() - 1);
 				}
+
 				break;
 			}
 

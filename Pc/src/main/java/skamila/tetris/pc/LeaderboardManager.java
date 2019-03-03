@@ -1,6 +1,6 @@
 package skamila.tetris.pc;
 
-import skamila.tetris.api.leaderboard.LeaderboardInOut;
+import skamila.tetris.api.leaderboard.Leaderboard;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -11,32 +11,28 @@ import java.nio.file.Paths;
 import static java.nio.file.StandardOpenOption.APPEND;
 import static java.nio.file.StandardOpenOption.CREATE;
 
-public class PcLeaderboardInOut implements LeaderboardInOut {
+public class LeaderboardManager {
 
 	private String[] names;
-
 	private int[] scores;
-
 	private String filePath;
 
-	public PcLeaderboardInOut(String filePath) throws IllegalArgumentException {
-
+	public LeaderboardManager(String filePath) throws IllegalArgumentException {
 		this(filePath, 10);
 	}
 
-	public PcLeaderboardInOut(String filePath, int leaderboardLength) throws IllegalArgumentException {
+	public LeaderboardManager(String filePath, int leaderboardLength) throws IllegalArgumentException {
 
 		this.names = new String[leaderboardLength];
 		this.scores = new int[leaderboardLength];
 		this.filePath = filePath;
-		load();
+		loadFromFile();
 	}
 
-	@Override
-	public void load() {
+	public void loadFromFile() {
 
 		Path path = Paths.get(filePath);
-		BufferedReader reader = null;
+		BufferedReader reader;
 
 		try {
 			if (Files.notExists(path)) {
@@ -65,8 +61,10 @@ public class PcLeaderboardInOut implements LeaderboardInOut {
 
 	}
 
-	@Override
-	public void update() {
+	public void saveDataToFile(Leaderboard leaderboard) {
+
+		names = leaderboard.getNames();
+		scores = leaderboard.getScores();
 
 		File file = new File(filePath);
 		PrintWriter write = null;
@@ -84,13 +82,11 @@ public class PcLeaderboardInOut implements LeaderboardInOut {
 		write.close();
 	}
 
-	@Override
 	public String[] getNames() {
 
 		return names;
 	}
 
-	@Override
 	public int[] getScores() {
 
 		return scores;

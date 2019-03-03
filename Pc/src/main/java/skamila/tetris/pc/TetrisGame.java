@@ -19,19 +19,16 @@ public class TetrisGame extends AnimationTimer implements Runnable {
 	private long accumulatedTime;
 	private Text pointsText, levelText;
 	private GameController controller;
+	private LeaderboardManager leaderboardManager;
 
 	public TetrisGame() {
 
-		this(Tetris.create(new Leaderboard(new PcLeaderboardInOut("leaderboard.txt"))));
-
-	}
-
-	public TetrisGame(Tetris tetris) {
-
+		this.leaderboardManager = new LeaderboardManager("leaderboard.txt");
+		this.leaderboardManager.loadFromFile();
+		this.tetris = Tetris.create(new Leaderboard(leaderboardManager.getNames(), leaderboardManager.getScores()));
 		this.renderers = new Renderer[]{new BoardRenderer(), new NextBlockRenderer(),};
-
 		this.animation = true;
-		this.tetris = tetris;
+
 	}
 
 	@Override
