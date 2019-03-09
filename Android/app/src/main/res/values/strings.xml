@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Tetris</string>
+
+    <string name="tetris">TETRIS</string>
+
+    <string name="main_menu_start">Start</string>
+    <string name="main_menu_settings">Settings</string>
+    <string name="main_menu_scores">Scores</string>
+    <string name="main_menu_exit">Exit</string>
+
+    <string name="settings_description">Set difficulty level:</string>
+    <string name="settings_difficulty_level_up">&gt;&gt;</string>
+    <string name="settings_difficulty_level_down">&lt;&lt;</string>
+
+    <string name="navigation_back">Back</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
